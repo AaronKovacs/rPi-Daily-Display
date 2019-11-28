@@ -32,7 +32,7 @@ if __name__ == "__main__":
     if (not simple_square.process()):
         simple_square.print_help()
 '''
-
+'''
 import math
 
 
@@ -91,3 +91,38 @@ if __name__ == "__main__":
     rotating_block_generator = RotatingBlockGenerator()
     if (not rotating_block_generator.process()):
         rotating_block_generator.print_help()
+'''
+
+
+from rgbmatrix import graphics
+import time
+import datetime
+
+class RunText(DisplayBase):
+    def __init__(self, *args, **kwargs):
+        super(RunText, self).__init__(*args, **kwargs)
+
+    def run(self):
+        offscreen_canvas = self.matrix.CreateFrameCanvas()
+        font = graphics.Font()
+        font.LoadFont("/home/pi/2048-Pi-Display/fonts/7x13.bdf")
+        textColor = graphics.Color(255, 255, 0)
+        pos = offscreen_canvas.width
+        my_text = self.args.text
+
+        while True:
+
+            t = datetime.now()
+            t_string = "%s:%s:%s" % (t.hours, t.minutes, t.seconds)
+            
+            offscreen_canvas.Clear()
+            len = graphics.DrawText(offscreen_canvas, font, 10, 10, textColor, t_string)
+            time.sleep(0.1)
+            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+
+
+# Main function
+if __name__ == "__main__":
+    run_text = RunText()
+    if (not run_text.process()):
+        run_text.print_help()
