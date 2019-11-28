@@ -35,6 +35,7 @@ if __name__ == "__main__":
 
 from random import seed
 from random import random
+import time
 seed(1)
 while True:
     print(random())
