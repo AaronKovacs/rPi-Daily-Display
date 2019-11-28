@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from displaybase import DisplayBase
-
+'''
 # Drawing
 
 class SimpleSquare(SampleBase):
@@ -29,3 +29,12 @@ if __name__ == "__main__":
     simple_square = SimpleSquare()
     if (not simple_square.process()):
         simple_square.print_help()
+'''
+
+
+from random import seed
+from random import random
+seed(1)
+while True:
+    print(random())
+    pass
