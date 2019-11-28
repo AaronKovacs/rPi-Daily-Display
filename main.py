@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from displaybase import DisplayBase
 
+# Drawing
 
 class SimpleSquare(SampleBase):
     def __init__(self, *args, **kwargs):
