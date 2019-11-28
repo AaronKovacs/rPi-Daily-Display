@@ -106,7 +106,7 @@ class RunText(DisplayBase):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
         font.LoadFont("/home/pi/2048-Pi-Display/fonts/4x6.bdf")
-        textColor = graphics.Color(255, 255, 0)
+        textColor = graphics.Color(96, 96, 96)
         pos = offscreen_canvas.width
 
         while True:
@@ -114,7 +114,7 @@ class RunText(DisplayBase):
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
 
             offscreen_canvas.Clear()
-            len = graphics.DrawText(offscreen_canvas, font, 0, 10, textColor, t_string)
+            len = graphics.DrawText(offscreen_canvas, font, 0, 6, textColor, t_string)
             time.sleep(0.1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
