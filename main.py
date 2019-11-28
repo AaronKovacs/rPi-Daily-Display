@@ -102,6 +102,7 @@ from PIL import Image
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
         super(RunText, self).__init__(*args, **kwargs)
+        self.parser.add_argument("--led-slowdown-gpio", default=2)
 
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
