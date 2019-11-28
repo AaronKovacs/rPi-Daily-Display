@@ -113,7 +113,7 @@ class RunText(DisplayBase):
 
         image = Image.open("/home/pi/2048-Pi-Display/img.jpg")
         image.thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
-        self.matrix.brightness = 10
+        self.matrix.brightness = 40
         while True:
             self.matrix.SetImage(image.convert('RGB'))
         '''
