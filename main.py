@@ -112,8 +112,7 @@ class RunText(DisplayBase):
 
         while True:
 
-            t = datetime.date.today()
-            t_string = "%s:%s:%s" % (t.hours, t.minutes, t.seconds)
+            t_string = datetime.datetime.today().strftime("%H:%M:%S")
 
             offscreen_canvas.Clear()
             len = graphics.DrawText(offscreen_canvas, font, 10, 10, textColor, t_string)
