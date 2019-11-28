@@ -105,7 +105,7 @@ class RunText(DisplayBase):
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
-        font.LoadFont("home/pi/2048-Pi-Display/fonts/7x13.bdf")
+        font.LoadFont("/home/pi/2048-Pi-Display/fonts/7x13.bdf")
         textColor = graphics.Color(255, 255, 0)
         pos = offscreen_canvas.width
         my_text = self.args.text
