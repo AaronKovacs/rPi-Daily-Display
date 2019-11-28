@@ -38,4 +38,5 @@ from random import random
 seed(1)
 while True:
     print(random())
+    time.sleep(checkTimeSec)
     pass
