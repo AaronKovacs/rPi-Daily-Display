@@ -114,7 +114,7 @@ class RunText(DisplayBase):
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
 
             offscreen_canvas.Clear()
-            len = graphics.DrawText(offscreen_canvas, font, 0, 1, textColor, t_string)
+            len = graphics.DrawText(offscreen_canvas, font, 0, 10, textColor, t_string)
             time.sleep(0.1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
