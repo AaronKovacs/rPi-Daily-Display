@@ -97,6 +97,7 @@ if __name__ == "__main__":
 from rgbmatrix import graphics
 import time
 import datetime
+from PIL import Image
 
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
@@ -106,9 +107,14 @@ class RunText(DisplayBase):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
         font.LoadFont("/home/pi/2048-Pi-Display/fonts/4x6.bdf")
-        textColor = graphics.Color(96, 96, 96)
+        textColor = graphics.Color(59, 59, 59)
         pos = offscreen_canvas.width
 
+
+        image = Image.open("/home/pi/2048-Pi-Display/fonts/img.jpg")
+        image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
+        matrix.SetImage(image.convert('RGB'))
+        '''
         while True:
 
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
@@ -117,6 +123,7 @@ class RunText(DisplayBase):
             len = graphics.DrawText(offscreen_canvas, font, 0, 6, textColor, t_string)
             time.sleep(0.1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+        '''
 
 
 # Main function
