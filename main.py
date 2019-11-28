@@ -111,7 +111,7 @@ class RunText(DisplayBase):
         pos = offscreen_canvas.width
 
 
-        image = Image.open("/home/pi/2048-Pi-Display/fonts/img.jpg")
+        image = Image.open("/home/pi/2048-Pi-Display/img.jpg")
         image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
         matrix.SetImage(image.convert('RGB'))
         '''
