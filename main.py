@@ -216,11 +216,12 @@ class RunText(DisplayBase):
                 wotd = data["word"]
 
             if currentTrack != '' and image is not None:
-                offscreen_canvas.SetImage(image, offset_y=23)
                 len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, currentTrack)
                 pos -= 1
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
+
+                offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
                 pos -= 1
