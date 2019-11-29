@@ -210,7 +210,7 @@ class RunText(DisplayBase):
                 token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
                 sp = Spotify(auth=token)
                 result = sp.current_user_playing_track()
-                is_playing = result["is_playing"]
+                is_playing = result.get("is_playing", False)
                 if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                     currentTrack = result["item"]["name"]
                     resp = requests.get(result["item"]["album"]["images"][0]["url"])
