@@ -122,12 +122,14 @@ class RunText(DisplayBase):
         iteration = 0
         currentWeather = '0F '
         wotd = ''
+        currentTrack = ''
+        image = None
         while True:
 
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
 
             offscreen_canvas.Clear()
-            graphics.DrawText(offscreen_canvas, font, 0, 6, textColor, t_string)
+            graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(89, 89, 89), t_string)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
 
             day_color = graphics.Color(59, 59, 59)
@@ -193,14 +195,32 @@ class RunText(DisplayBase):
 
 
             if iteration % 1000 == 0:
+                token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
+                sp = Spotify(auth=token)
+                result = sp.current_user_playing_track()
+
+                if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
+                    currentTrack = result["item"]["name"]
+                    resp = requests.get(result["item"]["album"]["images"][0]["url"])
+                    image_file = io.BytesIO(resp.content)
+                    image = Image.open(image_file)
+                    image.thumbnail((9, 9), Image.ANTIALIAS)
+                else:
+                    currentTrack = result["item"]["name"]
+                    image = None
+
+            if iteration % 1000 == 0:
                 resp = requests.get("http://urban-word-of-the-day.herokuapp.com/today")
                 data = resp.json()
                 wotd = data["word"]
 
-            len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
-            pos -= 1
-            if (pos + len < 0):
-                pos = offscreen_canvas.width
+            if currentTrack != '' and image is not None:
+                offscreen_canvas.SetImage(self.image, offset_y=23)
+            else:
+                len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
+                pos -= 1
+                if (pos + len < 0):
+                    pos = offscreen_canvas.width
 
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
