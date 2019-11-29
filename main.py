@@ -92,6 +92,7 @@ if __name__ == "__main__":
     if (not rotating_block_generator.process()):
         rotating_block_generator.print_help()
 '''
+import subprocess
 
 print subprocess.check_output(['pip install requests'])
 print subprocess.check_output(['pip install urllib2'])
