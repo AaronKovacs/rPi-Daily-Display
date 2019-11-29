@@ -210,7 +210,7 @@ class RunText(DisplayBase):
                 token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
                 sp = Spotify(auth=token)
                 result = sp.current_user_playing_track()
-                if "is_playing" in result:
+                if result is not None and "is_playing" in result:
                     is_playing = result["is_playing"]
                     
                     if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
@@ -224,7 +224,8 @@ class RunText(DisplayBase):
             if iteration % 1000 == 0:
                 resp = requests.get("http://urban-word-of-the-day.herokuapp.com/today")
                 data = resp.json()
-                wotd = data["word"]
+                if data is not None:
+                    wotd = data["word"]
 
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(0, 99, 0))
