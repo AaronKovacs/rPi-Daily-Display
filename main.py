@@ -153,7 +153,7 @@ class RunText(DisplayBase):
                 data = resp.json()
                 wotd = data["word"]
 
-            len = DrawText(offscreen_canvas, font, pos, 31, textColor, currentWeather)
+            len = graphics.DrawText(offscreen_canvas, font, pos, 31, textColor, currentWeather)
             pos -= 1
             if (pos + len < 0):
                 pos = offscreen_canvas.width
