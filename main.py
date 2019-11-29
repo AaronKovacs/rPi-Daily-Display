@@ -92,18 +92,11 @@ if __name__ == "__main__":
     if (not rotating_block_generator.process()):
         rotating_block_generator.print_help()
 '''
-import subprocess
-import sys
-
-subprocess.call([sys.executable, "-m", "pip", "install", 'requests'])
-subprocess.call([sys.executable, "-m", "pip", "install", 'urllib2'])
-
-
 from rgbmatrix import graphics
 import time
 import datetime
 from PIL import Image
-from client import Spotipy
+import client
 import util
 from PIL import Image
 import urllib2 as urllib
@@ -132,8 +125,9 @@ class RunText(DisplayBase):
             sp = spotipy.Spotify(auth=token)
             result = sp.current_user_playing_track()
 
-            fd = urllib.urlopen(result["images"][0]["url"])
-            image_file = io.BytesIO(fd.read())
+
+            resp = requests.get(result["images"][0]["url"])
+            image_file = io.BytesIO(resp.content)
             image = Image.open(image_file)
             image.thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
             self.matrix.SetImage(image.convert('RGB'))
