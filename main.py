@@ -121,6 +121,7 @@ class RunText(DisplayBase):
        
         iteration = 0
         currentWeather = '0F '
+        wotd = ''
         while True:
 
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
@@ -144,7 +145,18 @@ class RunText(DisplayBase):
 
 
             graphics.DrawText(offscreen_canvas, font, 0, 22, textColor, currentWeather)
+            graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
 
+
+            if iteration % 1000 == 0:
+                resp = requests.get("http://urban-word-of-the-day.herokuapp.com/today")
+                data = resp.json()
+                wotd = data["word"]
+
+            len = DrawText(offscreen_canvas, font, pos, 31, textColor, currentWeather)
+            pos -= 1
+            if (pos + len < 0):
+                pos = offscreen_canvas.width
 
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
