@@ -104,6 +104,7 @@ import io
 import requests
 import pytz
 
+
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
         super(RunText, self).__init__(*args, **kwargs)
@@ -131,6 +132,13 @@ class RunText(DisplayBase):
             today = datetime.datetime.today()
             timezone = pytz.timezone("America/New_York")
             d_aware = timezone.localize(today)
+
+            hour = int(d_aware.strftime("%H"))
+            clock_color = graphics.Color(107, 0, 0)
+            if hour > 12:
+                hour -= 12
+                clock_color = graphics.Color(0, 0, 107)
+
             t_string = d_aware.strftime("%H:%M:%S")
 
             offscreen_canvas.Clear()
