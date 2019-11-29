@@ -92,18 +92,12 @@ if __name__ == "__main__":
     if (not rotating_block_generator.process()):
         rotating_block_generator.print_help()
 '''
-import pip
+import subprocess
+import sys
 
-def install(package):
-    if hasattr(pip, 'main'):
-        pip.main(['install', package])
-    else:
-        pip._internal.main(['install', package])
+subprocess.call([sys.executable, "-m", "pip", "install", 'requests'])
+subprocess.call([sys.executable, "-m", "pip", "install", 'urllib2'])
 
-# Example
-if __name__ == '__main__':
-    install('requests')
-    install('urllib2')
 
 from rgbmatrix import graphics
 import time
