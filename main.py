@@ -146,7 +146,6 @@ class RunText(DisplayBase):
 
             offscreen_canvas.Clear()
             len = graphics.DrawText(offscreen_canvas, font, 0, 6, textColor, t_string)
-            draw.line((0, 7, 31, 1), fill=(255, 255, 255))
 
             time.sleep(0.1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
