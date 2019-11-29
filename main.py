@@ -93,6 +93,8 @@ if __name__ == "__main__":
         rotating_block_generator.print_help()
 '''
 
+print subprocess.check_output(['pip install requests'])
+print subprocess.check_output(['pip install urllib2'])
 
 from rgbmatrix import graphics
 import time
@@ -100,6 +102,10 @@ import datetime
 from PIL import Image
 from client import Spotipy
 import util
+from PIL import Image
+import urllib2 as urllib
+import io
+
 
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
@@ -113,17 +119,22 @@ class RunText(DisplayBase):
         pos = offscreen_canvas.width
 
 
-        image = Image.open("/home/pi/2048-Pi-Display/img.jpg")
-        image.thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
+        #image = Image.open("/home/pi/2048-Pi-Display/img.jpg")
         self.matrix.brightness = 40
 
-        token = util.prompt_for_user_token('jc8a1vumj4nofex2isggs9uur', 'user-read-currently-playing')
-        sp = spotipy.Spotify(auth=token)
-        result = sp.current_user_playing_track()
-        print(result)
+       
 
         while True:
+            token = util.prompt_for_user_token('jc8a1vumj4nofex2isggs9uur', 'user-read-currently-playing')
+            sp = spotipy.Spotify(auth=token)
+            result = sp.current_user_playing_track()
+
+            fd = urllib.urlopen(result["images"][0]["url"])
+            image_file = io.BytesIO(fd.read())
+            image = Image.open(image_file)
+            image.thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
             self.matrix.SetImage(image.convert('RGB'))
+            time.sleep(5)
         '''
         while True:
 
