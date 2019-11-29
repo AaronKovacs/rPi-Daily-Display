@@ -135,12 +135,12 @@ class RunText(DisplayBase):
                 resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=15009,us&units=imperial&appid=e7694bebbbb89a1e84450d04255dfb59")
                 data = resp.json()
                 currentTemp = int(data["main"]["temp"])
-                words = data["weather"][0]["description"].strip().split(' ')
+                words = data["weather"][0]["main"].strip().split(' ')
                 capWords = []
                 for i in words:
                     capWords.append(i.capitalize())
                 compiled = ' '.join(capWords)
-                currentWeather  = '%sF %s' % (currentTemp, compiled)
+                currentWeather  = '%sF %s' % (currentTemp, compiled.upper())
 
 
             graphics.DrawText(offscreen_canvas, font, 0, 22, textColor, currentWeather)
