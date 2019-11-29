@@ -101,7 +101,7 @@ import util
 from PIL import Image
 import urllib2 as urllib
 import io
-
+import requests
 
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
