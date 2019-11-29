@@ -96,7 +96,7 @@ from rgbmatrix import graphics
 import time
 import datetime
 from PIL import Image
-import client
+from client import Spotify
 import util
 from PIL import Image
 import urllib2 as urllib
