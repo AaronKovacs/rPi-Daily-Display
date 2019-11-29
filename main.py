@@ -129,7 +129,7 @@ class RunText(DisplayBase):
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
 
             offscreen_canvas.Clear()
-            graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(89, 89, 89), t_string)
+            graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(0, 107, 0), t_string)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
 
             day_color = graphics.Color(59, 59, 59)
@@ -214,15 +214,14 @@ class RunText(DisplayBase):
                 data = resp.json()
                 wotd = data["word"]
 
-            print(currentTrack)
             if currentTrack != '' and image is not None:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(0, 99, 0))
-                len = graphics.DrawText(offscreen_canvas, font, pos, 31, graphics.Color(0, 99, 0), currentTrack)
+                len = graphics.DrawText(offscreen_canvas, font, pos, 30, graphics.Color(0, 99, 0), currentTrack)
                 pos -= 1
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
 
-                offscreen_canvas.SetImage(image, offset_y=24)
+                offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
                 len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
