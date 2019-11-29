@@ -116,7 +116,7 @@ class RunText(DisplayBase):
 
 
         #image = Image.open("/home/pi/2048-Pi-Display/img.jpg")
-        self.matrix.brightness = 40
+        self.matrix.brightness = 70
 
        
         while True:
@@ -125,7 +125,7 @@ class RunText(DisplayBase):
 
             offscreen_canvas.Clear()
             len = graphics.DrawText(offscreen_canvas, font, 0, 6, textColor, t_string)
-            graphics.DrawLine(offscreen_canvas, 0, 7, 0, 31, graphics.Color(255, 255, 255))
+            graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
 
             time.sleep(0.1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
