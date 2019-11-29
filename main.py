@@ -101,6 +101,7 @@ import util
 from PIL import Image
 import urllib2 as urllib
 import io
+from oauth2 import SpotifyClientCredentials
 
 
 class RunText(DisplayBase):
@@ -122,9 +123,11 @@ class RunText(DisplayBase):
 
         while True:
 
-            token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
 
-            sp = spotipy.Spotify(auth=token)
+
+            client_credentials_manager = SpotifyClientCredentials(client_id='a362ed228f6f42dda29df88594deacf9', client_secret='55924005c1a04aaca88d5a8e3dd39653')
+
+            sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
             result = sp.current_user_playing_track()
 
 
