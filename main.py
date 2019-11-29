@@ -137,15 +137,15 @@ class RunText(DisplayBase):
             if day == 'TUESDAY':
                 day_color = graphics.Color(235, 76, 198)
             if day == 'WEDNESDAY':
-            day_color = graphics.Color(92, 199, 59)
+                day_color = graphics.Color(92, 199, 59)
             if day == 'THURSDAY':
-            day_color = graphics.Color(241, 150, 57)
+                day_color = graphics.Color(241, 150, 57)
             if day == 'FRIDAY':
-            day_color = graphics.Color(36, 104, 246)
+                day_color = graphics.Color(36, 104, 246)
             if day == 'SATURDAY':
-            day_color = graphics.Color(92, 31, 199)
+                day_color = graphics.Color(92, 31, 199)
             if day == 'SUNDAY':
-            day_color = graphics.Color(234, 50, 35)
+                day_color = graphics.Color(234, 50, 35)
 
             graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
             graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, graphics.Color(59, 59, 59))
