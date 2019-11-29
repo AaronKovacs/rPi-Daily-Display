@@ -102,6 +102,9 @@ from PIL import Image
 import urllib2 as urllib
 import io
 import requests
+import pytz
+
+#subprocess.call([sys.executable, "-m", "pip", "install", 'pandas'])
 
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
@@ -127,14 +130,17 @@ class RunText(DisplayBase):
         is_playing = False
         while True:
 
-            t_string = datetime.datetime.today().strftime("%H:%M:%S")
+            today = datetime.datetime.today()
+            timezone = pytz.timezone("America/New_York")
+            d_aware = timezone.localize(today)
+            t_string = d_aware.strftime("%H:%M:%S")
 
             offscreen_canvas.Clear()
             graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(107, 0, 0), t_string)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
 
             day_color = graphics.Color(59, 59, 59)
-            day = datetime.datetime.today().strftime("%A").upper()
+            day = d_aware.strftime("%A").upper()
             if day == 'MONDAY':
                 day_color = graphics.Color(248, 205, 70)
             if day == 'TUESDAY':
