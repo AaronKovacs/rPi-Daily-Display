@@ -206,8 +206,9 @@ class RunText(DisplayBase):
                     image.thumbnail((9, 9), Image.ANTIALIAS)
                     pos = 10
                 else:
-                    currentTrack = result["item"]["name"]
-                    image = None
+                    if result["item"]["name"] == '':
+                        currentTrack = result["item"]["name"]
+                        image = None
 
             if iteration % 1000 == 0:
                 resp = requests.get("http://urban-word-of-the-day.herokuapp.com/today")
