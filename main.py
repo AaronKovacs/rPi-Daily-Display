@@ -150,7 +150,7 @@ class RunText(DisplayBase):
 
             time.sleep(0.1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-        '''
+        
 
 
 # Main function
