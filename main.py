@@ -104,8 +104,6 @@ import io
 import requests
 import pytz
 
-subprocess.call([sys.executable, "-m", "pip", "install", 'pytz'])
-
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
         super(RunText, self).__init__(*args, **kwargs)
