@@ -131,8 +131,6 @@ class RunText(DisplayBase):
             graphics.DrawText(offscreen_canvas, font, 0, 14, textColor, datetime.datetime.today().strftime("%A").upper())
             graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, graphics.Color(59, 59, 59))
 
-            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-
             if iteration % 100 == 0:
                 resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=15009,us&units=imperial&appid=e7694bebbbb89a1e84450d04255dfb59")
                 data = resp.json()
