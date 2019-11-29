@@ -4,7 +4,7 @@
 from __future__ import print_function
 import os
 import oauth2
-import spotipy
+import client
 
 def prompt_for_user_token(username, scope=None, client_id = None,
         client_secret = None, redirect_uri = None, cache_path = None):
