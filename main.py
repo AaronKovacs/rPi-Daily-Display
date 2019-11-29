@@ -193,7 +193,7 @@ class RunText(DisplayBase):
             graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
 
-            if iteration % 1000 == 0:
+            if iteration % 200 == 0:
                 token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
                 sp = Spotify(auth=token)
                 result = sp.current_user_playing_track()
@@ -214,6 +214,7 @@ class RunText(DisplayBase):
                 data = resp.json()
                 wotd = data["word"]
 
+            print(currentTrack)
             if currentTrack != '' and image is not None:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(0, 99, 0))
                 len = graphics.DrawText(offscreen_canvas, font, pos, 31, graphics.Color(0, 99, 0), currentTrack)
