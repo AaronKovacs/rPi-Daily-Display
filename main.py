@@ -104,7 +104,7 @@ import io
 import requests
 import pytz
 
-#subprocess.call([sys.executable, "-m", "pip", "install", 'pandas'])
+subprocess.call([sys.executable, "-m", "pip", "install", 'pytz'])
 
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
