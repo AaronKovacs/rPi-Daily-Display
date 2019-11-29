@@ -5,7 +5,7 @@
 For the longest time I've had a Raspberry Pi and this 32x32 billboard display sitting on my shelf. I finally decided to make daily info display to bring back to my dorm room. The entire setup is fairly simply:
 
 
-##Features:
+## Features:
 
 - **Live clock (Hours, minutes, seconds)**
 	- Clock is red in the PM and blue in the AM
@@ -24,7 +24,7 @@ For the longest time I've had a Raspberry Pi and this 32x32 billboard display si
 
 
 
-##Hardware
+## Hardware
 
 - [Raspberry Pi 3b](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)
 - [Adafruit RGB Matrix HAT + RTC for Raspberry Pi](https://learn.adafruit.com/adafruit-rgb-matrix-plus-real-time-clock-hat-for-raspberry-pi)
@@ -32,13 +32,13 @@ For the longest time I've had a Raspberry Pi and this 32x32 billboard display si
 
 The entire setup cost approximately $100 and took only a couple hours to put together. I recommend following [Adafruit's incredible product guide to put it all together.](https://learn.adafruit.com/adafruit-rgb-matrix-plus-real-time-clock-hat-for-raspberry-pi)
 
-##Software
+## Software
 
 - Drawing code utilizes Python binds of [hzeller's rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix)
 - Urban Dictionary Word of the Day is fetch from [flebel's Micro-REST API](https://github.com/flebel/urban-word-of-the-day)
 - [Spotipy for Spotify integrations](https://github.com/plamere/spotipy)
 
-##Installation
+## Installation
 
 1. Download to your computer (Not rPi)
 2. Update `config.py` with your *Spotify Web API* credentials and *OpenWeatherMap* `appid`
