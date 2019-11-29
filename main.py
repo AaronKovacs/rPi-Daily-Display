@@ -136,11 +136,41 @@ class RunText(DisplayBase):
                 resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=15009,us&units=imperial&appid=e7694bebbbb89a1e84450d04255dfb59")
                 data = resp.json()
                 currentTemp = int(data["main"]["temp"])
+                weather_color = graphics.Color(59, 59, 59)
                 main_code = data["weather"][0]["main"].upper()
-                currentWeather  = '%sF%s' % (currentTemp, main_code)
+
+                if main_code == "CLOUDS":
+                    main_code = "CLDS"
+                    weather_color = graphics.Color(115, 253, 255)
+
+                if main_code == "RAIN":
+                    main_code = "RAIN"
+                    weather_color = graphics.Color(4, 50, 255)
+
+                if main_code == "THUNDERSTORM":
+                    main_code = "THDR"
+                    weather_color = graphics.Color(59, 59, 59)
+
+                if main_code == "DRIZZLE":
+                    main_code = "DRIZ"
+                    weather_color = graphics.Color(148, 55, 255)
+
+                if main_code == "SNOW":
+                    main_code = "SNOW"
+                    weather_color = graphics.Color(255, 47, 146)
+
+                if main_code == "ATMOSPHERE":
+                    main_code = "ATMO"
+                    weather_color = graphics.Color(0, 250, 146)
+
+                if main_code == "CLEAR":
+                    main_code = "CLER"
+                    weather_color = graphics.Color(255, 147, 0)
+
+                currentWeather  = '%sF %s' % (currentTemp, main_code)
 
 
-            graphics.DrawText(offscreen_canvas, font, 0, 22, textColor, currentWeather)
+            graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
             graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
 
 
