@@ -119,6 +119,8 @@ class RunText(DisplayBase):
         self.matrix.brightness = 70
 
        
+        iteration = 0
+        currentWeather = '0F '
         while True:
 
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
@@ -130,19 +132,25 @@ class RunText(DisplayBase):
             graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, graphics.Color(59, 59, 59))
 
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-            resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=15009,us&units=imperial&appid=e7694bebbbb89a1e84450d04255dfb59")
-            data = resp.json()
-            currentTemp = int(data["main"]["temp"])
-            words = data["weather"][0]["description"].strip().split(' ')
-            capWords = []
-            for i in words:
-                capWords.append(i.capitalize())
-            compiled = ' '.join(capWords)
-            currentWeather  = '%s° %s' % (currentTemp, compiled)
+
+            if iteration % 100 == 0:
+                resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=15009,us&units=imperial&appid=e7694bebbbb89a1e84450d04255dfb59")
+                data = resp.json()
+                currentTemp = int(data["main"]["temp"])
+                words = data["weather"][0]["description"].strip().split(' ')
+                capWords = []
+                for i in words:
+                    capWords.append(i.capitalize())
+                compiled = ' '.join(capWords)
+                currentWeather  = '%sF %s' % (currentTemp, compiled)
+
+
             graphics.DrawText(offscreen_canvas, font, 0, 22, textColor, currentWeather)
 
 
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+
+            iteration += 1
             time.sleep(0.1)
         
 
