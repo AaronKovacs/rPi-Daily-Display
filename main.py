@@ -205,6 +205,7 @@ class RunText(DisplayBase):
                     image_file = io.BytesIO(resp.content)
                     image = Image.open(image_file)
                     image.thumbnail((9, 9), Image.ANTIALIAS)
+                    pos = 10
                 else:
                     currentTrack = result["item"]["name"]
                     image = None
@@ -216,6 +217,10 @@ class RunText(DisplayBase):
 
             if currentTrack != '' and image is not None:
                 offscreen_canvas.SetImage(image, offset_y=23)
+                len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, currentTrack)
+                pos -= 1
+                if (pos + len < 10):
+                    pos = offscreen_canvas.width
             else:
                 len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
                 pos -= 1
