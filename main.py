@@ -127,7 +127,7 @@ class RunText(DisplayBase):
             sp = Spotify(auth=token)
             result = sp.current_user_playing_track()
 
-
+            print(result)
             resp = requests.get(result["images"][0]["url"])
             image_file = io.BytesIO(resp.content)
             image = Image.open(image_file)
