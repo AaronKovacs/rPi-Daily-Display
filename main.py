@@ -127,8 +127,7 @@ class RunText(DisplayBase):
             sp = Spotify(auth=token)
             result = sp.current_user_playing_track()
 
-            print(result["item"]["external_urls"].keys())
-            resp = requests.get(result["item"]["external_urls"]["images"][0]["url"])
+            resp = requests.get(result["item"]["album"]["images"][0]["url"])
             image_file = io.BytesIO(resp.content)
             image = Image.open(image_file)
             image.thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
