@@ -98,6 +98,8 @@ from rgbmatrix import graphics
 import time
 import datetime
 from PIL import Image
+from client import Spotipy
+import util
 
 class RunText(DisplayBase):
     def __init__(self, *args, **kwargs):
@@ -114,6 +116,12 @@ class RunText(DisplayBase):
         image = Image.open("/home/pi/2048-Pi-Display/img.jpg")
         image.thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
         self.matrix.brightness = 40
+
+        token = util.prompt_for_user_token('jc8a1vumj4nofex2isggs9uur', 'user-read-currently-playing')
+        sp = spotipy.Spotify(auth=token)
+        result = sp.current_user_playing_track()
+        print(result)
+
         while True:
             self.matrix.SetImage(image.convert('RGB'))
         '''
