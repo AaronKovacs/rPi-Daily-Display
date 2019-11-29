@@ -119,27 +119,6 @@ class RunText(DisplayBase):
         self.matrix.brightness = 40
 
        
-        '''
-        currentTrack = ''
-        while True:
-            token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
-
-            sp = Spotify(auth=token)
-            result = sp.current_user_playing_track()
-
-            if currentTrack == result["item"]["name"]:
-                time.sleep(5)
-                continue
-
-            currentTrack = result["item"]["name"]
-            resp = requests.get(result["item"]["album"]["images"][0]["url"])
-            image_file = io.BytesIO(resp.content)
-            image = Image.open(image_file)
-            image.thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
-            self.matrix.SetImage(image.convert('RGB'))
-            time.sleep(5)
-
-        '''
         while True:
 
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
@@ -158,3 +137,26 @@ if __name__ == "__main__":
     run_text = RunText()
     if (not run_text.process()):
         run_text.print_help()
+
+
+'''
+currentTrack = ''
+while True:
+    token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
+
+    sp = Spotify(auth=token)
+    result = sp.current_user_playing_track()
+
+    if currentTrack == result["item"]["name"]:
+        time.sleep(5)
+        continue
+
+    currentTrack = result["item"]["name"]
+    resp = requests.get(result["item"]["album"]["images"][0]["url"])
+    image_file = io.BytesIO(resp.content)
+    image = Image.open(image_file)
+    image.thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
+    self.matrix.SetImage(image.convert('RGB'))
+    time.sleep(5)
+
+'''
