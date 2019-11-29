@@ -1,6 +1,7 @@
 #!/bin/bash
 
 while true ; do
+    kill $(pgrep -f 'python error.py')
     if ifconfig wlan0 | grep -q "inet addr:" ; then
         sleep 60
     else
