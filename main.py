@@ -130,7 +130,7 @@ class RunText(DisplayBase):
             t_string = datetime.datetime.today().strftime("%H:%M:%S")
 
             offscreen_canvas.Clear()
-            graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(0, 107, 0), t_string)
+            graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(107, 0, 0), t_string)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
 
             day_color = graphics.Color(59, 59, 59)
