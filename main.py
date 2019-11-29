@@ -216,7 +216,7 @@ class RunText(DisplayBase):
 
             if currentTrack != '' and image is not None:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(0, 99, 0))
-                len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, currentTrack)
+                len = graphics.DrawText(offscreen_canvas, font, pos, 31, graphics.Color(0, 99, 0), currentTrack)
                 pos -= 1
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
