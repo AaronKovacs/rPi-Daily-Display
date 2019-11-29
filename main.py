@@ -131,12 +131,24 @@ class RunText(DisplayBase):
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
 
             day_color = graphics.Color(59, 59, 59)
-            day = 'datetime.datetime.today().strftime("%A").upper()'
+            day = datetime.datetime.today().strftime("%A").upper()
+            if day == 'MONDAY':
+                day_color = graphics.Color(248, 205, 70)
+            if day == 'TUESDAY':
+                day_color = graphics.Color(235, 76, 198)
+            if day == 'WEDNESDAY':
+            day_color = graphics.Color(92, 199, 59)
+            if day == 'THURSDAY':
+            day_color = graphics.Color(241, 150, 57)
             if day == 'FRIDAY':
-                day_color = graphics.Color(148, 17, 0)
+            day_color = graphics.Color(36, 104, 246)
+            if day == 'SATURDAY':
+            day_color = graphics.Color(92, 31, 199)
+            if day == 'SUNDAY':
+            day_color = graphics.Color(234, 50, 35)
 
-            graphics.DrawText(offscreen_canvas, font, 0, 14, textColor, datetime.datetime.today().strftime("%A").upper())
-            graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, day_color)
+            graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
+            graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, graphics.Color(59, 59, 59))
 
             if iteration % 100 == 0:
                 resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=15009,us&units=imperial&appid=e7694bebbbb89a1e84450d04255dfb59")
