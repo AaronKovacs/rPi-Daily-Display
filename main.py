@@ -129,8 +129,14 @@ class RunText(DisplayBase):
             offscreen_canvas.Clear()
             graphics.DrawText(offscreen_canvas, font, 0, 6, textColor, t_string)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
+
+            day_color = graphics.Color(59, 59, 59)
+            day = 'datetime.datetime.today().strftime("%A").upper()'
+            if day == 'FRIDAY':
+                day_color = graphics.Color(148, 17, 0)
+
             graphics.DrawText(offscreen_canvas, font, 0, 14, textColor, datetime.datetime.today().strftime("%A").upper())
-            graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, graphics.Color(59, 59, 59))
+            graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, day_color)
 
             if iteration % 100 == 0:
                 resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=15009,us&units=imperial&appid=e7694bebbbb89a1e84450d04255dfb59")
