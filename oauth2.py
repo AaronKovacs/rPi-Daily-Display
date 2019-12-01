@@ -149,7 +149,7 @@ class SpotifyOAuth(object):
                 f.write(json.dumps(token_info))
                 f.close()
             except IOError:
-                self._warn("couldn't write token cache to " + self.cache_path)
+                #self._warn("couldn't write token cache to " + self.cache_path)
                 pass
 
     def _is_scope_subset(self, needle_scope, haystack_scope):
