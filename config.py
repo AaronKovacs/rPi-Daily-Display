@@ -1,5 +1,5 @@
 # Open Weather Map Credentials
-weather_zipcode = '15009'
+weather_zipcode = '20052'
 openweathermap_appid = 'e7694bebbbb89a1e84450d04255dfb59'
 
 
