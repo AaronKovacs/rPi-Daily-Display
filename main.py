@@ -45,10 +45,11 @@ class rPiDisplay(DisplayBase):
                 hour -= 12
                 clock_color = graphics.Color(0, 0, 107)
 
-            t_string = d_aware.strftime("%H:%M:%S")
+            t_string = d_aware.strftime("%M:%S")
+            concocted_str = "%s:%s" % (hour, t_string)
 
             offscreen_canvas.Clear()
-            graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(107, 0, 0), t_string)
+            graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(107, 0, 0), concocted_str)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
 
             day_color = graphics.Color(59, 59, 59)
