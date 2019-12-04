@@ -33,6 +33,7 @@ class rPiDisplay(DisplayBase):
         currentTrack = ''
         image = None
         is_playing = False
+        weather_color = graphics.Color(59, 59, 59)
         while True:
 
             today = datetime.datetime.today()
@@ -49,7 +50,7 @@ class rPiDisplay(DisplayBase):
             concocted_str = "%s:%s" % (hour, t_string)
 
             offscreen_canvas.Clear()
-            graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(107, 0, 0), concocted_str)
+            graphics.DrawText(offscreen_canvas, font, 0, 6, clock_color, concocted_str)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
 
             day_color = graphics.Color(59, 59, 59)
@@ -73,66 +74,77 @@ class rPiDisplay(DisplayBase):
             graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, graphics.Color(59, 59, 59))
 
             if iteration % 100 == 0:
-                resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=%s,us&units=imperial&appid=%s" % (weather_zipcode, openweathermap_appid))
-                data = resp.json()
-                currentTemp = int(data["main"]["temp"])
-                weather_color = graphics.Color(59, 59, 59)
-                main_code = data["weather"][0]["main"].upper()
-
-                if main_code == "CLOUDS":
-                    main_code = "CLDS"
-                    weather_color = graphics.Color(115, 253, 255)
-
-                if main_code == "RAIN":
-                    main_code = "RAIN"
-                    weather_color = graphics.Color(4, 50, 255)
-
-                if main_code == "THUNDERSTORM":
-                    main_code = "THDR"
+                try:
+                    resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=%s,us&units=imperial&appid=%s" % (weather_zipcode, openweathermap_appid))
+                    data = resp.json()
+                    currentTemp = int(data["main"]["temp"])
                     weather_color = graphics.Color(59, 59, 59)
+                    main_code = data["weather"][0]["main"].upper()
 
-                if main_code == "DRIZZLE":
-                    main_code = "DRIZ"
-                    weather_color = graphics.Color(148, 55, 255)
+                    if main_code == "CLOUDS":
+                        main_code = "CLDS"
+                        weather_color = graphics.Color(115, 253, 255)
 
-                if main_code == "SNOW":
-                    main_code = "SNOW"
-                    weather_color = graphics.Color(255, 47, 146)
+                    if main_code == "RAIN":
+                        main_code = "RAIN"
+                        weather_color = graphics.Color(4, 50, 255)
 
-                if main_code == "ATMOSPHERE":
-                    main_code = "ATMO"
-                    weather_color = graphics.Color(0, 250, 146)
+                    if main_code == "THUNDERSTORM":
+                        main_code = "THDR"
+                        weather_color = graphics.Color(59, 59, 59)
 
-                if main_code == "CLEAR":
-                    main_code = "CLER"
-                    weather_color = graphics.Color(255, 147, 0)
+                    if main_code == "DRIZZLE":
+                        main_code = "DRIZ"
+                        weather_color = graphics.Color(148, 55, 255)
 
-                currentWeather  = '%sF %s' % (currentTemp, main_code)
+                    if main_code == "SNOW":
+                        main_code = "SNOW"
+                        weather_color = graphics.Color(255, 47, 146)
+
+                    if main_code == "ATMOSPHERE":
+                        main_code = "ATMO"
+                        weather_color = graphics.Color(0, 250, 146)
+
+                    if main_code == "CLEAR":
+                        main_code = "CLER"
+                        weather_color = graphics.Color(255, 147, 0)
+
+                    currentWeather  = '%sF %s' % (currentTemp, main_code)
+                except:
+                    currentWeather = "???F ????"
 
 
             graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
 
             if iteration % 100 == 0:
-                token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
-                sp = Spotify(auth=token)
-                result = sp.current_user_playing_track()
-                if result is not None and "is_playing" in result:
-                    is_playing = result["is_playing"]
-                    
-                    if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
-                        currentTrack = result["item"]["name"]
-                        resp = requests.get(result["item"]["album"]["images"][0]["url"])
-                        image_file = io.BytesIO(resp.content)
-                        image = Image.open(image_file)
-                        image.thumbnail((9, 9), Image.ANTIALIAS)
-                        pos = 10
+                try:
+                    token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
+                    sp = Spotify(auth=token)
+                    result = sp.current_user_playing_track()
+                    if result is not None and "is_playing" in result:
+                        is_playing = result["is_playing"]
+                        
+                        if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
+                            currentTrack = result["item"]["name"]
+                            resp = requests.get(result["item"]["album"]["images"][0]["url"])
+                            image_file = io.BytesIO(resp.content)
+                            image = Image.open(image_file)
+                            image.thumbnail((9, 9), Image.ANTIALIAS)
+                            pos = 10
+                except:
+                    image = None
+                    is_playing = False
+
 
             if iteration % 1000 == 0:
-                resp = requests.get("http://urban-word-of-the-day.herokuapp.com/today")
-                data = resp.json()
-                if data is not None:
-                    wotd = data["word"]
+                try:
+                    resp = requests.get("http://urban-word-of-the-day.herokuapp.com/today")
+                    data = resp.json()
+                    if data is not None:
+                        wotd = data["word"]
+                except:
+                    wotd = "No internet??"
 
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(0, 99, 0))
