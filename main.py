@@ -133,7 +133,7 @@ class rPiDisplay(DisplayBase):
                                 image.thumbnail((9, 9), Image.ANTIALIAS)
                                 pos = 10
                             except:
-                                pass
+                                print("Couldn't fetch image")
                 except:
                     image = None
                     is_playing = False
