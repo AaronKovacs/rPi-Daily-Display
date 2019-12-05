@@ -35,7 +35,6 @@ class rPiDisplay(DisplayBase):
         is_playing = False
         weather_color = graphics.Color(59, 59, 59)
         while True:
-
             today = datetime.datetime.today()
             timezone = pytz.timezone("America/New_York")
             d_aware = timezone.localize(today)
@@ -119,7 +118,7 @@ class rPiDisplay(DisplayBase):
 
             if iteration % 100 == 0:
                 try:
-                    token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing",client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
+                    token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing", client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
                     sp = Spotify(auth=token)
                     result = sp.current_user_playing_track()
                     if result is not None and "is_playing" in result:
@@ -127,11 +126,14 @@ class rPiDisplay(DisplayBase):
                         
                         if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                             currentTrack = result["item"]["name"]
-                            resp = requests.get(result["item"]["album"]["images"][0]["url"])
-                            image_file = io.BytesIO(resp.content)
-                            image = Image.open(image_file)
-                            image.thumbnail((9, 9), Image.ANTIALIAS)
-                            pos = 10
+                            try:
+                                resp = requests.get(result["item"]["album"]["images"][0]["url"])
+                                image_file = io.BytesIO(resp.content)
+                                image = Image.open(image_file)
+                                image.thumbnail((9, 9), Image.ANTIALIAS)
+                                pos = 10
+                            except:
+                                pass
                 except:
                     image = None
                     is_playing = False
@@ -152,8 +154,8 @@ class rPiDisplay(DisplayBase):
                 pos -= 1
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
-
-                offscreen_canvas.SetImage(image, offset_y=23)
+                if image is not None:
+                    offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
                 len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
