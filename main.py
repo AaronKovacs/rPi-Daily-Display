@@ -120,7 +120,7 @@ class rPiDisplay(DisplayBase):
 
             if hour > 4:
                 offscreen_canvas.Clear()
-                if iteration % 5 == 0:
+                if iteration % 2 == 0:
                     cake_image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_1.png").convert('RGB')
                     cake_image.thumbnail((32, 32), Image.ANTIALIAS)
                     offscreen_canvas.SetImage(cake_image)
@@ -129,10 +129,13 @@ class rPiDisplay(DisplayBase):
                     cake_image.thumbnail((32, 32), Image.ANTIALIAS)
                     offscreen_canvas.SetImage(cake_image)
 
-            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-
-            iteration += 1
-            time.sleep(0.1)
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+                iteration += 1
+                time.sleep(0.5)
+            else:
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+                iteration += 1
+                time.sleep(0.1)
 
 def fetchTime():
     today = datetime.datetime.today()
