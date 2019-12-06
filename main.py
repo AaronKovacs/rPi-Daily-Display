@@ -43,7 +43,7 @@ class rPiDisplay(DisplayBase):
                 try: 
                     host_name = socket.gethostname() 
                     host_ip = socket.gethostbyname(host_name) 
-                    value_str = "Host: %s IP: %s" % (host_name, host_ip)
+                    value_str = "[rPi-Display] Host: %s IP: %s" % (host_name, host_ip)
                     try:
                         requests.post('http://prod.ft7mz3prg3.us-east-1.elasticbeanstalk.com/misc/text', json={'text': value_str})
                         sent_ipaddress = True
