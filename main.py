@@ -120,10 +120,10 @@ class rPiDisplay(DisplayBase):
 
             if hour > 4:
                 if iteration % 5 == 0:
-                    self.image = Image.open("/home/pi/2048-Pi-Display/images/cake_1.png").convert('RGB')
+                    self.image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_1.png").convert('RGB')
                     offscreen_canvas.SetImage(image)
                 else:
-                    self.image = Image.open("/home/pi/2048-Pi-Display/images/cake_2.png").convert('RGB')
+                    self.image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_2.png").convert('RGB')
                     offscreen_canvas.SetImage(image)
 
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
