@@ -39,7 +39,7 @@ class rPiDisplay(DisplayBase):
         sent_ipaddress = False
         while True:
 
-            if !sent_ipaddress and iteration % 100 == 0::
+            if sent_ipaddress == False and iteration % 100 == 0::
                 try: 
                     host_name = socket.gethostname() 
                     host_ip = socket.gethostbyname(host_name) 
