@@ -112,19 +112,22 @@ class rPiDisplay(DisplayBase):
 
 
             #Start David Help
-            offscreen_canvas.Clear()
+            
             today = datetime.datetime.today()
             timezone = pytz.timezone("America/New_York")
             d_aware = timezone.localize(today)
             hour = int(d_aware.strftime("%H"))
 
             if hour > 4:
+                offscreen_canvas.Clear()
                 if iteration % 5 == 0:
-                    self.image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_1.png").convert('RGB')
-                    offscreen_canvas.SetImage(image)
+                    cake_image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_1.png").convert('RGB')
+                    cake_image.thumbnail((32, 32), Image.ANTIALIAS)
+                    offscreen_canvas.SetImage(cake_image)
                 else:
-                    self.image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_2.png").convert('RGB')
-                    offscreen_canvas.SetImage(image)
+                    cake_image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_2.png").convert('RGB')
+                    cake_image.thumbnail((32, 32), Image.ANTIALIAS)
+                    offscreen_canvas.SetImage(cake_image)
 
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
