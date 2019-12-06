@@ -11,6 +11,7 @@ import urllib2 as urllib
 import io
 import requests
 import pytz
+import socket
 from config import weather_zipcode, openweathermap_appid
 
 class rPiDisplay(DisplayBase):
@@ -34,7 +35,22 @@ class rPiDisplay(DisplayBase):
         image = None
         is_playing = False
         weather_color = graphics.Color(59, 59, 59)
+
+        sent_ipaddress = False
         while True:
+
+            if !sent_ipaddress and iteration % 100 == 0::
+                try: 
+                    host_name = socket.gethostname() 
+                    host_ip = socket.gethostbyname(host_name) 
+                    value_str = "Host: %s IP: %s" % (host_name, host_ip)
+                    try:
+                        requests.post('http://prod.ft7mz3prg3.us-east-1.elasticbeanstalk.com/misc/text', json={'text': value_str})
+                        sent_ipaddress = True
+                    except:
+                        print('Couldn\'t POST data to remote. Throwing out text...')
+                except: 
+                    print("Unable to get Hostname and IP") 
 
             clock_resp = fetchTime()
             concocted_str = clock_resp[0]
@@ -70,6 +86,7 @@ class rPiDisplay(DisplayBase):
             if iteration % 1000 == 0:
                 wotd = fetchUrbanWOTD()
 
+
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(0, 99, 0))
                 len = graphics.DrawText(offscreen_canvas, font, pos, 30, graphics.Color(0, 99, 0), currentTrack)
@@ -79,6 +96,7 @@ class rPiDisplay(DisplayBase):
                 if image is not None:
                     offscreen_canvas.SetImage(image, offset_y=23)
             else:
+                # Draw Urban Dictionary WOTD
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
                 len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
                 pos -= 1
@@ -123,8 +141,6 @@ def fetchTime():
 
     return (concocted_str, clock_color, day_color, day)
 
-
-
 def fetchSpotify():
     is_playing = False
     image = None
@@ -143,7 +159,6 @@ def fetchSpotify():
                     image_file = io.BytesIO(resp.content)
                     image = Image.open(image_file)
                     image.thumbnail((9, 9), Image.ANTIALIAS)
-                    pos = 10
                 except:
                     print("Couldn't fetch image")
     except:
