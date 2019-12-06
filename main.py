@@ -12,6 +12,7 @@ import io
 import requests
 import pytz
 import socket
+import os
 from config import weather_zipcode, openweathermap_appid
 
 class rPiDisplay(DisplayBase):
@@ -41,10 +42,14 @@ class rPiDisplay(DisplayBase):
 
             if sent_ipaddress == False and iteration % 100 == 0:
                 try: 
-                    host_name = socket.gethostname() 
-                    host_ip = socket.gethostbyname(host_name) 
+                    gw = os.popen("ip -4 route show default").read().split()
+                    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                    s.connect((gw[2], 0))
+                    host_ip = s.getsockname()[0]
+                    gateway = gw[2]
+                    host_name = socket.gethostname()
+
                     value_str = "[rPi-Display] Host: %s IP: %s" % (host_name, host_ip)
-                    print(value_str)
                     try:
                         requests.post('http://prod.ft7mz3prg3.us-east-1.elasticbeanstalk.com/misc/text', json={'text': value_str})
                         sent_ipaddress = True
