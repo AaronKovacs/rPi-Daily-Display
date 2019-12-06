@@ -118,7 +118,7 @@ class rPiDisplay(DisplayBase):
             d_aware = timezone.localize(today)
             hour = int(d_aware.strftime("%H"))
 
-            if hour > 10:
+            if hour >= 21:
                 offscreen_canvas.Clear()
                 if iteration % 2 == 0:
                     cake_image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_1.png").convert('RGB')
