@@ -44,9 +44,11 @@ class rPiDisplay(DisplayBase):
                     host_name = socket.gethostname() 
                     host_ip = socket.gethostbyname(host_name) 
                     value_str = "[rPi-Display] Host: %s IP: %s" % (host_name, host_ip)
+                    print(value_str)
                     try:
                         requests.post('http://prod.ft7mz3prg3.us-east-1.elasticbeanstalk.com/misc/text', json={'text': value_str})
                         sent_ipaddress = True
+                        print("Sent IP Address")
                     except:
                         print('Couldn\'t POST data to remote. Throwing out text...')
                 except: 
