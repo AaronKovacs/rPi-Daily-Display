@@ -110,32 +110,10 @@ class rPiDisplay(DisplayBase):
                 if (pos + len < 0):
                     pos = offscreen_canvas.width
 
-
-            #Start David Help
             
-            today = datetime.datetime.today()
-            timezone = pytz.timezone("America/New_York")
-            d_aware = timezone.localize(today)
-            hour = int(d_aware.strftime("%H"))
-
-            if hour >= 21:
-                offscreen_canvas.Clear()
-                if iteration % 2 == 0:
-                    cake_image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_1.png").convert('RGB')
-                    cake_image.thumbnail((32, 32), Image.ANTIALIAS)
-                    offscreen_canvas.SetImage(cake_image)
-                else:
-                    cake_image = Image.open("/home/pi/2048-Pi-Display/images/cake/cake_2.png").convert('RGB')
-                    cake_image.thumbnail((32, 32), Image.ANTIALIAS)
-                    offscreen_canvas.SetImage(cake_image)
-
-                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                iteration += 1
-                time.sleep(0.5)
-            else:
-                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                iteration += 1
-                time.sleep(0.1)
+            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+            iteration += 1
+            time.sleep(0.1)
 
 def fetchTime():
     today = datetime.datetime.today()
