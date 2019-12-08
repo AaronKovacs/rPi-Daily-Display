@@ -15,6 +15,7 @@ import socket
 import os
 from config import weather_zipcode, openweathermap_appid
 from threading import Thread
+import json 
 
 class rPiDisplay(DisplayBase):
 
