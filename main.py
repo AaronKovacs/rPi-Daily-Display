@@ -77,10 +77,14 @@ class rPiDisplay(DisplayBase):
             graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
             graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, graphics.Color(59, 59, 59))
 
-            if iteration % 100 == 0:
+            if iteration % 50 == 0:
                 resp = fetchWeather()
                 weather_color = resp[0]
                 currentWeather = resp[1]
+
+            if iteration % 100 == 0:
+               t = Thread(target=downloadWeather)
+                t.start()
 
             #Draw weather
             graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
@@ -96,9 +100,14 @@ class rPiDisplay(DisplayBase):
                 t = Thread(target=downloadSpotify)
                 t.start()
 
-            if iteration % 1000 == 0:
-                wotd = fetchUrbanWOTD()
 
+
+            if iteration % 1000 == 0:
+                t = Thread(target=downloadUrbanWOTD)
+                t.start()
+
+            if iteration % 500 == 0:
+                wotd = fetchUrbanWOTD()
 
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(0, 99, 0))
@@ -181,6 +190,7 @@ def fetchSpotify():
     with open('/home/pi/2048-Pi-Display/spotify.json', 'r') as json_file:
         try:
             result = json.load(json_file)
+            json_file.close()
             if result is not None and "is_playing" in result:
                 is_playing = result["is_playing"]
                 if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
@@ -192,55 +202,78 @@ def fetchSpotify():
 
     return (is_playing, image, currentTrack)
         
+
+def downloadUrbanWOTD():
+    with open('/home/pi/2048-Pi-Display/urbanwotd.json', 'w') as outfile:
+        try:
+            resp = requests.get("http://urban-word-of-the-day.herokuapp.com/today")
+            data = resp.json()
+            json.dump(data, outfile, indent=4)
+            outfile.close()
+        except:
+           print("No internet??")
+
 def fetchUrbanWOTD():
     try:
-        resp = requests.get("http://urban-word-of-the-day.herokuapp.com/today")
-        data = resp.json()
-        if data is not None:
-           return data["word"]
-        else:
-            return 'error'
+        with open('/home/pi/2048-Pi-Display/urbanwotd.json', 'r') as json_file:
+            data = json.load(json_file)
+            if data is not None:
+               return data["word"]
+            else:
+                return 'error'
     except:
        return "No internet??"
+
+def downloadWeather():
+    with open('/home/pi/2048-Pi-Display/weather.json', 'w') as outfile:
+        try:
+            resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=%s,us&units=imperial&appid=%s" % (weather_zipcode, openweathermap_appid))
+            data = resp.json()
+            json.dump(data, outfile, indent=4)
+            outfile.close()
+        except:
+           print("No internet??")
 
 def fetchWeather():
     weather_color = graphics.Color(59, 59, 59)
     currentWeather = "???F ????"
     try:
-        resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=%s,us&units=imperial&appid=%s" % (weather_zipcode, openweathermap_appid))
-        data = resp.json()
-        currentTemp = int(data["main"]["temp"])
-        weather_color = graphics.Color(59, 59, 59)
-        main_code = data["weather"][0]["main"].upper()
-        if main_code == "CLOUDS":
-            main_code = "CLDS"
-            weather_color = graphics.Color(115, 253, 255)
-
-        if main_code == "RAIN":
-            main_code = "RAIN"
-            weather_color = graphics.Color(4, 50, 255)
-
-        if main_code == "THUNDERSTORM":
-            main_code = "THDR"
+        with open('/home/pi/2048-Pi-Display/weather.json', 'r') as json_file:
+            data = json.load(json_file)
+            json_file.close()
+            currentTemp = int(data["main"]["temp"])
             weather_color = graphics.Color(59, 59, 59)
+            main_code = data["weather"][0]["main"].upper()
+            if main_code == "CLOUDS":
+                main_code = "CLDS"
+                weather_color = graphics.Color(115, 253, 255)
 
-        if main_code == "DRIZZLE":
-            main_code = "DRIZ"
-            weather_color = graphics.Color(148, 55, 255)
+            if main_code == "RAIN":
+                main_code = "RAIN"
+                weather_color = graphics.Color(4, 50, 255)
 
-        if main_code == "SNOW":
-            main_code = "SNOW"
-            weather_color = graphics.Color(255, 47, 146)
+            if main_code == "THUNDERSTORM":
+                main_code = "THDR"
+                weather_color = graphics.Color(59, 59, 59)
 
-        if main_code == "ATMOSPHERE":
-            main_code = "ATMO"
-            weather_color = graphics.Color(0, 250, 146)
+            if main_code == "DRIZZLE":
+                main_code = "DRIZ"
+                weather_color = graphics.Color(148, 55, 255)
 
-        if main_code == "CLEAR":
-            main_code = "CLER"
-            weather_color = graphics.Color(255, 147, 0)
+            if main_code == "SNOW":
+                main_code = "SNOW"
+                weather_color = graphics.Color(255, 47, 146)
 
-        currentWeather  = '%sF %s' % (currentTemp, main_code)
+            if main_code == "ATMOSPHERE":
+                main_code = "ATMO"
+                weather_color = graphics.Color(0, 250, 146)
+
+            if main_code == "CLEAR":
+                main_code = "CLER"
+                weather_color = graphics.Color(255, 147, 0)
+
+            currentWeather  = '%sF %s' % (currentTemp, main_code)
+
     except:
         currentWeather = "???F ????"
 
