@@ -115,6 +115,7 @@ class rPiDisplay(DisplayBase):
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
                 if image is not None:
+                    print(most_frequent_colour(image))
                     offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 # Draw Urban Dictionary WOTD
@@ -128,6 +129,20 @@ class rPiDisplay(DisplayBase):
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             iteration += 1
             time.sleep(0.1)
+
+def most_frequent_colour(image):
+    w, h = image.size
+    pixels = image.getcolors(w * h)
+
+    most_frequent_pixel = pixels[0]
+
+    for count, colour in pixels:
+        if count > most_frequent_pixel[0]:
+            most_frequent_pixel = (count, colour)
+
+    compare("Most Common", image, most_frequent_pixel[1])
+
+    return most_frequent_pixel
 
 def fetchTime():
     today = datetime.datetime.today()
