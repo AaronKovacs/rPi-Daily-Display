@@ -162,9 +162,11 @@ def downloadSpotify():
                     image_file = io.BytesIO(resp.content)
                     with open('/home/pi/2048-Pi-Display/spotify_image.jpeg', 'w') as imagefile:
                         imagefile.write(resp.content)
+                        imagefile.close()
                 except:
                     print("Couldn't fetch image")
             json.dump(result, outfile, indent=4)
+            outfile.close()
             
 
 def fetchSpotify():
@@ -172,18 +174,22 @@ def fetchSpotify():
     image = None
     currentTrack = ''
 
+    with open('/home/pi/2048-Pi-Display/spotify.json', 'r') as json_file:
+        try:
+            result = json.load(json_file)
+            if result is not None and "is_playing" in result:
+                is_playing = result["is_playing"]
+                if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
+                    currentTrack = result["item"]["name"]
+            image = Image.open('/home/pi/2048-Pi-Display/spotify_image.jpeg').convert('RGB')
+            image.thumbnail((9, 9), Image.ANTIALIAS)
+        except:
+            print("Couldn't open image file")
+
     t = Thread(target=downloadSpotify)
     t.start()
 
-    with open('/home/pi/2048-Pi-Display/spotify.json', 'r') as json_file:
-        print(json_file)
-        result = json.load(json_file)
-        if result is not None and "is_playing" in result:
-            is_playing = result["is_playing"]
-            if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
-                currentTrack = result["item"]["name"]
-        image = Image.open('/home/pi/2048-Pi-Display/spotify_image.jpeg').convert('RGB')
-        image.thumbnail((9, 9), Image.ANTIALIAS)
+
 
     return (is_playing, image, currentTrack)
         
