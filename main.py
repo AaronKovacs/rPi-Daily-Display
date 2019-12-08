@@ -14,6 +14,7 @@ import pytz
 import socket
 import os
 from config import weather_zipcode, openweathermap_appid
+from threading import Thread
 
 class rPiDisplay(DisplayBase):
 
@@ -148,29 +149,39 @@ def fetchTime():
 
     return (concocted_str, clock_color, day_color, day)
 
+def downloadSpotify():
+    with open('spotify.txt', 'w') as outfile:
+        token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing", client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
+        sp = Spotify(auth=token)
+        result = sp.current_user_playing_track()
+        if result is not None:
+            json.dump(data, result)
+            if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
+                try:
+                    resp = requests.get(result["item"]["album"]["images"][0]["url"])
+                    image_file = io.BytesIO(resp.content)
+                    with open('spotify_image.jpeg', 'w') as imagefile:
+                        imagefile.write(image_file)
+                except:
+                    print("Couldn't fetch image")
+
 def fetchSpotify():
     is_playing = False
     image = None
     currentTrack = ''
-    try:
-        token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing", client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
-        sp = Spotify(auth=token)
-        result = sp.current_user_playing_track()
+
+    t = Thread(target=downloadSpotify)
+    t.start()
+
+    with open('spotify.txt') as json_file:
+        result = json.load(json_file)
         if result is not None and "is_playing" in result:
             is_playing = result["is_playing"]
-            
             if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                 currentTrack = result["item"]["name"]
-                try:
-                    resp = requests.get(result["item"]["album"]["images"][0]["url"])
-                    image_file = io.BytesIO(resp.content)
-                    image = Image.open(image_file)
-                    image.thumbnail((9, 9), Image.ANTIALIAS)
-                except:
-                    print("Couldn't fetch image")
-    except:
-        image = None
-        is_playing = False
+        with open('spotify_image.jpeg', 'rb') as imagefile:
+            image = Image.open(f.read())
+            image.thumbnail((9, 9), Image.ANTIALIAS)
 
     return (is_playing, image, currentTrack)
         
