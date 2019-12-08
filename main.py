@@ -94,7 +94,8 @@ class rPiDisplay(DisplayBase):
                 is_playing = resp[0]
                 image = resp[1]
                 if image is not None:
-                    spotify_color = most_frequent_colour(image)
+                    most_frequent = most_frequent_colour(image)
+                    spotify_color = graphics.Color(most_frequent[0], most_frequent[1], most_frequent[2])
                 else:
                     spotify_color = graphics.Color(0, 99, 0)
                 currentTrack = resp[2]
