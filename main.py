@@ -90,7 +90,6 @@ class rPiDisplay(DisplayBase):
             graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
             if iteration % 50 == 0:
-                pos = 10
                 resp = fetchSpotify()
                 is_playing = resp[0]
                 image = resp[1]
