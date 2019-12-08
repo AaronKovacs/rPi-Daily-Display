@@ -164,7 +164,7 @@ def downloadSpotify():
                         imagefile.write(resp.content)
                 except:
                     print("Couldn't fetch image")
-            json.dump(result, outfile)
+            json.dump(result, outfile, indent=4)
             
 
 def fetchSpotify():
