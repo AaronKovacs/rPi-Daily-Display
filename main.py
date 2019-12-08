@@ -151,7 +151,7 @@ def fetchTime():
     return (concocted_str, clock_color, day_color, day)
 
 def downloadSpotify():
-    with open('/home/pi/2048-Pi-Display/spotify.txt', 'w') as outfile:
+    with open('/home/pi/2048-Pi-Display/spotify.json', 'w') as outfile:
         token = util.prompt_for_user_token("jc8a1vumj4nofex2isggs9uur","user-read-currently-playing", client_id='a362ed228f6f42dda29df88594deacf9',client_secret='55924005c1a04aaca88d5a8e3dd39653',redirect_uri='https://callback/')
         sp = Spotify(auth=token)
         result = sp.current_user_playing_track()
@@ -175,17 +175,16 @@ def fetchSpotify():
     t = Thread(target=downloadSpotify)
     t.start()
 
-    file = open('/home/pi/2048-Pi-Display/spotify.txt', 'r')
-
-    print(file)
-    result = json.load(file)
-    if result is not None and "is_playing" in result:
-        is_playing = result["is_playing"]
-        if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
-            currentTrack = result["item"]["name"]
-    with open('/home/pi/2048-Pi-Display/spotify_image.jpeg', 'rb') as imagefile:
-        image = Image.open(imagefile.read())
-        image.thumbnail((9, 9), Image.ANTIALIAS)
+    with open('/home/pi/2048-Pi-Display/spotify.json', 'r') as json_file:
+        print(json_file)
+        result = json.load(json_file)
+        if result is not None and "is_playing" in result:
+            is_playing = result["is_playing"]
+            if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
+                currentTrack = result["item"]["name"]
+        with open('/home/pi/2048-Pi-Display/spotify_image.jpeg', 'rb') as imagefile:
+            image = Image.open(imagefile.read())
+            image.thumbnail((9, 9), Image.ANTIALIAS)
 
     return (is_playing, image, currentTrack)
         
