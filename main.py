@@ -176,7 +176,8 @@ def fetchSpotify():
     t.start()
 
     with open('/home/pi/2048-Pi-Display/spotify.txt', 'r') as json_file:
-        result = json.load(json_file.read())
+        print(json_file)
+        result = json.load(json_file)
         if result is not None and "is_playing" in result:
             is_playing = result["is_playing"]
             if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
