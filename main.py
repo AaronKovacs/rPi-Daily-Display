@@ -161,7 +161,7 @@ def downloadSpotify():
                     resp = requests.get(result["item"]["album"]["images"][0]["url"])
                     image_file = io.BytesIO(resp.content)
                     with open('/home/pi/2048-Pi-Display/spotify_image.jpeg', 'w') as imagefile:
-                        imagefile.write(image_file)
+                        imagefile.write(resp.content)
                 except:
                     print("Couldn't fetch image")
             json.dump(result, outfile)
