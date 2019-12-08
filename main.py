@@ -172,8 +172,8 @@ def fetchSpotify():
     image = None
     currentTrack = ''
 
-    t = Thread(target=downloadSpotify)
-    t.start()
+    #t = Thread(target=downloadSpotify)
+    #t.start()
 
     with open('/home/pi/2048-Pi-Display/spotify.json', 'r') as json_file:
         print(json_file)
