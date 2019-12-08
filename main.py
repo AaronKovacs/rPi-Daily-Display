@@ -83,7 +83,7 @@ class rPiDisplay(DisplayBase):
                 currentWeather = resp[1]
 
             if iteration % 100 == 0:
-               t = Thread(target=downloadWeather)
+                t = Thread(target=downloadWeather)
                 t.start()
 
             #Draw weather
