@@ -156,7 +156,6 @@ def downloadSpotify():
         sp = Spotify(auth=token)
         result = sp.current_user_playing_track()
         if result is not None:
-            json.dump(result, outfile)
             if result["item"]["name"] != '':
                 try:
                     resp = requests.get(result["item"]["album"]["images"][0]["url"])
@@ -165,6 +164,8 @@ def downloadSpotify():
                         imagefile.write(image_file)
                 except:
                     print("Couldn't fetch image")
+            json.dump(result, outfile)
+            
 
 def fetchSpotify():
     is_playing = False
@@ -181,7 +182,7 @@ def fetchSpotify():
             if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                 currentTrack = result["item"]["name"]
         with open('/home/pi/2048-Pi-Display/spotify_image.jpeg', 'rb') as imagefile:
-            image = Image.open(f.read())
+            image = Image.open(imagefile.read())
             image.thumbnail((9, 9), Image.ANTIALIAS)
 
     return (is_playing, image, currentTrack)
