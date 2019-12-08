@@ -85,12 +85,16 @@ class rPiDisplay(DisplayBase):
             #Draw weather
             graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
-            if iteration % 100 == 0:
+            if iteration % 50 == 0:
                 pos = 10
                 resp = fetchSpotify()
                 is_playing = resp[0]
                 image = resp[1]
                 currentTrack = resp[2]
+
+            if iteration % 100 == 0:
+                t = Thread(target=downloadSpotify)
+                t.start()
 
             if iteration % 1000 == 0:
                 wotd = fetchUrbanWOTD()
@@ -185,11 +189,6 @@ def fetchSpotify():
             image.thumbnail((9, 9), Image.ANTIALIAS)
         except:
             print("Couldn't open image file")
-
-    t = Thread(target=downloadSpotify)
-    t.start()
-
-
 
     return (is_playing, image, currentTrack)
         
