@@ -38,7 +38,7 @@ class rPiDisplay(DisplayBase):
         image = None
         is_playing = False
         weather_color = graphics.Color(59, 59, 59)
-
+        spotify_color = graphics.Color(0, 99, 0)
         sent_ipaddress = False
         while True:
 
@@ -93,6 +93,10 @@ class rPiDisplay(DisplayBase):
                 resp = fetchSpotify()
                 is_playing = resp[0]
                 image = resp[1]
+                if image is not None:
+                    spotify_color = most_frequent_colour(image)
+                else:
+                    spotify_color = graphics.Color(0, 99, 0)
                 currentTrack = resp[2]
 
             if iteration % 100 == 0:
@@ -109,13 +113,12 @@ class rPiDisplay(DisplayBase):
                 wotd = fetchUrbanWOTD()
 
             if is_playing:
-                graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(0, 99, 0))
-                len = graphics.DrawText(offscreen_canvas, font, pos, 30, graphics.Color(0, 99, 0), currentTrack)
+                graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, spotify_color)
+                len = graphics.DrawText(offscreen_canvas, font, pos, 30, spotify_color, currentTrack)
                 pos -= 1
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
                 if image is not None:
-                    print(most_frequent_colour(image))
                     offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 # Draw Urban Dictionary WOTD
@@ -143,7 +146,7 @@ def most_frequent_colour(image):
 
     return most_frequent_pixel[1]
 
-    
+
 def fetchTime():
     today = datetime.datetime.today()
     timezone = pytz.timezone("America/New_York")
