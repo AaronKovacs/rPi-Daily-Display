@@ -131,6 +131,7 @@ class rPiDisplay(DisplayBase):
             time.sleep(0.1)
 
 def most_frequent_colour(image):
+
     w, h = image.size
     pixels = image.getcolors(w * h)
 
@@ -140,10 +141,9 @@ def most_frequent_colour(image):
         if count > most_frequent_pixel[0]:
             most_frequent_pixel = (count, colour)
 
-    compare("Most Common", image, most_frequent_pixel[1])
+    return most_frequent_pixel[1]
 
-    return most_frequent_pixel
-
+    
 def fetchTime():
     today = datetime.datetime.today()
     timezone = pytz.timezone("America/New_York")
