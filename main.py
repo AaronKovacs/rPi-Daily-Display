@@ -157,7 +157,7 @@ def downloadSpotify():
         result = sp.current_user_playing_track()
         if result is not None:
             json.dump(result, outfile)
-            if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
+            if result["item"]["name"] != '':
                 try:
                     resp = requests.get(result["item"]["album"]["images"][0]["url"])
                     image_file = io.BytesIO(resp.content)
