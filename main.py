@@ -172,8 +172,8 @@ def fetchSpotify():
     image = None
     currentTrack = ''
 
-    #t = Thread(target=downloadSpotify)
-    #t.start()
+    t = Thread(target=downloadSpotify)
+    t.start()
 
     with open('/home/pi/2048-Pi-Display/spotify.json', 'r') as json_file:
         print(json_file)
@@ -182,9 +182,8 @@ def fetchSpotify():
             is_playing = result["is_playing"]
             if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                 currentTrack = result["item"]["name"]
-        with open('/home/pi/2048-Pi-Display/spotify_image.jpeg', 'rb') as imagefile:
-            image = Image.open(imagefile.read())
-            image.thumbnail((9, 9), Image.ANTIALIAS)
+        image = Image.open('/home/pi/2048-Pi-Display/spotify_image.jpeg').convert('RGB')
+        image.thumbnail((9, 9), Image.ANTIALIAS)
 
     return (is_playing, image, currentTrack)
         
