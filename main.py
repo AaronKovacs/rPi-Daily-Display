@@ -175,7 +175,7 @@ def fetchSpotify():
     t = Thread(target=downloadSpotify)
     t.start()
 
-    with open('/home/pi/2048-Pi-Display/spotify.txt', 'rb') as json_file:
+    with open('/home/pi/2048-Pi-Display/spotify.txt', 'r') as json_file:
         print(json_file)
         result = json.load(json_file)
         if result is not None and "is_playing" in result:
