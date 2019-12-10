@@ -260,6 +260,7 @@ def fetchUrbanWOTD():
     try:
         with open('/home/pi/2048-Pi-Display/urbanwotd.json', 'r') as json_file:
             data = json.load(json_file)
+            json_file.close()
             if data is not None:
                return data["word"]
             else:
