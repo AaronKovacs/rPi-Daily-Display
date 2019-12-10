@@ -29,7 +29,7 @@ class rPiDisplay(DisplayBase):
         textColor = graphics.Color(59, 59, 59)
         pos = offscreen_canvas.width
 
-        self.matrix.brightness = 1
+        self.matrix.brightness = 10
        
         iteration = 0
         currentWeather = '0F '
