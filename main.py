@@ -33,7 +33,7 @@ class rPiDisplay(DisplayBase):
        
         iteration = 0
         currentWeather = '0F '
-        wotd = ''
+        wotd = 'Good Morning...'
         currentTrack = ''
         image = None
         is_playing = False
@@ -111,7 +111,9 @@ class rPiDisplay(DisplayBase):
                 t.start()
 
             if iteration % 500 == 0:
-                wotd = fetchUrbanWOTD()
+                temp_wotd = fetchUrbanWOTD()
+                if temp_wotd != "No internet??":
+                    wotd = fetchUrbanWOTD()
 
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, spotify_color)
