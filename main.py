@@ -202,7 +202,7 @@ def fetchTime():
 
     final_str = '%s %s/%s' % (day_trunc, d_aware.strftime("%-d"), d_aware.strftime("%-m"))
 
-    return (final_str, clock_color, day_color, day)
+    return (concocted_str, clock_color, day_color, final_str)
 
 def downloadSpotify():
     with open('/home/pi/2048-Pi-Display/spotify.json', 'w') as outfile:
