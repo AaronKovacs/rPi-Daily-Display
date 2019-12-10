@@ -176,22 +176,33 @@ def fetchTime():
 
     day_color = graphics.Color(59, 59, 59)
     day = d_aware.strftime("%A").upper()
+
+    day_trunc = ''
     if day == 'MONDAY':
         day_color = graphics.Color(248, 205, 70)
+        day_trunc = 'MO'
     if day == 'TUESDAY':
         day_color = graphics.Color(235, 76, 198)
+        day_trunc = 'TU'
     if day == 'WEDNESDAY':
         day_color = graphics.Color(92, 199, 59)
+        day_trunc = 'WD'
     if day == 'THURSDAY':
         day_color = graphics.Color(241, 150, 57)
+        day_trunc = 'TR'
     if day == 'FRIDAY':
         day_color = graphics.Color(36, 104, 246)
+        day_trunc = 'FR'
     if day == 'SATURDAY':
         day_color = graphics.Color(92, 31, 199)
+        day_trunc = 'SA'
     if day == 'SUNDAY':
         day_color = graphics.Color(234, 50, 35)
+        day_trunc = 'SU'
 
-    return (concocted_str, clock_color, day_color, day)
+    final_str = '%s %s/%s' % (day_trunc, d_aware.strftime("%-d"), d_aware.strftime("%-m"))
+
+    return (final_str, clock_color, day_color, day)
 
 def downloadSpotify():
     with open('/home/pi/2048-Pi-Display/spotify.json', 'w') as outfile:
