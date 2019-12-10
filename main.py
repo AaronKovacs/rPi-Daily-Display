@@ -174,6 +174,9 @@ def fetchTime():
         clock_color = graphics.Color(0, 0, 107)
 
     t_string = d_aware.strftime("%M:%S")
+
+    if hour == 0:
+        hour = 12
     concocted_str = "%s:%s" % (hour, t_string)
 
     day_color = graphics.Color(59, 59, 59)
