@@ -132,6 +132,18 @@ class rPiDisplay(DisplayBase):
             
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             iteration += 1
+
+            today = datetime.datetime.today()
+            timezone = pytz.timezone("America/New_York")
+            d_aware = timezone.localize(today)
+
+            hour = int(d_aware.strftime("%H"))
+
+            if hour >= 1 and hour < 9:
+                self.matrix.brightness = 10
+            else:
+                self.matrix.brightness = 70
+
             time.sleep(0.1)
 
 def most_frequent_colour(image):
