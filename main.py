@@ -113,7 +113,7 @@ class rPiDisplay(DisplayBase):
             if iteration % 500 == 0:
                 temp_wotd = fetchUrbanWOTD()
                 if temp_wotd != "No internet??":
-                    wotd = fetchUrbanWOTD()
+                    wotd = temp_wotd
 
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, spotify_color)
