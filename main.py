@@ -42,7 +42,7 @@ class rPiDisplay(DisplayBase):
         sent_ipaddress = False
         while True:
 
-            if sent_ipaddress == False and iteration % 100 == 0:
+            if iteration % 5000 == 0:
                 try: 
                     gw = os.popen("ip -4 route show default").read().split()
                     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
