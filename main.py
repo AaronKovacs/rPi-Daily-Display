@@ -132,7 +132,7 @@ class rPiDisplay(DisplayBase):
                     pos = offscreen_canvas.width
 
             
-            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+            
             iteration += 1
 
             today = datetime.datetime.today()
@@ -143,7 +143,15 @@ class rPiDisplay(DisplayBase):
 
             if hour >= 1 and hour < 9:
                 self.matrix.brightness = 10
+                offscreen_canvas.Clear()
+
+                # Draw Time
+                graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(150, 0, 0), concocted_str)
+                graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(150, 0, 0), currentWeather)
+
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             else:
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 self.matrix.brightness = 70
 
             time.sleep(0.1)
