@@ -213,7 +213,7 @@ def fetchTime():
         day_color = graphics.Color(234, 50, 35)
         day_trunc = 'SU'
 
-    final_str = '%s %s/%s' % (day_trunc, d_aware.strftime("%-d"), d_aware.strftime("%-m"))
+    final_str = '%s %s/%s' % (day_trunc, d_aware.strftime("%-m"), d_aware.strftime("%-d"))
 
     return (concocted_str, clock_color, day_color, final_str)
 
