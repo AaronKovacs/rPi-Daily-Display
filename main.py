@@ -71,11 +71,10 @@ class rPiDisplay(DisplayBase):
 
             # Draw Time
             graphics.DrawText(offscreen_canvas, font, 0, 6, clock_color, concocted_str)
-            graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, graphics.Color(59, 59, 59))
+            graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, day_color)
 
             #Draw Day
             graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
-            graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, graphics.Color(59, 59, 59))
 
             if iteration % 50 == 0:
                 resp = fetchWeather()
@@ -85,6 +84,8 @@ class rPiDisplay(DisplayBase):
             if iteration % 100 == 0:
                 t = Thread(target=downloadWeather)
                 t.start()
+
+            graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, weather_color)
 
             #Draw weather
             graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
