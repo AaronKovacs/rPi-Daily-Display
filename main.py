@@ -151,7 +151,7 @@ class rPiDisplay(DisplayBase):
                 if image is not None:
                     scaled = image
                     scaled.thumbnail((9, 9), Image.ANTIALIAS)
-                    offscreen_canvas.SetImage(image, offset_y=23)
+                    offscreen_canvas.SetImage(scaled, offset_y=23)
             else:
                 # Draw Urban Dictionary WOTD
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
@@ -181,7 +181,7 @@ class rPiDisplay(DisplayBase):
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             else:
                 if new_image is not None:
-                    animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
+                    currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
 
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 self.matrix.brightness = 70
@@ -219,6 +219,8 @@ def animateAlbumArt(canvas, old_image, new_image, currentStep):
 
     if finished:
         currentStep = 0
+
+    return currentStep
 
 def drawRect(canvas, x, y, width, height, red, green, blue):
         for x_mod in range(0, width):
