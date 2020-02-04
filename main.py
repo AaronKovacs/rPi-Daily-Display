@@ -82,7 +82,7 @@ class rPiDisplay(DisplayBase):
 
             #Draw Day
             if block_fill:
-                drawRect(offscreen_canvas, 0, 7, 32, 7, day_color.red, day_color.green, day_color.blue)
+                drawRect(offscreen_canvas, 0, 8, 32, 7, day_color.red, day_color.green, day_color.blue)
                 graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(255 - day_color.red, 255 - day_color.green, 255 - day_color.blue), day)
             else:
                 graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
