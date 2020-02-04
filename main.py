@@ -40,7 +40,7 @@ class rPiDisplay(DisplayBase):
         weather_color = graphics.Color(59, 59, 59)
         spotify_color = graphics.Color(0, 99, 0)
         sent_ipaddress = False
-        block_fill = True
+        block_fill = False
         black_color = graphics.Color(255, 255, 255)
         while True:
 
