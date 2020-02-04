@@ -115,6 +115,8 @@ class rPiDisplay(DisplayBase):
                     spotify_color = graphics.Color(most_frequent[0], most_frequent[1], most_frequent[2])
                 else:
                     spotify_color = graphics.Color(0, 99, 0)
+                if is_playing and currentTrack != '' and currentTrack != resp[2]:
+                    newImage = image
                 currentTrack = resp[2]
 
             if iteration % 100 == 0:
@@ -168,10 +170,47 @@ class rPiDisplay(DisplayBase):
 
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             else:
+                if new_image is not None:
+                    animateAlbumArt(offscreen_canvas)
+
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 self.matrix.brightness = 70
 
             time.sleep(0.1)
+
+new_image = None
+old_image = None
+currentStep = 0
+
+def animateAlbumArt(canvas):
+    speed = 1
+    finished = False
+
+    if currentStep <= 23:
+        adjustedStep = currentStep - 0
+        scaled = oldimage
+        scaled.thumbnail((9 + adjustedStep, 9 + adjustedStep), Image.ANTIALIAS)
+        canvas.SetImage(oldimage, offset_y=23 - adjustedStep)
+    elif currentStep <= 32 + 23:
+        adjustedStep = currentStep - 23
+        canvas.SetImage(oldimage, offset_x=-adjustedStep, offset_y=0)
+        canvas.SetImage(newImage, offset_x=32 - adjustedStep, offset_y=0)
+    elif currentStep <= 3 + 32 + 23:
+        canvas.SetImage(newImage, offset_x=0, offset_y=0)
+    elif currentStep <= 23 + 3 + 32 + 23:
+        adjustedStep = currentStep - 23 - 32 - 3
+        scaled = newImage
+        scaled.thumbnail((32 - adjustedStep, 32 - adjustedStep), Image.ANTIALIAS)
+        canvas.SetImage(newImage, offset_x=0, offset_y=23 - adjustedStep)
+    elif currentStep > 23 + 3 + 32 + 23:
+        old_image = new_image
+        new_image = None
+        finished = True
+
+    currentStep += 1 * speed
+
+    if finished:
+        currentStep = 0
 
 def drawRect(canvas, x, y, width, height, red, green, blue):
         for x_mod in range(0, width):
