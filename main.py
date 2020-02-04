@@ -119,13 +119,14 @@ class rPiDisplay(DisplayBase):
                 image = resp[1]
                 if image is not None:
                     if old_image is None:
-                        old_image = image
+                        old_image = copy.deepcopy(image)
                     most_frequent = most_frequent_colour(image)
                     spotify_color = graphics.Color(most_frequent[0], most_frequent[1], most_frequent[2])
                 else:
                     spotify_color = graphics.Color(0, 99, 0)
                 if is_playing and currentTrack != '' and currentTrack != resp[2]:
-                    new_image = image
+                    new_image = copy.deepcopy(image)
+                image.thumbnail((9, 9), Image.ANTIALIAS)
                 currentTrack = resp[2]
 
             if iteration % 100 == 0:
@@ -150,9 +151,7 @@ class rPiDisplay(DisplayBase):
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
                 if image is not None:
-                    scaled = copy.deepcopy(image)
-                    scaled.thumbnail((9, 9), Image.ANTIALIAS)
-                    offscreen_canvas.SetImage(scaled, offset_y=23)
+                    offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 # Draw Urban Dictionary WOTD
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
