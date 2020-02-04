@@ -41,7 +41,7 @@ class rPiDisplay(DisplayBase):
         spotify_color = graphics.Color(0, 99, 0)
         sent_ipaddress = False
         block_fill = True
-        black_color = graphics.Color(0, 0, 0)
+        black_color = graphics.Color(255, 255, 255)
         while True:
 
             if iteration % 5000 == 0:
