@@ -116,23 +116,24 @@ class rPiDisplay(DisplayBase):
             if iteration % 50 == 0:
                 resp = fetchSpotify()
                 is_playing = resp[0]
-                temp_image = resp[1].resize((32, 32), Image.ANTIALIAS)
-                if temp_image != old_image and temp_image != new_image:
-                    if temp_image is not None:
-                        image = temp_image.resize((9, 9), Image.ANTIALIAS)
-                    if temp_image is not None:
-                        if old_image is None:
-                            old_image = temp_image
-                        most_frequent = most_frequent_colour(image)
-                        spotify_color = graphics.Color(most_frequent[0], most_frequent[1], most_frequent[2])
-                    else:
-                        spotify_color = graphics.Color(0, 99, 0)
+                if resp[1] is not None:
+                    temp_image = resp[1].resize((32, 32), Image.ANTIALIAS)
+                    if temp_image != old_image and temp_image != new_image:
+                        if temp_image is not None:
+                            image = temp_image.resize((9, 9), Image.ANTIALIAS)
+                        if temp_image is not None:
+                            if old_image is None:
+                                old_image = temp_image
+                            most_frequent = most_frequent_colour(image)
+                            spotify_color = graphics.Color(most_frequent[0], most_frequent[1], most_frequent[2])
+                        else:
+                            spotify_color = graphics.Color(0, 99, 0)
 
-                    if is_playing and currentTrack != '' and currentTrack != resp[2]:
-                        new_image = temp_image
+                        if is_playing and currentTrack != '' and currentTrack != resp[2]:
+                            new_image = temp_image
 
-                
-                currentTrack = resp[2]
+                    
+                    currentTrack = resp[2]
 
             if iteration % 100 == 0:
                 t = Thread(target=downloadSpotify)
