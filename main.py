@@ -196,20 +196,16 @@ def animateAlbumArt(canvas, old_image, new_image, currentStep):
 
     if currentStep <= 23:
         adjustedStep = currentStep - 0
-        scaled = copy.deepcopy(old_image)
-        scaled.thumbnail((9 + adjustedStep, 9 + adjustedStep), Image.ANTIALIAS)
-        canvas.SetImage(scaled, offset_y=23 - adjustedStep)
+        canvas.SetImage(old_image.resize((9 + adjustedStep, 9 + adjustedStep), Image.ANTIALIAS), offset_y=23 - adjustedStep)
     elif currentStep <= 32 + 23:
         adjustedStep = currentStep - 23
-        canvas.SetImage(old_image, offset_x=-adjustedStep, offset_y=0)
-        canvas.SetImage(new_image, offset_x=32 - adjustedStep, offset_y=0)
+        canvas.SetImage(old_image.resize((32, 32), Image.ANTIALIAS), offset_x=-adjustedStep, offset_y=0)
+        canvas.SetImage(new_image.resize((32, 32), Image.ANTIALIAS), offset_x=32 - adjustedStep, offset_y=0)
     elif currentStep <= 3 + 32 + 23:
-        canvas.SetImage(new_image, offset_x=0, offset_y=0)
+        canvas.SetImage(new_image.resize((32, 32), Image.ANTIALIAS), offset_x=0, offset_y=0)
     elif currentStep <= 23 + 3 + 32 + 23:
         adjustedStep = currentStep - 23 - 32 - 3
-        scaled = copy.deepcopy(new_image)
-        scaled.thumbnail((32 - adjustedStep, 32 - adjustedStep), Image.ANTIALIAS)
-        canvas.SetImage(scaled, offset_x=0, offset_y=23 - adjustedStep)
+        canvas.SetImage(new_image.resize((32 - adjustedStep, 32 - adjustedStep), Image.ANTIALIAS), offset_x=0, offset_y=adjustedStep)
     elif currentStep > 23 + 3 + 32 + 23:
         old_image = new_image
         new_image = None
