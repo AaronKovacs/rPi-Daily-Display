@@ -150,7 +150,7 @@ class rPiDisplay(DisplayBase):
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
                 if image is not None:
-                    scaled = image
+                    scaled = copy.deepcopy(image)
                     scaled.thumbnail((9, 9), Image.ANTIALIAS)
                     offscreen_canvas.SetImage(scaled, offset_y=23)
             else:
@@ -323,7 +323,7 @@ def fetchSpotify():
                 if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                     currentTrack = result["item"]["name"]
             image = Image.open('/home/pi/2048-Pi-Display/spotify_image.jpeg').convert('RGB')
-            image.thumbnail((32, 32), Image.ANTIALIAS)
+            #image.thumbnail((32, 32), Image.ANTIALIAS)
         except:
             print("Couldn't open image file")
 
