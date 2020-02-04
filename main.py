@@ -77,10 +77,15 @@ class rPiDisplay(DisplayBase):
                 graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(255 - clock_color.red, 255 - clock_color.green, 255 - clock_color.blue), concocted_str)
             else:
                 graphics.DrawText(offscreen_canvas, font, 0, 6, clock_color, concocted_str)
+
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, day_color)
 
             #Draw Day
-            graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
+            if block_fill:
+                drawRect(offscreen_canvas, 0, 0, 32, 14, clock_color.red, day_color.green, day_color.blue)
+                graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(255 - day_color.red, 255 - day_color.green, 255 - day_color.blue), concocted_str)
+            else:
+                graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
 
             if iteration % 50 == 0:
                 resp = fetchWeather()
