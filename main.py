@@ -101,7 +101,7 @@ class rPiDisplay(DisplayBase):
 
             #Draw weather
             if block_fill:
-                drawRect(offscreen_canvas, 0, 23, 32, 7, weather_color.red, weather_color.green, weather_color.blue)
+                drawRect(offscreen_canvas, 0, 16, 32, 7, weather_color.red, weather_color.green, weather_color.blue)
                 graphics.DrawText(offscreen_canvas, font, 0, 22, graphics.Color(255 - weather_color.red, 255 - weather_color.green, 255 - weather_color.blue), currentWeather)
             else:
                 graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
