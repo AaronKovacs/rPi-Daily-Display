@@ -16,6 +16,7 @@ import os
 from config import weather_zipcode, openweathermap_appid
 from threading import Thread
 import json 
+import copy 
 
 class rPiDisplay(DisplayBase):
 
@@ -196,7 +197,7 @@ def animateAlbumArt(canvas, old_image, new_image, currentStep):
 
     if currentStep <= 23:
         adjustedStep = currentStep - 0
-        scaled = old_image
+        scaled = copy.deepcopy(old_image)
         scaled.thumbnail((9 + adjustedStep, 9 + adjustedStep), Image.ANTIALIAS)
         canvas.SetImage(scaled, offset_y=23 - adjustedStep)
     elif currentStep <= 32 + 23:
@@ -207,7 +208,7 @@ def animateAlbumArt(canvas, old_image, new_image, currentStep):
         canvas.SetImage(new_image, offset_x=0, offset_y=0)
     elif currentStep <= 23 + 3 + 32 + 23:
         adjustedStep = currentStep - 23 - 32 - 3
-        scaled = new_image
+        scaled = copy.deepcopy(new_image)
         scaled.thumbnail((32 - adjustedStep, 32 - adjustedStep), Image.ANTIALIAS)
         canvas.SetImage(scaled, offset_x=0, offset_y=23 - adjustedStep)
     elif currentStep > 23 + 3 + 32 + 23:
