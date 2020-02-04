@@ -96,10 +96,15 @@ class rPiDisplay(DisplayBase):
                 t = Thread(target=downloadWeather)
                 t.start()
 
+
             graphics.DrawLine(offscreen_canvas, 0, 15, 31, 15, weather_color)
 
             #Draw weather
-            graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
+            if block_fill:
+                drawRect(offscreen_canvas, 0, 23, 32, 7, weather_color.red, weather_color.green, weather_color.blue)
+                graphics.DrawText(offscreen_canvas, font, 0, 22, graphics.Color(255 - weather_color.red, 255 - weather_color.green, 255 - weather_color.blue), currentWeather)
+            else:
+                graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
             if iteration % 50 == 0:
                 resp = fetchSpotify()
