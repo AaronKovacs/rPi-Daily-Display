@@ -19,6 +19,10 @@ import json
 
 class rPiDisplay(DisplayBase):
 
+    new_image = None
+    old_image = None
+    currentStep = 0
+
     def __init__(self, *args, **kwargs):
         super(rPiDisplay, self).__init__(*args, **kwargs)
 
@@ -182,9 +186,7 @@ class rPiDisplay(DisplayBase):
 
             time.sleep(0.1)
 
-new_image = None
-old_image = None
-currentStep = 0
+
 
 def animateAlbumArt(canvas):
     speed = 1
