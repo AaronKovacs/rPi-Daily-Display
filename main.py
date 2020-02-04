@@ -111,12 +111,14 @@ class rPiDisplay(DisplayBase):
                 is_playing = resp[0]
                 image = resp[1]
                 if image is not None:
+                    if old_image is None:
+                        old_image = image
                     most_frequent = most_frequent_colour(image)
                     spotify_color = graphics.Color(most_frequent[0], most_frequent[1], most_frequent[2])
                 else:
                     spotify_color = graphics.Color(0, 99, 0)
                 if is_playing and currentTrack != '' and currentTrack != resp[2]:
-                    newImage = image
+                    new_image = image
                 currentTrack = resp[2]
 
             if iteration % 100 == 0:
@@ -141,6 +143,8 @@ class rPiDisplay(DisplayBase):
                 if (pos + len < 10):
                     pos = offscreen_canvas.width
                 if image is not None:
+                    scaled = image
+                    scaled.thumbnail((9, 9), Image.ANTIALIAS)
                     offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 # Draw Urban Dictionary WOTD
@@ -312,7 +316,7 @@ def fetchSpotify():
                 if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                     currentTrack = result["item"]["name"]
             image = Image.open('/home/pi/2048-Pi-Display/spotify_image.jpeg').convert('RGB')
-            image.thumbnail((9, 9), Image.ANTIALIAS)
+            image.thumbnail((32, 32), Image.ANTIALIAS)
         except:
             print("Couldn't open image file")
 
