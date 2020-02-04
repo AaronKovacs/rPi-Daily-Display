@@ -73,8 +73,8 @@ class rPiDisplay(DisplayBase):
 
             # Draw Time
             if block_fill:
-                drawRect(offscreen_canvas, 0, 0, 31, 7, clock_color.red, clock_color.green, clock_color.blue)
-                graphics.DrawText(offscreen_canvas, font, 0, 6, black_color, concocted_str)
+                drawRect(offscreen_canvas, 0, 0, 32, 7, clock_color.red, clock_color.green, clock_color.blue)
+                graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(255 - clock_color.red, 255 - clock_color.green, 255 - clock_color.blue), concocted_str)
             else:
                 graphics.DrawText(offscreen_canvas, font, 0, 6, clock_color, concocted_str)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, day_color)
