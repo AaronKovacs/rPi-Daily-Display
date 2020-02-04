@@ -40,6 +40,8 @@ class rPiDisplay(DisplayBase):
         weather_color = graphics.Color(59, 59, 59)
         spotify_color = graphics.Color(0, 99, 0)
         sent_ipaddress = False
+        block_fill = True
+        black_color = graphics.Color(0, 0, 0)
         while True:
 
             if iteration % 5000 == 0:
@@ -70,7 +72,11 @@ class rPiDisplay(DisplayBase):
             offscreen_canvas.Clear()
 
             # Draw Time
-            graphics.DrawText(offscreen_canvas, font, 0, 6, clock_color, concocted_str)
+            if block_fill:
+                drawRect(offscreen_canvas, 0, 0, 7, 31, clock_color.red, clock_color.blue, clock_color.green)
+                graphics.DrawText(offscreen_canvas, font, 0, 6, black_color, concocted_str)
+            else:
+                graphics.DrawText(offscreen_canvas, font, 0, 6, clock_color, concocted_str)
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, day_color)
 
             #Draw Day
@@ -156,6 +162,12 @@ class rPiDisplay(DisplayBase):
                 self.matrix.brightness = 70
 
             time.sleep(0.1)
+
+def drawRect(canvas, x, y, width, height, red, green, blue):
+        for x_mod in range(0, width):
+            for y_mod in range(0, height):
+                canvas.SetPixel(x + x_mod, y + y_mod, red, green, blue)
+
 
 def most_frequent_colour(image):
 
