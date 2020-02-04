@@ -19,9 +19,7 @@ import json
 
 class rPiDisplay(DisplayBase):
 
-    new_image = None
-    old_image = None
-    currentStep = 0
+    
 
     def __init__(self, *args, **kwargs):
         super(rPiDisplay, self).__init__(*args, **kwargs)
@@ -46,6 +44,10 @@ class rPiDisplay(DisplayBase):
         sent_ipaddress = False
         block_fill = False
         black_color = graphics.Color(255, 255, 255)
+
+        new_image = None
+        old_image = None
+        currentStep = 0
         while True:
 
             if iteration % 5000 == 0:
@@ -179,7 +181,7 @@ class rPiDisplay(DisplayBase):
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             else:
                 if new_image is not None:
-                    animateAlbumArt(offscreen_canvas)
+                    animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
 
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 self.matrix.brightness = 70
@@ -188,7 +190,7 @@ class rPiDisplay(DisplayBase):
 
 
 
-def animateAlbumArt(canvas):
+def animateAlbumArt(canvas, old_image, new_image, currentStep):
     speed = 1
     finished = False
 
