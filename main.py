@@ -116,7 +116,8 @@ class rPiDisplay(DisplayBase):
             if iteration % 50 == 0:
                 resp = fetchSpotify()
                 is_playing = resp[0]
-                currentTrack = resp[2]
+                if resp[2] is not None:
+                    currentTrack = resp[2]
                 if resp[1] is not None:
                     temp_image = resp[1].resize((32, 32), Image.ANTIALIAS)
                     if temp_image != old_image and temp_image != new_image:
