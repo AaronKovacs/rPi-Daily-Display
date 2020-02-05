@@ -301,7 +301,14 @@ def downloadSpotify():
         sp = Spotify(auth=lo_token)
         result = sp.current_user_playing_track()
 
+        try_aaron = False
+
         if result is None:
+            try_aaron = True
+        elif result["is_playing"] == False:
+            try_aaron = True
+
+        if try_aaron:
             sp = Spotify(auth=ak_token)
             result = sp.current_user_playing_track()
 
