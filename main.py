@@ -152,6 +152,8 @@ class rPiDisplay(DisplayBase):
 
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, spotify_color)
+                print(currentTrack)
+                print(spotify_color)
                 len = graphics.DrawText(offscreen_canvas, font, pos, 30, spotify_color, currentTrack)
                 pos -= 1
                 if (pos + len < 10):
