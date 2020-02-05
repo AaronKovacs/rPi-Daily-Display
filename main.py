@@ -298,11 +298,11 @@ def downloadSpotify():
         lo_token = util.prompt_for_user_token("loganjohnson_","user-read-currently-playing", client_id='40905780d3124d0c8454937552023133',client_secret='6402502d32834e568339004b885ad0a1',redirect_uri='https://callback/')
 
         # Check logan
-        sp = Spotify(auth=ak_token)
+        sp = Spotify(auth=lo_token)
         result = sp.current_user_playing_track()
 
         if result is None:
-            sp = Spotify(auth=lo_token)
+            sp = Spotify(auth=ak_token)
             result = sp.current_user_playing_track()
 
         if result is not None:
