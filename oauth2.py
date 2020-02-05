@@ -116,7 +116,7 @@ class SpotifyOAuth(object):
         self.client_secret = client_secret
         self.redirect_uri = redirect_uri
         self.state=state
-        self.cache_path = '/home/pi/2048-Pi-Display/.cache-jc8a1vumj4nofex2isggs9uur'
+        self.cache_path = '/home/pi/2048-Pi-Display/' + cache_path #.cache-jc8a1vumj4nofex2isggs9uur
         self.scope=self._normalize_scope(scope)
         self.proxies = proxies
 
