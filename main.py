@@ -116,7 +116,7 @@ class rPiDisplay(DisplayBase):
             else:
                 if 'RAIN' in currentWeather:
                     rain_color = graphics.Color(92, 200, 250)
-                    if currentStep % 2 == 0
+                    if currentStep % 2 == 0:
                         rain_coords = []
                         for x in range(0, 10):
                             rain_coords.append(randomOffset(32, 8))                        
