@@ -222,7 +222,7 @@ class rPiDisplay(DisplayBase):
             time.sleep(0.1)
 
 def randomOffset(width, height):
-    return (randrange(width), randrange(height))
+    return [randrange(width), randrange(height)]
 
 
 def animateAlbumArt(canvas, old_image, new_image, currentStep):
