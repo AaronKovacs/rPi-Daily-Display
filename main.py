@@ -96,19 +96,7 @@ class rPiDisplay(DisplayBase):
 
             graphics.DrawLine(offscreen_canvas, 0, 7, 31, 7, day_color)
 
-            if iteration % 1 == 0:
-
-                for index in range(0, len(pong_coords)):
-                    offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, 10 + index, 10 + index, 10 + index)
-
-                pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
-                
-                pong_coords.insert(0, pong_coord)
-                pong_coords = pong_coords[:32]
-                
-                pong_coord = pong_result[0]
-                pong_xDir = pong_result[1]
-                pong_yDir = pong_result[2]
+           
 
             #Draw Day
             if block_fill:
@@ -118,7 +106,19 @@ class rPiDisplay(DisplayBase):
                 graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
 
           
+            if iteration % 1 == 0:
 
+                for index in range(0, len(pong_coords)):
+                    offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, 255, 255, 255)
+
+                pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
+                
+                pong_coords.insert(0, pong_coord)
+                pong_coords = pong_coords[:32]
+                
+                pong_coord = pong_result[0]
+                pong_xDir = pong_result[1]
+                pong_yDir = pong_result[2]
 
 
             if iteration % 50 == 0:
