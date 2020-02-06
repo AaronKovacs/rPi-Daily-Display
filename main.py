@@ -50,6 +50,8 @@ class rPiDisplay(DisplayBase):
         new_image = None
         old_image = None
         currentStep = 0
+
+        rain_coords = []
         while True:
 
             if iteration % 5000 == 0:
@@ -114,9 +116,12 @@ class rPiDisplay(DisplayBase):
             else:
                 if 'RAIN' in currentWeather:
                     rain_color = graphics.Color(92, 200, 250)
-                    for x in range(0, 10):
-                        rand_coord = randomOffset(32, 8)
-                        offscreen_canvas.SetPixel(rand_coord[0], rand_coord[1] + 16, 92, 200, 250)
+                    if currentStep % 2 == 0
+                        rain_coords = []
+                        for x in range(0, 10):
+                            rain_coords.append(randomOffset(32, 8))                        
+                    for coord in rain_coords:
+                        offscreen_canvas.SetPixel(coord[0], coord[1] + 16, 92, 200, 250)
                 graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
             if iteration % 50 == 0:
