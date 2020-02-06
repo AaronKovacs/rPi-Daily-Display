@@ -121,6 +121,7 @@ class rPiDisplay(DisplayBase):
                     if iteration % 2 == 0:
                         for index in range(0, len(rain_coords)):
                             if rain_coords[index][1] > 23:
+                                print(rain_coords[index][1])
                                 rain_coords[index] = randomOffset(32, 8)
                             else:
                                 rain_coords[index][1] += 1
