@@ -52,6 +52,8 @@ class rPiDisplay(DisplayBase):
         currentStep = 0
 
         rain_coords = []
+        for x in range(0, 10):
+            rain_coords.append(randomOffset(32, 8))
         while True:
 
             if iteration % 5000 == 0:
