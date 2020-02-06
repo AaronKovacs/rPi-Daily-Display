@@ -17,6 +17,7 @@ from config import weather_zipcode, openweathermap_appid
 from threading import Thread
 import json 
 import copy 
+from random import randrange
 
 class rPiDisplay(DisplayBase):
 
@@ -111,6 +112,11 @@ class rPiDisplay(DisplayBase):
                 drawRect(offscreen_canvas, 0, 16, 32, 7, weather_color.red, weather_color.green, weather_color.blue)
                 graphics.DrawText(offscreen_canvas, font, 0, 22, graphics.Color(255 - weather_color.red, 255 - weather_color.green, 255 - weather_color.blue), currentWeather)
             else:
+                if 'RAIN' in currentWeather:
+                    rain_color = graphics.Color(92, 200, 250)
+                    for x in range(0, 10):
+                        rand_coord = randomOffset(32, 8)
+                        offscreen_canvas.SetPixel(rand_coord[0], rand_coord[1] + 16, 92, 200, 250)
                 graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
             if iteration % 50 == 0:
@@ -202,6 +208,8 @@ class rPiDisplay(DisplayBase):
 
             time.sleep(0.1)
 
+def randomOffset(width, height):
+    return (randrange(width), randrange(height))
 
 
 def animateAlbumArt(canvas, old_image, new_image, currentStep):
