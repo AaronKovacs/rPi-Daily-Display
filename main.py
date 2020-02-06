@@ -99,7 +99,7 @@ class rPiDisplay(DisplayBase):
             if iteration % 1 == 0:
 
                 for index in range(0, len(pong_coords)):
-                    offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, 255 - index, 200 - index, 150 - index)
+                    offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, 10 + index, 10 + index, 10 + index)
 
                 pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
                 
