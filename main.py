@@ -189,9 +189,12 @@ class rPiDisplay(DisplayBase):
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             else:
                 if new_image is not None:
-                    currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
-                    if currentStep == 0:
-                        old_image = new_image
+                    if new_image != old_image:
+                        currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
+                        if currentStep == 0:
+                            old_image = new_image
+                            new_image = None
+                    else:
                         new_image = None
 
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
