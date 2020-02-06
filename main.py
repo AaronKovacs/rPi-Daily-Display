@@ -53,7 +53,7 @@ class rPiDisplay(DisplayBase):
 
         rain_coords = []
         for x in range(0, 10):
-            rain_coords.append(randomOffset(32, 8))
+            rain_coords.append(randomOffset(32, 6))
         while True:
 
             if iteration % 5000 == 0:
