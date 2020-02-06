@@ -173,18 +173,18 @@ class rPiDisplay(DisplayBase):
 
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, spotify_color)
-                len = graphics.DrawText(offscreen_canvas, font, pos, 30, spotify_color, currentTrack)
+                leng = graphics.DrawText(offscreen_canvas, font, pos, 30, spotify_color, currentTrack)
                 pos -= 1
-                if (pos + len < 10):
+                if (pos + leng < 10):
                     pos = offscreen_canvas.width
                 if image is not None:
                     offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 # Draw Urban Dictionary WOTD
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
-                len = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
+                leng = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
                 pos -= 1
-                if (pos + len < 0):
+                if (pos + leng < 0):
                     pos = offscreen_canvas.width
 
             
