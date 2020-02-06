@@ -128,7 +128,7 @@ class rPiDisplay(DisplayBase):
                             for x in range(0, 10):
                                 rain_coords.append(randomOffset(32, 8))                        
                     for coord in rain_coords:
-                        offscreen_canvas.SetPixel(coord[0], coord[1] + 16, 92, 200, 250)
+                        offscreen_canvas.SetPixel(coord[0], coord[1] + 15, 92, 200, 250)
 
                 graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
