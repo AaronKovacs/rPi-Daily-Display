@@ -119,8 +119,8 @@ class rPiDisplay(DisplayBase):
                 if resp[2] is not None:
                     currentTrack = resp[2]
                 if is_playing == False:
-                    old_image = False
-                    new_image = False
+                    old_image = None
+                    new_image = None
                 if resp[1] is not None:
                     temp_image = resp[1].resize((32, 32), Image.ANTIALIAS)
                     if temp_image != old_image and temp_image != new_image:
@@ -134,7 +134,7 @@ class rPiDisplay(DisplayBase):
                         else:
                             spotify_color = graphics.Color(0, 99, 0)
 
-                        if is_playing and currentTrack != '' and currentTrack != resp[2]:
+                        if is_playing and new_image != old_image:
                             new_image = temp_image
                    
                     currentTrack = resp[2]
