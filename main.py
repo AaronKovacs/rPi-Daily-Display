@@ -52,6 +52,9 @@ class rPiDisplay(DisplayBase):
         currentStep = 0
 
         rain_coords = []
+        pong_coord = [1, 1]
+        pong_xDir = 1
+        pong_yDir = -1
         for x in range(0, 10):
             rain_coords.append(randomOffset(32, 6))
         while True:
@@ -98,6 +101,11 @@ class rPiDisplay(DisplayBase):
                 graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(255 - day_color.red, 255 - day_color.green, 255 - day_color.blue), day)
             else:
                 graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
+
+            if iteration % 1 == 0:
+                offscreen_canvas.SetPixel(pong_coord[0], pong_coord[1] + 8, 255, 255, 255)
+                pong_coord = pongPosition(pong_coord, pong_xDir, pong_yDir)
+
 
             if iteration % 50 == 0:
                 resp = fetchWeather()
@@ -220,6 +228,43 @@ class rPiDisplay(DisplayBase):
                 self.matrix.brightness = 70
 
             time.sleep(0.1)
+
+# Direction +1 (Up, Right) or -1 (Down, Left)
+def pongPosition(lastCoord, xDir, yDir):
+    newCoord = [0, 0]
+    newCoord[0] = lastCoord[0]
+    newCoord[1] = lastCoord[1]
+
+    if yDir > 0:
+        #Move Up
+        newCoord[1] += 1
+    else:
+        #Move Down
+        newCoord[1] -= 1
+
+    if xDir > 0:
+        #Move Right
+        newCoord[0] += 1
+    else:
+        #Move Left
+        newCoord[0] -= 1
+
+    new_yDir = yDir
+    new_xDir = xDir
+
+    # Outside vertical bounds?
+    if newCoord[1] < 0 or newCoord[1] > 7:
+        new_yDir = -new_yDir
+
+    # Outside horizontal bounds
+    if newCoord[0] < 1 or newCoord[0] > 31:
+        new_xDir = -new_xDir
+
+    if new_xDir != xDir or new_yDir != yDir:
+        return pongPosition(lastCoord, new_xDir, new_yDir)
+
+    return (newCoord, new_xDir, new_yDir)
+
 
 def randomOffset(width, height):
     return [randrange(width), randrange(height)]
