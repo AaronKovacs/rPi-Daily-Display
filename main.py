@@ -120,7 +120,7 @@ class rPiDisplay(DisplayBase):
                     rain_color = graphics.Color(92, 200, 250)
                     if iteration % 2 == 0:
                         for index in range(0, len(rain_coords)):
-                            if rain_coords[index][1] > 16 + 8:
+                            if rain_coords[index][1] > 23:
                                 rain_coords[index] = randomOffset(32, 8)
                             else:
                                 rain_coords[index][1] += 1
