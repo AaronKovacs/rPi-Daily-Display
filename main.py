@@ -124,12 +124,10 @@ class rPiDisplay(DisplayBase):
                             if rain_coords[index][1] > 16 + 8:
                                 rain_coords[index] = randomOffset(32, 8)
                             else:
-                                rain_coords[index][1] += 1
-                        if len(rain_coords) == 0:
-                            for x in range(0, 10):
-                                rain_coords.append(randomOffset(32, 8))                        
+                                rain_coords[index][1] += 1                     
                     for coord in rain_coords:
                         offscreen_canvas.SetPixel(coord[0], coord[1] + 16, 92, 200, 250)
+
                 graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
 
             if iteration % 50 == 0:
