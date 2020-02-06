@@ -53,6 +53,7 @@ class rPiDisplay(DisplayBase):
 
         rain_coords = []
         pong_coord = [1, 1]
+        pong_coords = []
         pong_xDir = 1
         pong_yDir = -1
         for x in range(0, 10):
@@ -103,8 +104,15 @@ class rPiDisplay(DisplayBase):
                 graphics.DrawText(offscreen_canvas, font, 0, 14, day_color, day)
 
             if iteration % 1 == 0:
-                offscreen_canvas.SetPixel(pong_coord[0], pong_coord[1] + 8, 255, 255, 255)
-                pong_result = pongPosition(pong_coord, pong_xDir, pong_yDir)
+
+                for index in range(0, len(pong_coords)):
+                    offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, 255 - index, 200 - index, 150 - index)
+
+                pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
+                
+                pong_coords.insert(0, pong_coord)
+                pong_coords = pong_coords[:32]
+                
                 pong_coord = pong_result[0]
                 pong_xDir = pong_result[1]
                 pong_yDir = pong_result[2]
