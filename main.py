@@ -53,7 +53,7 @@ class rPiDisplay(DisplayBase):
 
         rain_coords = []
         pong_coord = [1, 1]
-        pong_coords = []
+        pong_coords = [[1, 1]]
         pong_xDir = 1
         pong_yDir = -1
         for x in range(0, 10):
