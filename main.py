@@ -116,7 +116,7 @@ class rPiDisplay(DisplayBase):
                 drawRect(offscreen_canvas, 0, 16, 32, 7, weather_color.red, weather_color.green, weather_color.blue)
                 graphics.DrawText(offscreen_canvas, font, 0, 22, graphics.Color(255 - weather_color.red, 255 - weather_color.green, 255 - weather_color.blue), currentWeather)
             else:
-                if 'RAIN' in currentWeather:
+                if 'RAIN' in currentWeather or 'SNOW' in currentWeather or 'DRIZ' in currentWeather or 'THDR' in currentWeather:
                     rain_color = graphics.Color(92, 200, 250)
                     if iteration % 2 == 0:
                         for index in range(0, len(rain_coords)):
