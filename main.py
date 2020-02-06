@@ -120,6 +120,7 @@ class rPiDisplay(DisplayBase):
                     currentTrack = resp[2]
                 if is_playing == False:
                     old_image = False
+                    new_image = False
                 if resp[1] is not None:
                     temp_image = resp[1].resize((32, 32), Image.ANTIALIAS)
                     if temp_image != old_image and temp_image != new_image:
