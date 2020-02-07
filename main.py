@@ -19,6 +19,41 @@ import json
 import copy 
 from random import randrange
 
+color_map = [
+0: [255, 0, 0],
+1: [255, 30, 0],
+2: [255, 60, 0],
+3: [255, 90, 0],
+4: [255, 112, 0],
+5: [255, 150, 0],
+6: [255, 190, 0],
+7: [255, 220, 0],
+8: [255, 241, 0],
+9: [200, 243, 0],
+10: [120, 246, 0],
+11: [50, 250, 0],
+12: [0, 255, 0],
+13: [0, 255, 50],
+14: [0, 255, 150],
+15: [0, 255, 200],
+16: [0, 255, 255],
+17: [0, 200, 255],
+18: [0, 120, 255],
+19: [0, 50, 255],
+20: [0, 0, 255],
+21: [50, 0, 255],
+22: [120, 0, 255],
+23: [200, 0, 255],
+24: [255, 0, 255],
+25: [220, 20, 160],
+26: [200, 40, 80],
+27: [170, 60, 40],
+28: [147, 81, 0],
+29: [83, 47, 25],
+30: [121, 121, 121],
+31: [66, 66, 66],
+]
+
 class rPiDisplay(DisplayBase):
 
     
@@ -109,7 +144,7 @@ class rPiDisplay(DisplayBase):
             if iteration % 1 == 0:
 
                 for index in range(0, len(pong_coords)):
-                    offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, 255, 255, 255)
+                    offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, color_map[index][0], color_map[index][1], color_map[index][2])
 
                 pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
                 
