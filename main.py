@@ -496,7 +496,6 @@ def downloadWeather():
             resp = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=%s,us&units=imperial&appid=%s" % (weather_zipcode, openweathermap_appid))
             data = resp.json()
             json.dump(data, outfile, indent=4)
-            print(json["weather"][0]["main"])
             outfile.close()
         except:
            print("No internet??")
@@ -511,7 +510,6 @@ def fetchWeather():
             currentTemp = int(data["main"]["temp"])
             weather_color = graphics.Color(59, 59, 59)
             main_code = data["weather"][0]["main"].upper()
-            print(main_code)
             if main_code == "CLOUDS":
                 main_code = "CLDS"
                 weather_color = graphics.Color(115, 253, 255)
