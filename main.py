@@ -311,17 +311,17 @@ def pongPosition(lastCoord, xDir, yDir):
         new_xDir = -new_xDir
 
     # Top Left Corner
-    if xDir == 0 and yDir == 1:
+    if lastCoord == [0,-7]:
         return pongPosition(randomOffset(31, 6), xDir, yDir)
     # Top Right Corner
-    if xDir == 31 and yDir == 0:
+    if lastCoord == [31,-7]:
         return pongPosition(randomOffset(31, 6), xDir, yDir)
     # Bottom Left Corner
-    if xDir == 0 and yDir == 6:
+    if lastCoord == [0,6]:
         return pongPosition(randomOffset(31, 6), xDir, yDir)
 
     # Bottom Right Corner
-    if xDir == 31 and yDir == 6:
+    if lastCoord == [31,6]:
         return pongPosition(randomOffset(31, 6), xDir, yDir)
 
     if new_xDir != xDir or new_yDir != yDir:
