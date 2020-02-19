@@ -538,7 +538,7 @@ def fetchWeather():
             currentTemp = int(data["main"]["temp"])
             
             feelsTemp = int(data["main"]["feels_like"])
-            feelsWeather = "%sF FEELS"  % (feelsTemp)
+            feelsWeather = "FEELS %sF"  % (feelsTemp)
 
             weather_color = graphics.Color(59, 59, 59)
             main_code = data["weather"][0]["main"].upper()
