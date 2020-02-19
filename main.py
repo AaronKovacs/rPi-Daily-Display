@@ -311,6 +311,7 @@ def pongPosition(lastCoord, xDir, yDir):
         new_xDir = -new_xDir
 
     # Top Left Corner
+    print(lastCoord)
     if lastCoord == [0,-7]:
         return pongPosition(randomOffset(31, 6), xDir, yDir)
     # Top Right Corner
