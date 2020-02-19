@@ -192,7 +192,7 @@ class rPiDisplay(DisplayBase):
                         offscreen_canvas.SetPixel(coord[0], coord[1] + 16, 92, 200, 250)
 
                 graphics.DrawText(offscreen_canvas, font, weather_pos, 22, weather_color, currentWeather)
-                graphics.DrawText(offscreen_canvas, font, feels_pos, 22, weather_color, feelsWeather)
+                graphics.DrawText(offscreen_canvas, font, feels_pos, 22, graphics.Color(92, 31, 199), feelsWeather)
                 weather_pos -= 1
                 feels_pos -= 1
                 if weather_pos <= -40:
