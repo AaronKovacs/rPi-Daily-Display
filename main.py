@@ -69,7 +69,7 @@ class rPiDisplay(DisplayBase):
         pos = offscreen_canvas.width
 
         weather_pos = 0
-        feels_pos = 32
+        feels_pos = 40
 
         self.matrix.brightness = 100
        
@@ -196,9 +196,9 @@ class rPiDisplay(DisplayBase):
                 weather_pos -= 1
                 feels_pos -= 1
                 if weather_pos <= -32:
-                    weather_pos = 32
+                    weather_pos = 40
                 if feels_pos <= -32:
-                    feels_pos = 32
+                    feels_pos = 40
                 
 
             if iteration % 50 == 0:
