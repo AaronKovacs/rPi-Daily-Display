@@ -68,6 +68,8 @@ class rPiDisplay(DisplayBase):
         textColor = graphics.Color(59, 59, 59)
         pos = offscreen_canvas.width
 
+        weather_pos = 0
+
         self.matrix.brightness = 100
        
         iteration = 0
@@ -188,7 +190,12 @@ class rPiDisplay(DisplayBase):
                     for coord in rain_coords:
                         offscreen_canvas.SetPixel(coord[0], coord[1] + 16, 92, 200, 250)
 
-                graphics.DrawText(offscreen_canvas, font, 0, 22, weather_color, currentWeather)
+                graphics.DrawText(offscreen_canvas, font, weather_pos, 22, weather_color, currentWeather)
+                graphics.DrawText(offscreen_canvas, font, weather_pos + 32, 22, weather_color, feelsWeather)
+                if weather_pos <= -32:
+                    weather_pos += 1
+                else:
+                    weather_pos -= 1
 
             if iteration % 50 == 0:
                 resp = fetchSpotify()
