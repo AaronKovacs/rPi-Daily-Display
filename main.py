@@ -72,6 +72,7 @@ class rPiDisplay(DisplayBase):
        
         iteration = 0
         currentWeather = '0F '
+        feelsWeather = '0f '
         wotd = 'Good Morning...'
         currentTrack = ''
         image = None
@@ -159,6 +160,7 @@ class rPiDisplay(DisplayBase):
                 resp = fetchWeather()
                 weather_color = resp[0]
                 currentWeather = resp[1]
+                feelsWeather = resp[2]
 
             if iteration % 100 == 0:
                 t = Thread(target=downloadWeather)
@@ -307,6 +309,20 @@ def pongPosition(lastCoord, xDir, yDir):
     # Outside horizontal bounds
     if newCoord[0] < 1 or newCoord[0] > 31:
         new_xDir = -new_xDir
+
+    # Top Left Corner
+    if xDir == 0 and yDir == 0:
+        return pongPosition(randomOffset(31, 6), xDir, yDir)
+    # Top Right Corner
+    if xDir == 31 and yDir == 0:
+        return pongPosition(randomOffset(31, 6), xDir, yDir)
+    # Bottom Left Corner
+    if xDir == 0 and yDir == 6:
+        return pongPosition(randomOffset(31, 6), xDir, yDir)
+
+    # Bottom Right Corner
+    if xDir == 31 and yDir == 6:
+        return pongPosition(randomOffset(31, 6), xDir, yDir)
 
     if new_xDir != xDir or new_yDir != yDir:
         return pongPosition(lastCoord, new_xDir, new_yDir)
@@ -503,11 +519,17 @@ def downloadWeather():
 def fetchWeather():
     weather_color = graphics.Color(59, 59, 59)
     currentWeather = "???F ????"
+    feelsWeather = "???F ????"
     try:
         with open('/home/pi/2048-Pi-Display/weather.json', 'r') as json_file:
             data = json.load(json_file)
             json_file.close()
+
             currentTemp = int(data["main"]["temp"])
+            
+            feelsTemp = int(data["main"]["feels_like"])
+            feelsWeather = "%sF FEELS"  % (feelsTemp)
+
             weather_color = graphics.Color(59, 59, 59)
             main_code = data["weather"][0]["main"].upper()
             if main_code == "CLOUDS":
@@ -542,8 +564,9 @@ def fetchWeather():
 
     except:
         currentWeather = "???F ????"
+        feelsWeather = "???F ????"
 
-    return (weather_color, currentWeather)
+    return (weather_color, currentWeather, feelsWeather)
 
 
 # Main function
