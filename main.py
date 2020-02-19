@@ -312,13 +312,13 @@ def pongPosition(lastCoord, xDir, yDir):
 
     # Top Left Corner
     print(lastCoord)
-    if lastCoord == [0,-7]:
+    if lastCoord == [1,-7]:
         return pongPosition(randomOffset(31, 6), xDir, yDir)
     # Top Right Corner
     if lastCoord == [31,-7]:
         return pongPosition(randomOffset(31, 6), xDir, yDir)
     # Bottom Left Corner
-    if lastCoord == [0,6]:
+    if lastCoord == [1,6]:
         return pongPosition(randomOffset(31, 6), xDir, yDir)
 
     # Bottom Right Corner
