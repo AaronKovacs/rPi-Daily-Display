@@ -195,9 +195,9 @@ class rPiDisplay(DisplayBase):
                 graphics.DrawText(offscreen_canvas, font, feels_pos, 22, weather_color, feelsWeather)
                 weather_pos -= 1
                 feels_pos -= 1
-                if weather_pos <= -32:
+                if weather_pos <= -40:
                     weather_pos = 40
-                if feels_pos <= -32:
+                if feels_pos <= -40:
                     feels_pos = 40
                 
 
