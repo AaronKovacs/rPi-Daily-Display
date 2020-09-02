@@ -314,7 +314,7 @@ def pongPosition(lastCoord, xDir, yDir):
     new_xDir = xDir
 
     # Outside vertical bounds?
-    if newCoord[1] < -7 or newCoord[1] > 6:
+    if newCoord[1] < -8 or newCoord[1] > 6:
         new_yDir = -new_yDir
 
     # Outside horizontal bounds
