@@ -158,6 +158,7 @@ class rPiDisplay(DisplayBase):
                         use_color = color_map[index]
                         play_progress = int(round(32 * (current_song_ms / duration_song_ms)) - 1)
                         play_index = clamp(0, play_progress, 31)
+                        print(play_index)
 
                         if index > play_progress:
                             use_color = [255, 255, 255]
@@ -311,6 +312,7 @@ class rPiDisplay(DisplayBase):
 
             time.sleep(0.1)
             current_song_ms += 100
+            print(current_song_ms / duration_song_ms)
 
 # Direction +1 (Up, Right) or -1 (Down, Left)
 def pongPosition(lastCoord, xDir, yDir):
