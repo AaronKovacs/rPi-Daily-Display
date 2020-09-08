@@ -156,11 +156,11 @@ class rPiDisplay(DisplayBase):
                             return max(minvalue, min(value, maxvalue))
 
                         use_color = color_map[index]
-                        play_progress = int(round(32 * (current_song_ms / duration_song_ms)) - 1)
+                        play_progress = int(round(32 * (float(current_song_ms) / float(duration_song_ms))) - 1)
                         #play_index = clamp(0, play_progress, 31)
                         print(current_song_ms)
                         print(duration_song_ms)
-                        print(current_song_ms / duration_song_ms)
+                        print(float(current_song_ms) / float(duration_song_ms))
 
                         if index > play_progress:
                             use_color = [255, 255, 255]
