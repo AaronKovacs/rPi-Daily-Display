@@ -400,7 +400,7 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
     #    return (randomOffset(31, 6), xDir, yDir)
 
     if new_xDir != xDir or new_yDir != yDir:
-        return pongPosition(lastCoord, new_xDir, new_yDir)
+        return pongPosition(lastCoord, new_xDir, new_yDir, is_playing)
 
     return (newCoord, new_xDir, new_yDir)
 
