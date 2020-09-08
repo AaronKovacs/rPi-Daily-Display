@@ -366,18 +366,18 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
     new_xDir = xDir
 
     # Outside vertical bounds?
-    if newCoord[1] < -8 or newCoord[1] > 23:
+    if newCoord[1] < -8 or newCoord[1] > 16:
         new_yDir = -new_yDir
 
     # Outside horizontal bounds 31
-    if newCoord[0] < 0 or newCoord[0] > 24:
+    if newCoord[0] < 0 or newCoord[0] > 31:
         new_xDir = -new_xDir
 
 
-    if is_playing:
+    #if is_playing:
         # 0 - 7 h 17 - 23
-        def inAlbumArt(coord):
-            return coord[0] >= 0 and coord[0] <= 8 and coord[1] >= 15 and coord[1] <= 23
+        #def inAlbumArt(coord):
+        #    return coord[0] >= 0 and coord[0] <= 8 and coord[1] >= 15 and coord[1] <= 23
 
         #if inAlbumArt(newCoord):
         #    if newCoord[1] == 15:
