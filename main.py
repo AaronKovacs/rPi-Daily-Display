@@ -158,9 +158,10 @@ class rPiDisplay(DisplayBase):
                         use_color = color_map[index]
                         play_progress = int(round(32 * (float(current_song_ms) / float(duration_song_ms))) - 1)
      
-                        if index <= play_progress:
+                        if index > play_progress:
+                            use_color = [255, 255, 255]
+                        else:
                             offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, use_color[0], use_color[1], use_color[2])
-                            #use_color = [255, 255, 255]
 
                     else:
                         offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, color_map[index][0], color_map[index][1], color_map[index][2])
