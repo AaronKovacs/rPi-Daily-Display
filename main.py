@@ -296,7 +296,7 @@ class rPiDisplay(DisplayBase):
                     else:
                         offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, color_map[index][0], color_map[index][1], color_map[index][2])
 
-                pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
+                pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir, is_playing)
                 
                 pong_coords.insert(0, pong_coord)
                 pong_coords = pong_coords[:32]
@@ -342,7 +342,7 @@ class rPiDisplay(DisplayBase):
             #print(current_song_ms / duration_song_ms)
 
 # Direction +1 (Up, Right) or -1 (Down, Left)
-def pongPosition(lastCoord, xDir, yDir):
+def pongPosition(lastCoord, xDir, yDir, is_playing):
     newCoord = [0, 0]
     newCoord[0] = lastCoord[0]
     newCoord[1] = lastCoord[1]
@@ -371,6 +371,20 @@ def pongPosition(lastCoord, xDir, yDir):
     # Outside horizontal bounds
     if newCoord[0] < 0 or newCoord[0] > 31:
         new_xDir = -new_xDir
+
+
+    if is_playing:
+        # 0 - 7 h 17 - 23
+        def inAlbumArt(coord):
+            return coord[0] >= 0 and coord[0] <= 7 and coord[1] >= 17 and coord[1] <= 23:
+            
+        # Outside vertical bounds?
+        if newCoord[1] >= 17 and newCoord[1] <= 23 and inAlbumArt(newCoord):
+            new_yDir = -new_yDir
+
+        # Outside horizontal bounds
+        if newCoord[0] >= 0 and newCoord[0] <= 7 and inAlbumArt(newCoord):
+            new_xDir = -new_xDir
 
     # Top Left Corner
     #if lastCoord == [1,-7]:
