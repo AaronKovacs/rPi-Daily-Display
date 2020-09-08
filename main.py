@@ -86,6 +86,9 @@ class rPiDisplay(DisplayBase):
         block_fill = False
         black_color = graphics.Color(255, 255, 255)
 
+        current_song_ms = 0
+        duration_song_ms = 0
+
         new_image = None
         old_image = None
         currentStep = 0
@@ -147,7 +150,21 @@ class rPiDisplay(DisplayBase):
           
             if iteration % 1 == 0:
                 for index in range(0, len(pong_coords)):
-                    offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, color_map[index][0], color_map[index][1], color_map[index][2])
+                    if is_playing:
+
+                        def clamp(minvalue, value, maxvalue):
+                            return max(minvalue, min(value, maxvalue))
+
+                        use_color = color_map[index]
+                        play_progress = int(round(32 * (current_song_ms / duration_song_ms)) - 1)
+                        play_index = clamp(0, play_progress, 31)
+
+                        if index > play_progress:
+                            use_color = [255, 255, 255]
+
+                        offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, use_color[0], use_color[1], use_color[2])
+                    else:
+                        offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, color_map[index][0], color_map[index][1], color_map[index][2])
 
                 pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
                 
@@ -226,6 +243,10 @@ class rPiDisplay(DisplayBase):
                             new_image = temp_image
                    
                     currentTrack = resp[2]
+                if resp[3] is not None:
+                    current_song_ms = resp[3]
+                if resp[4] is not None:
+                    duration_song_ms = resp[4]
 
             if iteration % 100 == 0:
                 t = Thread(target=downloadSpotify)
@@ -289,6 +310,7 @@ class rPiDisplay(DisplayBase):
                 self.matrix.brightness = 70
 
             time.sleep(0.1)
+            current_song_ms += 100
 
 # Direction +1 (Up, Right) or -1 (Down, Left)
 def pongPosition(lastCoord, xDir, yDir):
@@ -477,6 +499,8 @@ def fetchSpotify():
     is_playing = False
     image = None
     currentTrack = ''
+    current_duration = 0
+    whole_duartion = 0
 
     with open('/home/pi/2048-Pi-Display/spotify.json', 'r') as json_file:
         try:
@@ -487,11 +511,13 @@ def fetchSpotify():
                 if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                     currentTrack = result["item"]["name"]
             image = Image.open('/home/pi/2048-Pi-Display/spotify_image.jpeg').convert('RGB')
+            current_duration = result["progress_ms"]
+            whole_duartion = result["item"]["duration_ms"]
             #image.thumbnail((32, 32), Image.ANTIALIAS)
         except:
             print("Couldn't open image file")
 
-    return (is_playing, image, currentTrack)
+    return (is_playing, image, currentTrack, current_duration, whole_duartion)
         
 
 def downloadUrbanWOTD():
