@@ -215,6 +215,33 @@ class rPiDisplay(DisplayBase):
                 #    weather_pos = 40
                 #if feels_pos <= -40:
                 #    feels_pos = 40
+
+            if iteration % 1 == 0:
+                for index in range(0, len(pong_coords)):
+                    if is_playing:
+
+                        def clamp(minvalue, value, maxvalue):
+                            return max(minvalue, min(value, maxvalue))
+
+                        use_color = color_map[index]
+                        play_progress = int(round(32 * (float(current_song_ms) / float(duration_song_ms))) - 1)
+     
+                        if index > play_progress:
+                            use_color = [255, 255, 255]
+
+                        offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, use_color[0], use_color[1], use_color[2])
+                    else:
+                        offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, color_map[index][0], color_map[index][1], color_map[index][2])
+
+                pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
+                
+                pong_coords.insert(0, pong_coord)
+                pong_coords = pong_coords[:32]
+                
+                pong_coord = pong_result[0]
+                pong_xDir = pong_result[1]
+                pong_yDir = pong_result[2]
+
                 
 
             if iteration % 50 == 0:
