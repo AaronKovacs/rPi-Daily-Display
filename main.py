@@ -369,8 +369,8 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
     if newCoord[1] < -8 or newCoord[1] > 23:
         new_yDir = -new_yDir
 
-    # Outside horizontal bounds
-    if newCoord[0] < 0 or newCoord[0] > 24 #31:
+    # Outside horizontal bounds 31
+    if newCoord[0] < 0 or newCoord[0] > 24:
         new_xDir = -new_xDir
 
 
