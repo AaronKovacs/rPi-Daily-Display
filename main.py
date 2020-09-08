@@ -312,6 +312,8 @@ class rPiDisplay(DisplayBase):
 
             time.sleep(0.1)
             current_song_ms += 100
+            print(current_song_ms)
+            print(duration_song_ms)
             #print(current_song_ms / duration_song_ms)
 
 # Direction +1 (Up, Right) or -1 (Down, Left)
