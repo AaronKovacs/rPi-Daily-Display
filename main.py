@@ -94,9 +94,9 @@ class rPiDisplay(DisplayBase):
         currentStep = 0
 
         rain_coords = []
-        pong_coord = [30, 1]
-        pong_coords = [[30, 1]]
-        pong_xDir = -1
+        pong_coord = [1, 1]
+        pong_coords = [[1, 1]]
+        pong_xDir = 1
         pong_yDir = -1
         for x in range(0, 10):
             rain_coords.append(randomOffset(32, 6))
