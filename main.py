@@ -158,7 +158,7 @@ class rPiDisplay(DisplayBase):
                         use_color = color_map[index]
                         play_progress = int(round(32 * (current_song_ms / duration_song_ms)) - 1)
                         play_index = clamp(0, play_progress, 31)
-                        print(play_index)
+                        #print(play_index)
 
                         if index > play_progress:
                             use_color = [255, 255, 255]
@@ -312,7 +312,7 @@ class rPiDisplay(DisplayBase):
 
             time.sleep(0.1)
             current_song_ms += 100
-            print(current_song_ms / duration_song_ms)
+            #print(current_song_ms / duration_song_ms)
 
 # Direction +1 (Up, Right) or -1 (Down, Left)
 def pongPosition(lastCoord, xDir, yDir):
@@ -501,8 +501,8 @@ def fetchSpotify():
     is_playing = False
     image = None
     currentTrack = ''
-    current_duration = 0
-    whole_duartion = 0
+    current_dur = 0
+    whole_dur = 0
 
     with open('/home/pi/2048-Pi-Display/spotify.json', 'r') as json_file:
         try:
@@ -512,14 +512,18 @@ def fetchSpotify():
                 is_playing = result["is_playing"]
                 if currentTrack != result["item"]["name"] and result["item"]["name"] != '':
                     currentTrack = result["item"]["name"]
+
+                current_dur = result["progress_ms"]
+                whole_dur = result["item"]["duration_ms"]
+                print(current_dur)
+                print(whole_dur)
             image = Image.open('/home/pi/2048-Pi-Display/spotify_image.jpeg').convert('RGB')
-            current_duration = result["progress_ms"]
-            whole_duartion = result["item"]["duration_ms"]
+            
             #image.thumbnail((32, 32), Image.ANTIALIAS)
         except:
             print("Couldn't open image file")
 
-    return (is_playing, image, currentTrack, current_duration, whole_duartion)
+    return (is_playing, image, currentTrack, current_dur, whole_dur)
         
 
 def downloadUrbanWOTD():
