@@ -165,7 +165,7 @@ class rPiDisplay(DisplayBase):
                     else:
                         offscreen_canvas.SetPixel(pong_coords[index][0], pong_coords[index][1] + 8, color_map[index][0], color_map[index][1], color_map[index][2])
 
-                pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir)
+                pong_result = pongPosition(pong_coords[0], pong_xDir, pong_yDir, is_playing)
                 
                 pong_coords.insert(0, pong_coord)
                 pong_coords = pong_coords[:32]
