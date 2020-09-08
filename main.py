@@ -379,10 +379,10 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
             return coord[0] >= 0 and coord[0] <= 8 and coord[1] >= 15 and coord[1] <= 23
 
         if inAlbumArt(newCoord):
-            if newCoord[1] >= 15:
-                new_xDir = -new_xDir
-            else:
+            if newCoord[1] == 15:
                 new_yDir = -new_yDir
+            else:
+                new_xDir = -new_xDir
 
     # Top Left Corner
     #if lastCoord == [1,-7]:
