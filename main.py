@@ -225,9 +225,9 @@ class rPiDisplay(DisplayBase):
                 resp = fetchSpotify()
                 is_playing = resp[0]
                 if resp[3] is not None:
-                    current_song_ms = resp[3]
+                    current_song_ms = int(resp[3])
                 if resp[4] is not None:
-                    duration_song_ms = resp[4]
+                    duration_song_ms = int(resp[4])
                 if resp[2] is not None:
                     currentTrack = resp[2]
                 if is_playing == False:
