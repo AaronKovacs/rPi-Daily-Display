@@ -157,11 +157,7 @@ class rPiDisplay(DisplayBase):
 
                         use_color = color_map[index]
                         play_progress = int(round(32 * (float(current_song_ms) / float(duration_song_ms))) - 1)
-                        #play_index = clamp(0, play_progress, 31)
-                        print(current_song_ms)
-                        print(duration_song_ms)
-                        print(float(current_song_ms) / float(duration_song_ms))
-
+     
                         if index > play_progress:
                             use_color = [255, 255, 255]
 
@@ -342,11 +338,11 @@ def pongPosition(lastCoord, xDir, yDir):
     new_xDir = xDir
 
     # Outside vertical bounds?
-    if newCoord[1] < -8 or newCoord[1] > 6:
+    if newCoord[1] < -9 or newCoord[1] > 15:
         new_yDir = -new_yDir
 
     # Outside horizontal bounds
-    if newCoord[0] < 1 or newCoord[0] > 31:
+    if newCoord[0] < 0 or newCoord[0] > 31:
         new_xDir = -new_xDir
 
     # Top Left Corner
