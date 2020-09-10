@@ -56,6 +56,7 @@ color_map = [
 
 # [ x, y, horizontal or vertical, current-step ]
 pong_beam_coords = []
+move_coords = []
 
 class rPiDisplay(DisplayBase):
 
@@ -315,8 +316,11 @@ class rPiDisplay(DisplayBase):
                     if bindex >= len(pong_beam_coords):
                         continue
 
+
                     if pong_beam_coords[bindex][3] > 32:
+                        coords = [pong_beam_coords[bindex][0], pong_beam_coords[bindex][1]]
                         del pong_beam_coords[bindex]
+                        del move_coords[move_coords.index(coords)]
                         continue
                     # [ x, y, horizontal or vertical, current-step, color ]
                     topxpos = pong_beam_coords[bindex][0]
@@ -419,13 +423,17 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
     # Outside vertical bounds?
     if newCoord[1] < -8 or newCoord[1] > 14:
         new_yDir = -new_yDir
-        pong_beam_coords.append([lastCoord[0], lastCoord[1], 1, 0])
+        if lastCoord not in move_coords:
+            pong_beam_coords.append([lastCoord[0], lastCoord[1], 1, 0])
+            move_coords.append(lastCoord)
 
     # Outside horizontal bounds 31
     if newCoord[0] < 0 or newCoord[0] > 31:
         new_xDir = -new_xDir
 
-        pong_beam_coords.append([lastCoord[0], lastCoord[1], -1, 0])
+        if lastCoord not in move_coords:
+            pong_beam_coords.append([lastCoord[0], lastCoord[1], -1, 0])
+            move_coords.append(lastCoord)
 
 
 
