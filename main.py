@@ -56,8 +56,6 @@ color_map = [
 
 class rPiDisplay(DisplayBase):
 
-    
-
     def __init__(self, *args, **kwargs):
         super(rPiDisplay, self).__init__(*args, **kwargs)
 
@@ -98,6 +96,10 @@ class rPiDisplay(DisplayBase):
         pong_coords = [[1, 1]]
         pong_xDir = 1
         pong_yDir = -1
+
+        # [ x, y, horizontal or vertical, current-step, color ]
+        pong_beam_coords = []
+
         for x in range(0, 10):
             rain_coords.append(randomOffset(32, 6))
         while True:
@@ -305,6 +307,40 @@ class rPiDisplay(DisplayBase):
                 pong_coord = pong_result[0]
                 pong_xDir = pong_result[1]
                 pong_yDir = pong_result[2]
+
+
+                # Draw the beams
+                for bindex in range(0, len(pong_beam_coords)):
+                    if pong_beam_coords[bindex][3] > 32:
+                        del pong_beam_coords[bindex]
+                    # [ x, y, horizontal or vertical, current-step, color ]
+                    topxpos = pong_beam_coords[index][0]
+                    topypos = pong_beam_coords[index][1]
+
+                    bottomxpos = pong_beam_coords[index][0]
+                    bottomypos = pong_beam_coords[index][1]
+
+                    if pong_beam_coords[bindex][2] > 0:
+                        topxpos += pong_beam_coords[bindex][3]
+                        bottomxpos -= pong_beam_coords[bindex][3]
+                    else:
+                        topypos += pong_beam_coords[bindex][3]
+                        bottomypos -= pong_beam_coords[bindex][3]
+
+                    color_index = pong_beam_coords[bindex][3]
+                    
+                    for i in range(0, 3):
+                        if pong_beam_coords[bindex][2] > 0:
+                            # Horizontal
+                            offscreen_canvas.SetPixel(topxpos - i, topypos, color_map[color_index + i][0], color_map[color_index + i][1], color_map[color_index + i][2])
+                            offscreen_canvas.SetPixel(bottomxpos + i, bottomypos, color_map[color_index + i][0], color_map[color_index + i][1], color_map[color_index + i][2])
+                        else:
+                            # Vertical
+                            offscreen_canvas.SetPixel(topxpos + i, topypos, color_map[color_index + i][0], color_map[color_index + i][1], color_map[color_index + i][2])
+                            offscreen_canvas.SetPixel(bottomxpos - i, bottomypos, color_map[color_index + i][0], color_map[color_index + i][1], color_map[color_index + i][2])
+            
+                    # Interate step
+                    pong_beam_coords[bindex][3] += 1
             
             iteration += 1
 
@@ -365,13 +401,18 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
     new_yDir = yDir
     new_xDir = xDir
 
+
     # Outside vertical bounds?
     if newCoord[1] < -8 or newCoord[1] > 14:
         new_yDir = -new_yDir
+        pong_beam_coords.append([lastCoord[0], lastCoord[1], -1, 0])
 
     # Outside horizontal bounds 31
     if newCoord[0] < 0 or newCoord[0] > 31:
         new_xDir = -new_xDir
+
+        pong_beam_coords.append([lastCoord[0], lastCoord[1], 1, 0])
+
 
 
     #if is_playing:
