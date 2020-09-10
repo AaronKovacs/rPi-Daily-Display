@@ -354,7 +354,7 @@ class rPiDisplay(DisplayBase):
                             offscreen_canvas.SetPixel(bottomxpos + i, bottomypos, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
                         else:
                             # Vertical
-                            if bottomypos + 1 < 24:
+                            if topypos + 1 < 24:
                                 offscreen_canvas.SetPixel(topxpos, topypos + i, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
                             
                             
