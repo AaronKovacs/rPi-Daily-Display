@@ -355,7 +355,9 @@ class rPiDisplay(DisplayBase):
                         else:
                             # Vertical
                             offscreen_canvas.SetPixel(topxpos, topypos + i, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
-                            offscreen_canvas.SetPixel(bottomxpos, bottomypos - i, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
+                            
+                            if bottomypos - 1 < 24:
+                                offscreen_canvas.SetPixel(bottomxpos, bottomypos - i, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
             
                     # Interate step
                     pong_beam_coords[bindex][3] += 1
@@ -426,7 +428,6 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
         if lastCoord not in move_coords:
             pong_beam_coords.append([lastCoord[0], lastCoord[1] + 8, 1, 1])
             move_coords.append(lastCoord)
-            print(lastCoord)
 
     # Outside horizontal bounds 31
     if newCoord[0] < 0 or newCoord[0] > 31:
@@ -435,7 +436,6 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
         if lastCoord not in move_coords:
             pong_beam_coords.append([lastCoord[0], lastCoord[1] + 8, -1, 1])
             move_coords.append(lastCoord)
-            print(lastCoord)
 
 
 
