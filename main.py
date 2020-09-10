@@ -314,6 +314,7 @@ class rPiDisplay(DisplayBase):
                 for bindex in range(0, len(pong_beam_coords)):
                     if pong_beam_coords[bindex][3] > 32:
                         del pong_beam_coords[bindex]
+                        continue
                     # [ x, y, horizontal or vertical, current-step, color ]
                     topxpos = pong_beam_coords[bindex][0]
                     topypos = pong_beam_coords[bindex][1]
