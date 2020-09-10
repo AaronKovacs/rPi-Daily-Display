@@ -343,7 +343,7 @@ class rPiDisplay(DisplayBase):
                         return color_map[useic][index]
 
                     for i in range(0, 3):
-                        if pong_beam_coords[bindex][2] > 0:
+                        if pong_beam_coords[bindex][2] < 0:
                             # Horizontal
 
                             offscreen_canvas.SetPixel(topxpos - i, topypos, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
