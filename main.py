@@ -362,7 +362,7 @@ class rPiDisplay(DisplayBase):
                     # Interate step
                     pong_beam_coords[bindex][3] += 1
 
-            offscreen_canvas.SetPixel(0, 22, safe_color(0, 0), safe_color(0, 1), safe_color(0, 2))
+            offscreen_canvas.SetPixel(0, 22, color_map[0][0], color_map[0][1], color_map[0][2])
 
             
             iteration += 1
