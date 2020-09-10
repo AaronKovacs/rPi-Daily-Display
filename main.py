@@ -332,7 +332,7 @@ class rPiDisplay(DisplayBase):
 
                     def safe_color(colori, index):
                         useic = colori
-                        while colori >= len(color_map) - 1:
+                        if colori >= len(color_map) - 1:
                             useic -= len(color_map) - 1
                             if useic < 0:
                                 useic = 0
