@@ -329,16 +329,25 @@ class rPiDisplay(DisplayBase):
                         bottomypos -= pong_beam_coords[bindex][3]
 
                     color_index = pong_beam_coords[bindex][3]
-                    
+
+                    def safe_color(colori, index):
+                        useic = colori
+                        while colori > len(color_map):
+                            useic -= len(color_map)
+                            if useic < 0:
+                                useic = 0
+                        return color_map[useic][index]
+
                     for i in range(0, 3):
                         if pong_beam_coords[bindex][2] > 0:
                             # Horizontal
-                            offscreen_canvas.SetPixel(topxpos - i, topypos, color_map[color_index + i][0], color_map[color_index + i][1], color_map[color_index + i][2])
-                            offscreen_canvas.SetPixel(bottomxpos + i, bottomypos, color_map[color_index + i][0], color_map[color_index + i][1], color_map[color_index + i][2])
+
+                            offscreen_canvas.SetPixel(topxpos - i, topypos, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
+                            offscreen_canvas.SetPixel(bottomxpos + i, bottomypos, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
                         else:
                             # Vertical
-                            offscreen_canvas.SetPixel(topxpos + i, topypos, color_map[color_index + i][0], color_map[color_index + i][1], color_map[color_index + i][2])
-                            offscreen_canvas.SetPixel(bottomxpos - i, bottomypos, color_map[color_index + i][0], color_map[color_index + i][1], color_map[color_index + i][2])
+                            offscreen_canvas.SetPixel(topxpos + i, topypos, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
+                            offscreen_canvas.SetPixel(bottomxpos - i, bottomypos, safe_color(color_index + i, 0), safe_color(color_index + i, 1), safe_color(color_index + i, 2))
             
                     # Interate step
                     pong_beam_coords[bindex][3] += 1
