@@ -426,6 +426,7 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
         if lastCoord not in move_coords:
             pong_beam_coords.append([lastCoord[0], lastCoord[1], 1, 0])
             move_coords.append(lastCoord)
+            print(lastCoord)
 
     # Outside horizontal bounds 31
     if newCoord[0] < 0 or newCoord[0] > 31:
@@ -434,6 +435,7 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
         if lastCoord not in move_coords:
             pong_beam_coords.append([lastCoord[0], lastCoord[1], -1, 0])
             move_coords.append(lastCoord)
+            print(lastCoord)
 
 
 
