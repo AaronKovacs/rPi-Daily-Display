@@ -415,13 +415,13 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
     # Outside vertical bounds?
     if newCoord[1] < -8 or newCoord[1] > 14:
         new_yDir = -new_yDir
-        pong_beam_coords.append([lastCoord[0], lastCoord[1], -1, 0])
+        pong_beam_coords.append([lastCoord[0], lastCoord[1], 1, 0])
 
     # Outside horizontal bounds 31
     if newCoord[0] < 0 or newCoord[0] > 31:
         new_xDir = -new_xDir
 
-        pong_beam_coords.append([lastCoord[0], lastCoord[1], 1, 0])
+        pong_beam_coords.append([lastCoord[0], lastCoord[1], -1, 0])
 
 
 
