@@ -312,9 +312,9 @@ class rPiDisplay(DisplayBase):
 
                 # Draw the beams
                 for bindex in range(0, len(pong_beam_coords)):
-                    if bindex > len(pong_beam_coords):
+                    if bindex >= len(pong_beam_coords):
                         continue
-                        
+
                     if pong_beam_coords[bindex][3] > 32:
                         del pong_beam_coords[bindex]
                         continue
