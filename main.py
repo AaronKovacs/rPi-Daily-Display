@@ -100,6 +100,8 @@ class rPiDisplay(DisplayBase):
         # [ x, y, horizontal or vertical, current-step, color ]
         pong_beam_coords = []
 
+        global pong_beam_coords
+
         for x in range(0, 10):
             rain_coords.append(randomOffset(32, 6))
         while True:
