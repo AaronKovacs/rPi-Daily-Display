@@ -318,7 +318,7 @@ class rPiDisplay(DisplayBase):
 
 
                     if pong_beam_coords[bindex][3] > 32:
-                        coords = [pong_beam_coords[bindex][0], pong_beam_coords[bindex][1]]
+                        coords = [pong_beam_coords[bindex][0], pong_beam_coords[bindex][1] - 8]
                         del pong_beam_coords[bindex]
                         del move_coords[move_coords.index(coords)]
                         continue
@@ -424,7 +424,7 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
     if newCoord[1] < -8 or newCoord[1] > 14:
         new_yDir = -new_yDir
         if lastCoord not in move_coords:
-            pong_beam_coords.append([lastCoord[0], lastCoord[1], 1, 0])
+            pong_beam_coords.append([lastCoord[0], lastCoord[1] + 8, 1, 0])
             move_coords.append(lastCoord)
             print(lastCoord)
 
@@ -433,7 +433,7 @@ def pongPosition(lastCoord, xDir, yDir, is_playing):
         new_xDir = -new_xDir
 
         if lastCoord not in move_coords:
-            pong_beam_coords.append([lastCoord[0], lastCoord[1], -1, 0])
+            pong_beam_coords.append([lastCoord[0], lastCoord[1] + 8, -1, 0])
             move_coords.append(lastCoord)
             print(lastCoord)
 
