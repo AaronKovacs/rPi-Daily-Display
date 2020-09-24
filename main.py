@@ -372,7 +372,7 @@ class rPiDisplay(DisplayBase):
             hour = int(d_aware.strftime("%H"))
 
             # Ryan birthday suprise
-            if hour > 20:
+            '''if hour > 20:
                 offscreen_canvas.Clear()
                 if iteration % 2 == 0:
                     cake_image = Image.open("/home/pi/2048-Pi-Display/images/cake/ryan_cake_1.png").convert('RGB')
@@ -387,30 +387,31 @@ class rPiDisplay(DisplayBase):
                 self.matrix.brightness = 70
                 time.sleep(0.5)
             else:
-                if hour >= 1 and hour < 9:
-                    self.matrix.brightness = 10
-                    offscreen_canvas.Clear()
+            '''
+            if hour >= 1 and hour < 9:
+                self.matrix.brightness = 10
+                offscreen_canvas.Clear()
 
-                    # Draw Time
-                    graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(150, 0, 0), concocted_str)
-                    graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(150, 0, 0), currentWeather)
+                # Draw Time
+                graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(150, 0, 0), concocted_str)
+                graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(150, 0, 0), currentWeather)
 
-                    offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                else:
-                    if new_image is not None:
-                        if new_image != old_image:
-                            currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
-                            if currentStep == 0:
-                                old_image = new_image
-                                new_image = None
-                        else:
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+            else:
+                if new_image is not None:
+                    if new_image != old_image:
+                        currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
+                        if currentStep == 0:
+                            old_image = new_image
                             new_image = None
+                    else:
+                        new_image = None
 
-                    offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                    self.matrix.brightness = 70
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+                self.matrix.brightness = 70
 
-                time.sleep(0.1)
-                current_song_ms += 100
+            time.sleep(0.1)
+            current_song_ms += 100
             #print(current_song_ms)
             #print(duration_song_ms)
             #print(current_song_ms / duration_song_ms)
