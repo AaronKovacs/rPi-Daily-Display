@@ -384,7 +384,7 @@ class rPiDisplay(DisplayBase):
                     offscreen_canvas.SetImage(cake_image)
 
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                iteration += 1
+                self.matrix.brightness = 70
                 time.sleep(0.5)
             else:
                 if hour >= 1 and hour < 9:
