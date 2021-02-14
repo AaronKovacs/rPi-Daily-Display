@@ -371,6 +371,14 @@ class rPiDisplay(DisplayBase):
 
             hour = int(d_aware.strftime("%H"))
 
+            # Ryan Priscilla Valentines Day
+            offscreen_canvas.Clear()
+            heart_image = Image.open("/home/pi/2048-Pi-Display/images/heart.png").convert('RGB')
+            heart_image.thumbnail((32, 32), Image.ANTIALIAS)
+            offscreen_canvas.SetImage(heart_image)
+            self.matrix.brightness = 70
+            time.sleep(0.5)
+            
             # Ryan birthday suprise
             '''if hour > 20:
                 offscreen_canvas.Clear()
