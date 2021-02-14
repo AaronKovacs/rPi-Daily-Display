@@ -377,7 +377,8 @@ class rPiDisplay(DisplayBase):
             heart_image = Image.open("/home/pi/2048-Pi-Display/images/heart.png").convert('RGB')
             heart_image.thumbnail((32, 32), Image.ANTIALIAS)
             offscreen_canvas.SetImage(heart_image)
-            self.matrix.brightness = 50
+            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+            self.matrix.brightness = 70
             time.sleep(0.5)
             '''else:
                 if hour >= 1 and hour < 9:
