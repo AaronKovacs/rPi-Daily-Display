@@ -372,13 +372,14 @@ class rPiDisplay(DisplayBase):
             hour = int(d_aware.strftime("%H"))
 
             # Ryan Priscilla Valentines Day
-            offscreen_canvas.Clear()
-            heart_image = Image.open("/home/pi/2048-Pi-Display/images/heart.png").convert('RGB')
-            heart_image.thumbnail((32, 32), Image.ANTIALIAS)
-            offscreen_canvas.SetImage(heart_image)
-            self.matrix.brightness = 70
-            time.sleep(0.5)
-            
+            if True:
+                offscreen_canvas.Clear()
+                heart_image = Image.open("/home/pi/2048-Pi-Display/images/heart.png").convert('RGB')
+                heart_image.thumbnail((32, 32), Image.ANTIALIAS)
+                offscreen_canvas.SetImage(heart_image)
+                self.matrix.brightness = 50
+                time.sleep(0.5)
+            else:
             # Ryan birthday suprise
             '''if hour > 20:
                 offscreen_canvas.Clear()
@@ -396,27 +397,27 @@ class rPiDisplay(DisplayBase):
                 time.sleep(0.5)
             else:
             '''
-            if hour >= 1 and hour < 9:
-                self.matrix.brightness = 10
-                offscreen_canvas.Clear()
+                if hour >= 1 and hour < 9:
+                    self.matrix.brightness = 10
+                    offscreen_canvas.Clear()
 
-                # Draw Time
-                graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(150, 0, 0), concocted_str)
-                graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(150, 0, 0), currentWeather)
+                    # Draw Time
+                    graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(150, 0, 0), concocted_str)
+                    graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(150, 0, 0), currentWeather)
 
-                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-            else:
-                if new_image is not None:
-                    if new_image != old_image:
-                        currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
-                        if currentStep == 0:
-                            old_image = new_image
+                    offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+                else:
+                    if new_image is not None:
+                        if new_image != old_image:
+                            currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
+                            if currentStep == 0:
+                                old_image = new_image
+                                new_image = None
+                        else:
                             new_image = None
-                    else:
-                        new_image = None
 
-                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                self.matrix.brightness = 70
+                    offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+                    self.matrix.brightness = 70
 
             time.sleep(0.1)
             current_song_ms += 100
