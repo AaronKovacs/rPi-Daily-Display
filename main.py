@@ -372,14 +372,14 @@ class rPiDisplay(DisplayBase):
             hour = int(d_aware.strftime("%H"))
 
             # Ryan Priscilla Valentines Day
-            if True:
-                offscreen_canvas.Clear()
-                heart_image = Image.open("/home/pi/2048-Pi-Display/images/heart.png").convert('RGB')
-                heart_image.thumbnail((32, 32), Image.ANTIALIAS)
-                offscreen_canvas.SetImage(heart_image)
-                self.matrix.brightness = 50
-                time.sleep(0.5)
-            else:
+            #if True:
+            offscreen_canvas.Clear()
+            heart_image = Image.open("/home/pi/2048-Pi-Display/images/heart.png").convert('RGB')
+            heart_image.thumbnail((32, 32), Image.ANTIALIAS)
+            offscreen_canvas.SetImage(heart_image)
+            self.matrix.brightness = 50
+            time.sleep(0.5)
+            '''else:
                 if hour >= 1 and hour < 9:
                     self.matrix.brightness = 10
                     offscreen_canvas.Clear()
@@ -404,6 +404,9 @@ class rPiDisplay(DisplayBase):
 
             time.sleep(0.1)
             current_song_ms += 100
+
+
+            '''
             #print(current_song_ms)
             #print(duration_song_ms)
             #print(current_song_ms / duration_song_ms)
