@@ -373,6 +373,7 @@ class rPiDisplay(DisplayBase):
 
             # Ryan Priscilla Valentines Day
             #if True:
+            '''
             offscreen_canvas.Clear()
             heart_image = Image.open("/home/pi/2048-Pi-Display/images/heart.png").convert('RGB')
             heart_image.thumbnail((32, 32), Image.ANTIALIAS)
@@ -380,34 +381,34 @@ class rPiDisplay(DisplayBase):
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             self.matrix.brightness = 70
             time.sleep(0.5)
-            '''else:
-                if hour >= 1 and hour < 9:
-                    self.matrix.brightness = 10
-                    offscreen_canvas.Clear()
+            '''
+            if hour >= 1 and hour < 9:
+                self.matrix.brightness = 10
+                offscreen_canvas.Clear()
 
-                    # Draw Time
-                    graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(150, 0, 0), concocted_str)
-                    graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(150, 0, 0), currentWeather)
+                # Draw Time
+                graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(150, 0, 0), concocted_str)
+                graphics.DrawText(offscreen_canvas, font, 0, 14, graphics.Color(150, 0, 0), currentWeather)
 
-                    offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                else:
-                    if new_image is not None:
-                        if new_image != old_image:
-                            currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
-                            if currentStep == 0:
-                                old_image = new_image
-                                new_image = None
-                        else:
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+            else:
+                if new_image is not None:
+                    if new_image != old_image:
+                        currentStep = animateAlbumArt(offscreen_canvas, old_image, new_image, currentStep)
+                        if currentStep == 0:
+                            old_image = new_image
                             new_image = None
+                    else:
+                        new_image = None
 
-                    offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                    self.matrix.brightness = 70
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+                self.matrix.brightness = 70
 
             time.sleep(0.1)
             current_song_ms += 100
 
 
-            '''
+            
             #print(current_song_ms)
             #print(duration_song_ms)
             #print(current_song_ms / duration_song_ms)
@@ -599,8 +600,9 @@ def downloadSpotify():
             try_aaron = True
 
         if try_aaron:
-            sp = Spotify(auth=ak_token)
-            result = sp.current_user_playing_track()
+            print('Nope!')
+            #sp = Spotify(auth=ak_token)
+            #result = sp.current_user_playing_track()
 
         if result is not None:
             if result["item"]["name"] != '':
