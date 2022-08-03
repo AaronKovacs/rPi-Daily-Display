@@ -74,7 +74,7 @@ class rPiDisplay(DisplayBase):
         feels_pos = 40
 
         self.matrix.brightness = 100
-       
+
         iteration = 0
         currentWeather = '0F '
         feelsWeather = '0f '
@@ -600,9 +600,9 @@ def downloadSpotify():
             try_aaron = True
 
         if try_aaron:
-            print('Nope!')
-            #sp = Spotify(auth=ak_token)
-            #result = sp.current_user_playing_track()
+            #print('Nope!')
+            sp = Spotify(auth=ak_token)
+            result = sp.current_user_playing_track()
 
         if result is not None:
             if result["item"]["name"] != '':
