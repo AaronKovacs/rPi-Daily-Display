@@ -51,7 +51,7 @@ class DisplayBase(object):
         options.brightness = self.args.led_brightness
         options.pwm_lsb_nanoseconds = self.args.led_pwm_lsb_nanoseconds
         options.led_rgb_sequence = self.args.led_rgb_sequence
-        options.pixel_mapper_config = self.args.led_pixel_mapper
+        options.pixel_mapper_config = "Rotate:-90"
         if self.args.led_show_refresh:
           options.show_refresh_rate = 1
 
