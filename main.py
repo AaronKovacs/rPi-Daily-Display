@@ -74,6 +74,7 @@ class rPiDisplay(DisplayBase):
         feels_pos = 40
 
         self.matrix.brightness = 100
+        self.matrix.pixel_mapper_config = "Rotate:-90"
        
         iteration = 0
         currentWeather = '0F '
