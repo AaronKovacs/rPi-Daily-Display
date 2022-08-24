@@ -101,6 +101,17 @@ class rPiDisplay(DisplayBase):
         pong_xDir = 1
         pong_yDir = -1
 
+        joke_file = open('/home/pi/2048-Pi-Display/jokes.txt', "r")
+        jokes = joke_file.read().splitlines()
+        joke_file.close()        
+        joke = ''
+        jokePunchline = ''
+        def setJoke():
+            jokes.shuffle()
+            parts = jokes[0].split('<>')
+            joke = parts[0]
+            jokePunchline = parts[1]
+        setJoke()
         
         for x in range(0, 10):
             rain_coords.append(randomOffset(32, 6))
@@ -263,11 +274,6 @@ class rPiDisplay(DisplayBase):
                 t = Thread(target=downloadUrbanWOTD)
                 t.start()
 
-            if iteration % 500 == 0:
-                temp_wotd = fetchUrbanWOTD()
-                if temp_wotd != "No internet??":
-                    wotd = temp_wotd
-
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, spotify_color)
                 leng = graphics.DrawText(offscreen_canvas, font, pos, 30, spotify_color, currentTrack)
@@ -279,10 +285,13 @@ class rPiDisplay(DisplayBase):
             else:
                 # Draw Urban Dictionary WOTD
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
-                leng = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, wotd)
+                leng = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, joke)
+                punchlineLeng = graphics.DrawText(offscreen_canvas, font, pos + leng + 1, 30, graphics.Color(255, 119, 255), jokePunchline)
                 pos -= 1
-                if (pos + leng < 0):
+                if (pos + leng + punchlineLeng + 1 < 0):
                     pos = offscreen_canvas.width
+                    # New Joke
+                    setJoke()
 
             if iteration % 1 == 0:
                 for index in range(0, len(pong_coords)):
