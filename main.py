@@ -103,7 +103,7 @@ class rPiDisplay(DisplayBase):
         pong_yDir = -1
 
         joke_file = open('/home/pi/2048-Pi-Display/jokes.txt', "r")
-        jokes = joke_file.read().splitlines()
+        jokes = joke_file.read().encode("ascii", "ignore").decode().splitlines()
         joke_file.close()        
         joke = []
         def getJoke():
