@@ -18,6 +18,7 @@ from threading import Thread
 import json 
 import copy 
 from random import randrange
+import random
 
 color_map = [
 [255, 0, 0],
