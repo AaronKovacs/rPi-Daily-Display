@@ -102,8 +102,11 @@ class rPiDisplay(DisplayBase):
         pong_xDir = 1
         pong_yDir = -1
 
+        def remove_non_ascii(string):
+            return ''.join(char for char in string if ord(char) < 128)
+
         joke_file = open('/home/pi/2048-Pi-Display/jokes.txt', "r")
-        jokes = joke_file.read().encode("ascii", "ignore").decode().splitlines()
+        jokes = remove_non_ascii(joke_file.read()).splitlines()
         joke_file.close()        
         joke = []
         def getJoke():
