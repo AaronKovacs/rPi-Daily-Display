@@ -105,15 +105,13 @@ class rPiDisplay(DisplayBase):
         joke_file = open('/home/pi/2048-Pi-Display/jokes.txt', "r")
         jokes = joke_file.read().splitlines()
         joke_file.close()        
-        joke = ''
-        jokePunchline = ''
-        def setJoke():
+        joke = []
+        def getJoke():
             random.shuffle(jokes)
             parts = jokes[0].split('<>')
-            print(parts)
-            joke = parts[0]
-            jokePunchline = parts[1]
-        setJoke()
+            return parts        
+
+        joke = getJoke()
         print(joke)
         print(jokePunchline)
         
@@ -274,10 +272,6 @@ class rPiDisplay(DisplayBase):
                 t = Thread(target=downloadSpotify)
                 t.start()
 
-            if iteration % 1000 == 0:
-                t = Thread(target=downloadUrbanWOTD)
-                t.start()
-
             if is_playing:
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, spotify_color)
                 leng = graphics.DrawText(offscreen_canvas, font, pos, 30, spotify_color, currentTrack)
@@ -288,14 +282,15 @@ class rPiDisplay(DisplayBase):
                     offscreen_canvas.SetImage(image, offset_y=23)
             else:
                 # Draw Urban Dictionary WOTD
+
                 graphics.DrawLine(offscreen_canvas, 0, 23, 31, 23, graphics.Color(59, 59, 59))
-                leng = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, joke)
-                punchlineLeng = graphics.DrawText(offscreen_canvas, font, pos + leng + 1, 30, graphics.Color(255, 119, 255), jokePunchline)
+                leng = graphics.DrawText(offscreen_canvas, font, pos, 30, textColor, joke[0])
+                punchlineLeng = graphics.DrawText(offscreen_canvas, font, pos + leng + 1, 30, graphics.Color(255, 119, 255), joke[1])
                 pos -= 1
                 if (pos + leng + punchlineLeng + 1 < 0):
                     pos = offscreen_canvas.width
                     # New Joke
-                    setJoke()
+                    joke = getJoke()
 
             if iteration % 1 == 0:
                 for index in range(0, len(pong_coords)):
