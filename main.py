@@ -108,7 +108,7 @@ class rPiDisplay(DisplayBase):
         joke = ''
         jokePunchline = ''
         def setJoke():
-            jokes.shuffle()
+            random.shuffle(jokes)
             parts = jokes[0].split('<>')
             joke = parts[0]
             jokePunchline = parts[1]
