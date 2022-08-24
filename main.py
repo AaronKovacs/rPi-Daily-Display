@@ -113,7 +113,6 @@ class rPiDisplay(DisplayBase):
 
         joke = getJoke()
         print(joke)
-        print(jokePunchline)
         
         for x in range(0, 10):
             rain_coords.append(randomOffset(32, 6))
