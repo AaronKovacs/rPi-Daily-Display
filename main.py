@@ -111,8 +111,10 @@ class rPiDisplay(DisplayBase):
         joke = []
         def getJoke():
             random.shuffle(jokes)
-            parts = jokes[0].split('<>')
-            return parts        
+            if '<>' not in jokes[0]:
+                return [jokes[0], '']
+            else:
+                return jokes[0].split('<>')        
 
         joke = getJoke()
         print(joke)
