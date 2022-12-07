@@ -56,7 +56,7 @@ class rPiDisplay(DisplayBase):
                         col.insert(0, (randomIcon(), 8 * column, -8))
 
                     # Move
-                    row[2] += 1 * vels[cols.index(col)]
+                    row[2] = row[2] + (1 * vels[cols.index(col)])
 
                     offscreen_canvas.SetImage(item[0], item[1], item[2])
 
