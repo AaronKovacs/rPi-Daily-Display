@@ -40,7 +40,7 @@ class rPiDisplay(DisplayBase):
 
         for column in range(3):
             for i in range(10):
-                cols[column].append((randomIcon(), 8 * column, i * 8))
+                cols[column].append([randomIcon(), 8 * column, i * 8])
 
         interation = 0
         while True:
@@ -53,7 +53,7 @@ class rPiDisplay(DisplayBase):
                         continue
                     # Insert new icon
                     if row[2] == 0:
-                        col.insert(0, (randomIcon(), 8 * column, -8))
+                        col.insert(0, [randomIcon(), 8 * column, -8])
 
                     # Move
                     row[2] = row[2] + (1 * vels[cols.index(col)])
