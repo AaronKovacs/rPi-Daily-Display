@@ -58,7 +58,7 @@ class rPiDisplay(DisplayBase):
                     # Move
                     row[2] = row[2] + (1 * vels[cols.index(col)])
 
-                    offscreen_canvas.SetImage(item[0], item[1], item[2])
+                    offscreen_canvas.SetImage(row[0], row[1], row[2])
 
 
             iteration += 1
