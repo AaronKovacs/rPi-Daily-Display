@@ -74,7 +74,7 @@ class rPiDisplay(DisplayBase):
             self.matrix.SwapOnVSync(offscreen_canvas)
             time.sleep(0.1)
 
-images = ['money', 'heart', 'happy', 'fire', 'bird']
+images = ['money', 'heart-icon', 'happy', 'fire', 'bird', 'ghost', 'xmark']
 def randomIcon():
     return icon(random.choice(images))
    
