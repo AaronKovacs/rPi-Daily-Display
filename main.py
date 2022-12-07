@@ -57,8 +57,9 @@ class rPiDisplay(DisplayBase):
                         col.remove(row)
                         continue
                     # Insert new icon
+
                     if col[0][2] >= 0:
-                        col.insert(0, [randomIcon(), 8 * column, -8])
+                        col.insert(0, [randomIcon(), row[1], -8])
 
                     # Move
                     row[2] = row[2] + (1 * vels[cols.index(col)])
