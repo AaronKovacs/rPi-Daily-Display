@@ -36,7 +36,7 @@ class rPiDisplay(DisplayBase):
         cols = [[], [], []]
 
         # slowest to fastest: 60, 
-        vels = [1, 3, 2]
+        vels = [1 / 2, 3 / 2, 2 / 2]
 
         for column in range(3):
             for i in range(10):
@@ -72,7 +72,7 @@ class rPiDisplay(DisplayBase):
                 iteration = 0
 
             self.matrix.SwapOnVSync(offscreen_canvas)
-            time.sleep(0.1)
+            time.sleep(0.1 / 2)
 
 images = ['money', 'heart-icon', 'happy', 'fire', 'bird', 'ghost', 'xmark']
 def randomIcon():
