@@ -49,7 +49,7 @@ class rPiDisplay(DisplayBase):
 
         iteration = 0
         while True:
-
+            offscreen_canvas.Clear()
             for col in cols:
                 for row in col:
                     # Offscreen remove
@@ -70,7 +70,7 @@ class rPiDisplay(DisplayBase):
             iteration += 1
             if iteration == 60:
                 iteration = 0
-            offscreen_canvas.Clear()
+            
             self.matrix.SwapOnVSync(offscreen_canvas)
             time.sleep(0.1)
 
