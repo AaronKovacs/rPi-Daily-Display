@@ -36,11 +36,16 @@ class rPiDisplay(DisplayBase):
         cols = [[], [], []]
 
         # slowest to fastest: 60, 
-        vels = [1, 1.2, 1.5]
+        vels = [0.5, 1.2, 1.5]
 
         for column in range(3):
             for i in range(10):
-                cols[column].append([randomIcon(), 8 * column, i * 8])
+                x = 0
+                if column == 1:
+                    x = 12
+                if column == 2:
+                    x = 24
+                cols[column].append([randomIcon(), x, i * 8])
 
         iteration = 0
         while True:
@@ -65,7 +70,7 @@ class rPiDisplay(DisplayBase):
             if iteration == 60:
                 iteration = 0
             self.matrix.SwapOnVSync(offscreen_canvas)
-            time.sleep(1 / 60)
+            time.sleep(0.1)
 
 images = ['money', 'heart', 'happy', 'fire', 'bird']
 def randomIcon():
