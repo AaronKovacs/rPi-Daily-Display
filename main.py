@@ -53,7 +53,7 @@ class rPiDisplay(DisplayBase):
                         continue
                     # Insert new icon
                     if row[2] == 0:
-                        col.insert((randomIcon(), 8 * column, -8), 0)
+                        col.insert(0, (randomIcon(), 8 * column, -8))
 
                     # Move
                     row[2] += 1 *  vels[col]
