@@ -42,7 +42,7 @@ class rPiDisplay(DisplayBase):
             for i in range(10):
                 cols[column].append([randomIcon(), 8 * column, i * 8])
 
-        interation = 0
+        iteration = 0
         while True:
 
             for col in cols:
