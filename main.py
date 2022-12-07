@@ -72,7 +72,7 @@ def randomIcon():
     return icon(random.choice(images))
    
 def icon(name):
-    return Image.open("/home/pi/2048-Pi-Display/images/%s" % (name)).convert('RGB')
+    return Image.open("/home/pi/2048-Pi-Display/images/%s.png" % (name)).convert('RGB')
 
           
 def drawRect(canvas, x, y, width, height, red, green, blue):
