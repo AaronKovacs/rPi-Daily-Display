@@ -36,7 +36,7 @@ class rPiDisplay(DisplayBase):
         cols = [[], [], []]
 
         # slowest to fastest: 60, 
-        vels = [0.6, 1.2, 1.5]
+        vels = [1, 2, 3]
 
         for column in range(3):
             for i in range(10):
