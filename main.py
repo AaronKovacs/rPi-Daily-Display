@@ -70,6 +70,7 @@ class rPiDisplay(DisplayBase):
             iteration += 1
             if iteration == 60:
                 iteration = 0
+            offscreen_canvas.Clear()
             self.matrix.SwapOnVSync(offscreen_canvas)
             time.sleep(0.1)
 
