@@ -93,12 +93,12 @@ class rPiDisplay(DisplayBase):
                 ser.write(b'\xff')
                 global_iteration = 0
             
-            if state == 0 or state == 4.5:
+            if state == 0 or state == 4:
                 vels = [0, 0, 0]
                 iteration = 0
                 # Check for iO
                 ser.flushInput()
-                while state == 0 or state == 4.5:
+                while state == 0 or state == 4:
                     serial_response += ser.read()
                     if "1" in serial_response:
                         serial_response = ''
@@ -163,7 +163,7 @@ class rPiDisplay(DisplayBase):
 
             offscreen_canvas.Clear()
 
-            if state == 4 or state == 4.5:
+            if state == 4:
                 drawRect(offscreen_canvas, 0, 0, 32, 10, 0, 0, 0)
                 drawRect(offscreen_canvas, 0, 22, 32, 10, 0, 0, 0)
                 middle_items = []
@@ -172,13 +172,9 @@ class rPiDisplay(DisplayBase):
                         if row[2] == 12:
                             middle_items.append(row)
                 if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
-                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'Wow!')
+                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(255, 255, 255), 'Wow!')
                 else:
-                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'You suck!')
-                
-            if state == 4:
-                state = 4.5
-                iteration = 0
+                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(255, 255, 255), 'You suck!')
 
 
             for col in cols:
