@@ -75,20 +75,24 @@ class rPiDisplay(DisplayBase):
         serial_response = ''
         while True:
 
-            if state in [1, 2.3] and global_iteration % (0.6 / frameInterval) == 0:
+            if state in [1, 2.3] and global_iteration == 6:
                 ser.write(b'\xff')
+                global_iteration = 0
                 print(' a')
 
-            if state in [1.3, 2] and global_iteration % (0.4 / frameInterval) == 0:
+            if state in [1.3, 2] and global_iteration == 4:
                 ser.write(b'\xff')
+                global_iteration = 0
                 print('  b')
 
-            if state == 1.6 and global_iteration % (0.3 / frameInterval) == 0:
+            if state == 1.6 and global_iteration == 2:
                 ser.write(b'\xff')
+                global_iteration = 0
                 print('   c')
 
-            if state == [3, 2.6] and global_iteration % (0.8 / frameInterval) == 0:
+            if state == [3, 2.6] and global_iteration == 8:
                 ser.write(b'\xff')
+                global_iteration = 0
                 print('d')
             
             if state == 0:
