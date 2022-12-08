@@ -74,11 +74,10 @@ class rPiDisplay(DisplayBase):
                 iteration = 0
                 # Check for iO
                 while True:
-                    data = ser.read(1)
-                    data += ser.read(ser.inWaiting())
+                    hello = ser.readline()
                     
                     print('----')
-                    print('data')
+                    print(hello)
                     print('----')
 
             if state == 1:
