@@ -66,6 +66,8 @@ class rPiDisplay(DisplayBase):
 
         frameInterval = 0.05
         iteration = 0
+
+        serial_response = ''
         while True:
             offscreen_canvas.Clear()
 
@@ -74,11 +76,9 @@ class rPiDisplay(DisplayBase):
                 iteration = 0
                 # Check for iO
                 while True:
-                    hello = ser.readline()
-                    
-                    print('----')
-                    print(hello)
-                    print('----')
+                    serial_response += ser.read()
+                    if "1" in serial_response:
+                        print('HERE')
 
             if state == 1:
                 vels = [1, 3, 2]
