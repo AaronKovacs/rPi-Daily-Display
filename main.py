@@ -70,20 +70,21 @@ class rPiDisplay(DisplayBase):
 
         frameInterval = 0.05
         iteration = 0
+        global_iteration = 0
 
         serial_response = ''
         while True:
 
-            if state in [1, 2.3] and iteration % (0.6 / frameInterval) == 0:
+            if state in [1, 2.3] and global_iteration % (0.6 / frameInterval) == 0:
                 ser.write(b'\xff')
 
-            if state in [1.3, 2] and iteration % (0.4 / frameInterval) == 0:
+            if state in [1.3, 2] and global_iteration % (0.4 / frameInterval) == 0:
                 ser.write(b'\xff')
 
-            if state in [1.6] and iteration % (0.2 / frameInterval) == 0:
+            if state == 1.6 and global_iteration % (0.2 / frameInterval) == 0:
                 ser.write(b'\xff')
 
-            if state in [3] and iteration % (0.8 / frameInterval) == 0:
+            if state == [3, 2.6] and global_iteration % (0.8 / frameInterval) == 0:
                 ser.write(b'\xff')
             
             if state == 0:
@@ -163,6 +164,7 @@ class rPiDisplay(DisplayBase):
                     offscreen_canvas.SetImage(row[0], row[1], row[2])
 
             iteration += 1
+            global_iteration += 1
             self.matrix.SwapOnVSync(offscreen_canvas)
             time.sleep(frameInterval)
 
