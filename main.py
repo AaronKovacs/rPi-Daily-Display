@@ -195,7 +195,7 @@ class rPiDisplay(DisplayBase):
                 if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
                     graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(255, 255, 255), 'Wow!')
                 else:
-                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'You suck!')
+                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(150, 0, 0), 'You suck!')
 
 
             iteration += 1
