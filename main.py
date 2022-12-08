@@ -77,22 +77,22 @@ class rPiDisplay(DisplayBase):
 
             print(state)
             print(global_iteration)
-            if state in [1, 2.3] and global_iteration >= 6:
+            if state in [1, 2.3] and global_iteration >= 3:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print(' a')
 
-            if state in [1.3, 2] and global_iteration >= 4:
+            if state in [1.3, 2] and global_iteration >= 2:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print('  b')
 
-            if state == 1.6 and global_iteration >= 2:
+            if state == 1.6 and global_iteration >= 1:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print('   c')
 
-            if state == [3, 2.6] and global_iteration >= 8:
+            if state == [3, 2.6] and global_iteration >= 4:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print('d')
