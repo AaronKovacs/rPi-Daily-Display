@@ -155,6 +155,8 @@ class rPiDisplay(DisplayBase):
                     if item[2] == 12:
                         vels[closing_column] = 0
                         closing_column += 1
+                if vels == [0, 0, 3]:
+                    vels = [0, 0, 1]
                 if vels == [0, 0, 0]:
                     closing_column = 0
                     music_state = 0
