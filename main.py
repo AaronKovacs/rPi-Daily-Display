@@ -74,7 +74,6 @@ class rPiDisplay(DisplayBase):
         serial_response = ''
         while True:
             
-
             if state == 0:
                 vels = [0, 0, 0]
                 iteration = 0
@@ -89,6 +88,7 @@ class rPiDisplay(DisplayBase):
             if state == 1:
                 vels = [1, 3, 2]
                 state = 1.3
+                iteration = 0
 
             if state == 1.3 and 1.5 / frameInterval <= iteration:
                 vels = [3, 4, 3]
@@ -101,7 +101,7 @@ class rPiDisplay(DisplayBase):
                 iteration = 0
 
             # After 5s start slowdown
-            if state == 2 and 5 / frameInterval <= iteration:
+            if state == 2 and 3 / frameInterval <= iteration:
                 vels = [3, 4, 3]
                 state = 2.3
                 iteration = 0
