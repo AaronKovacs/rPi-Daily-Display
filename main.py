@@ -163,20 +163,6 @@ class rPiDisplay(DisplayBase):
 
             offscreen_canvas.Clear()
 
-            if state == 4:
-                drawRect(offscreen_canvas, 0, 0, 32, 10, 0, 0, 0)
-                drawRect(offscreen_canvas, 0, 22, 32, 10, 0, 0, 0)
-                middle_items = []
-                for col in cols:
-                    for row in col:
-                        if row[2] == 12:
-                            middle_items.append(row)
-                if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
-                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(255, 255, 255), 'Wow!')
-                else:
-                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(255, 255, 255), 'You suck!')
-
-
             for col in cols:
                 for row in col:
                     # Offscreen remove
@@ -192,6 +178,20 @@ class rPiDisplay(DisplayBase):
                     row[2] = row[2] + (1 * vels[cols.index(col)])
 
                     offscreen_canvas.SetImage(row[0], row[1], row[2])
+
+            if state == 4:
+                drawRect(offscreen_canvas, 0, 0, 32, 10, 0, 0, 0)
+                drawRect(offscreen_canvas, 0, 22, 32, 10, 0, 0, 0)
+                middle_items = []
+                for col in cols:
+                    for row in col:
+                        if row[2] == 12:
+                            middle_items.append(row)
+                if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
+                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(255, 255, 255), 'Wow!')
+                else:
+                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(255, 255, 255), 'You suck!')
+
 
             iteration += 1
             global_iteration += 1
