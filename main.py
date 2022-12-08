@@ -137,6 +137,8 @@ class rPiDisplay(DisplayBase):
                 for row in col:
                     # Offscreen remove
                     if row[2] >= 32:
+                        if cols.index(col) == 0:
+                            ser.write(b'\xff')
                         col.remove(row)
                         continue
                     # Insert new icon
