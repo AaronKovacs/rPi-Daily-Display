@@ -156,12 +156,28 @@ class rPiDisplay(DisplayBase):
                 if vels == [0, 0, 0]:
                     closing_column = 0
                     music_state = 0
-                    state = 0
+                    state = 4
 
             if state == -1:
                 state = 0
 
             offscreen_canvas.Clear()
+
+            if state == 4:
+                drawRect(offscreen_canvas, 0, 0, 32, 10, 0, 0, 0)
+                drawRect(offscreen_canvas, 0, 22, 32, 10, 0, 0, 0)
+                middle_items = []
+                for col in cols:
+                    for row in col:
+                        if row[2] == 12:
+                            middle_items.append(row)
+                if middle_items[0][0] == middle_items[0][1] && middle_items[0][1] == middle_items[0][2]:
+                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'Wow!')
+                else:
+                    graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'You suck!')
+
+            if state == 4 and 1.5 / frameInterval <= iteration:
+                state = 0
 
             for col in cols:
                 for row in col:
