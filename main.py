@@ -72,7 +72,7 @@ class rPiDisplay(DisplayBase):
         frameInterval = 0.05
         iteration = 0
         global_iteration = 0
-        closing_column = 0
+        closing_column = 2
 
         serial_response = ''
         while True:
@@ -153,11 +153,11 @@ class rPiDisplay(DisplayBase):
                 music_state = 3
                 for item in cols[closing_column]:
                     if item[2] == 12:
-                        vels[column] = 0
-                        closing_column += 1
+                        vels[closing_column] = 0
+                        closing_column -= 1
                         ser.write(b'\xff')
                 if vels == [0, 0, 0]:
-                    closing_column = 0
+                    closing_column = 3
                     music_state = 0
                     state = 0
 
