@@ -171,7 +171,7 @@ class rPiDisplay(DisplayBase):
                     for row in col:
                         if row[2] == 12:
                             middle_items.append(row)
-                if middle_items[0][0] == middle_items[0][1] && middle_items[0][1] == middle_items[0][2]:
+                if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
                     graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'Wow!')
                 else:
                     graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'You suck!')
