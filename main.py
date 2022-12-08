@@ -192,7 +192,7 @@ class rPiDisplay(DisplayBase):
                     for row in col:
                         if row[2] == 12:
                             middle_items.append(row)
-                lose_text = ["You suck", "Loser", "Ewww", "Bad"]
+                lose_text = ["You suck", "Loser", "Ewww", "Bad", "Fuck U"]
                 if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
                     graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(255, 255, 255), "Wow!!!")
                 else:
