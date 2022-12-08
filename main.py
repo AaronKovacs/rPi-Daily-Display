@@ -50,6 +50,7 @@ class rPiDisplay(DisplayBase):
         # 3 = done
         # 4 = show success
 
+        music_state = 0
         state = -1
 
         shouldMove = False
@@ -77,22 +78,22 @@ class rPiDisplay(DisplayBase):
 
             print(state)
             print(global_iteration)
-            if state in [1, 2.3] and global_iteration >= 3:
+            if music_state in [1, 2.3] and global_iteration >= 3:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print(' a')
 
-            if state in [1.3, 2] and global_iteration >= 2:
+            if music_state in [1.3, 2] and global_iteration >= 2:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print('  b')
 
-            if state == 1.6 and global_iteration >= 1:
+            if music_state == 1.6 and global_iteration >= 1:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print('   c')
 
-            if state == [3, 2.6] and global_iteration >= 4:
+            if music_state == [3, 2.6] and global_iteration >= 4:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print('d')
@@ -115,40 +116,48 @@ class rPiDisplay(DisplayBase):
                 vels = [1, 3, 2]
                 state = 1.3
                 iteration = 0
+                music_state = 1
 
             if state == 1.3 and 1.5 / frameInterval <= iteration:
                 vels = [3, 4, 3]
                 state = 1.6
                 iteration = 0
+                music_state = 1.3
 
             if state == 1.6 and 1 / frameInterval <= iteration:
                 vels = [6, 5, 6]
                 state = 2
                 iteration = 0
+                music_state = 1.6
 
             # After 5s start slowdown
             if state == 2 and 3 / frameInterval <= iteration:
                 vels = [3, 4, 3]
                 state = 2.3
                 iteration = 0
+                music_state = 2
 
             if state == 2.3 and 1.5 / frameInterval <= iteration:
                 vels = [1, 3, 2]
                 state = 2.6
                 iteration = 0
+                music_state = 2.3
 
             if state == 2.6 and 1 / frameInterval <= iteration:
                 vels = [1, 1, 1]
                 state = 3
                 iteration = 0
+                music_state = 2.6
 
             # Come to complete stop
             if state == 3 and 3 / frameInterval <= iteration:
+                music_state = 3
                 for column in range(3):
                     for item in cols[column]:
                         if item[2] == 12:
                             vels[column] = 0
                 if vels == [0, 0, 0]:
+                    music_state = 0
                     state = 0
 
             if state == -1:
