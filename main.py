@@ -154,6 +154,7 @@ class rPiDisplay(DisplayBase):
                     for item in cols[column]:
                         if item[2] == 12:
                             vels[column] = 0
+                            ser.write(b'\xff')
                 if vels == [0, 0, 0]:
                     music_state = 0
                     state = 0
