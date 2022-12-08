@@ -75,9 +75,8 @@ class rPiDisplay(DisplayBase):
                 # Check for iO
                 while True:
                     data = ser.read(1)
-                    data+= ser.read(ser.inWaiting())
-                    sys.stdout.write(data)
-                    sys.stdout.flush()
+                    data += ser.read(ser.inWaiting())
+                    
                     print('----')
                     print('data')
                     print('----')
