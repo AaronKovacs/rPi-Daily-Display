@@ -77,11 +77,11 @@ class rPiDisplay(DisplayBase):
         serial_response = ''
         while True:
 
-            if music_state in [1, 2.3] and global_iteration >= 2:
+            if music_state in [1, 2.3] and global_iteration >= 3:
                 ser.write(b'\xff')
                 global_iteration = 0
 
-            if music_state in [1.3, 2] and global_iteration >= 1:
+            if music_state in [1.3, 2] and global_iteration >= 2:
                 ser.write(b'\xff')
                 global_iteration = 0
 
@@ -108,13 +108,13 @@ class rPiDisplay(DisplayBase):
                         break
 
             if state == 1:
-                vels = [3, 4, 3]
+                vels = [1, 3, 2]
                 state = 1.3
                 iteration = 0
                 music_state = 1
 
             if state == 1.3 and 1.5 / frameInterval <= iteration:
-                vels = [6, 5, 6]
+                vels = [3, 4, 3]
                 state = 1.6
                 iteration = 0
                 music_state = 1.3
