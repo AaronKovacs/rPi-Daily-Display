@@ -33,7 +33,7 @@ class rPiDisplay(DisplayBase):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
         pos = offscreen_canvas.width
-        self.matrix.brightness = 100
+        self.matrix.brightness = 59
 
         port = '/dev/ttyACM0'
         baudrate = 9600
