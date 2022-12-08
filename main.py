@@ -136,7 +136,7 @@ class rPiDisplay(DisplayBase):
                 music_state = 2
 
             if state == 2.3 and 1.5 / frameInterval <= iteration:
-                vels = [1, 3, 2]
+                vels = [1, 2, 3]
                 state = 2.6
                 iteration = 0
                 music_state = 2.3
