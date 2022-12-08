@@ -19,7 +19,10 @@ import json
 import copy 
 from random import randrange
 import random
-
+import serial
+import io
+import time
+import os
 
 class rPiDisplay(DisplayBase):
 
@@ -32,6 +35,20 @@ class rPiDisplay(DisplayBase):
         pos = offscreen_canvas.width
         self.matrix.brightness = 100
 
+        port = '/dev/pts/2'
+        baudrate = 9600
+        ser = serial.Serial(port, baudrate, timeout=0.001)
+
+        # States:
+        # 0 = Start screen
+        # 1 = Moving
+        # 2 = slowdown
+        # 3 = done
+        # 4 = show success
+
+        state = 0
+
+        shouldMove = False
         # image, x, y
         cols = [[], [], []]
 
@@ -47,9 +64,42 @@ class rPiDisplay(DisplayBase):
                     x = 24
                 cols[column].append([randomIcon(), x, i * 10])
 
+        frameInterval = 0.05
         iteration = 0
         while True:
             offscreen_canvas.Clear()
+
+            if state == 0:
+                vels = [0, 0, 0]
+                iteration = 0
+                # Check for iO
+                while True:
+                    data = ser.read(1)
+                    data+= ser.read(ser.inWaiting())
+                    sys.stdout.write(data)
+                    sys.stdout.flush()
+                    print('----')
+                    print('data')
+                    print('----')
+
+            if state == 1:
+                vels = [1, 3, 2]
+                state = 2
+
+            # After 5s start slowdown
+            if state == 2 and 5 / frameInterval <= iteration:
+                vels = [1, 1, 1]
+                state = 3
+
+            # Come to complete stop
+            if state == 3 and 3 / frameInterval <= iteration:
+                for column in range(3):
+                    for item in cols[column]:
+                        if item[2] == 12:
+                            vels[column] = 0
+                if vels == [0, 0, 0]:
+                    state == 0
+
             for col in cols:
                 for row in col:
                     # Offscreen remove
@@ -66,13 +116,9 @@ class rPiDisplay(DisplayBase):
 
                     offscreen_canvas.SetImage(row[0], row[1], row[2])
 
-
             iteration += 1
-            if iteration == 60:
-                iteration = 0
-
             self.matrix.SwapOnVSync(offscreen_canvas)
-            time.sleep(0.05)
+            time.sleep(frameInterval)
 
 images = ['money', 'heart-icon', 'happy', 'fire', 'bird', 'ghost', 'xmark']
 def randomIcon():
