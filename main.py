@@ -73,6 +73,18 @@ class rPiDisplay(DisplayBase):
 
         serial_response = ''
         while True:
+
+            if state in [1, 2.3] and iteration % (0.6 / frameInterval) == 0:
+                ser.write(b'\xff')
+
+            if state in [1.3, 2] and iteration % (0.4 / frameInterval) == 0:
+                ser.write(b'\xff')
+
+            if state in [1.6] and iteration % (0.2 / frameInterval) == 0:
+                ser.write(b'\xff')
+
+            if state in [3] and iteration % (0.8 / frameInterval) == 0:
+                ser.write(b'\xff')
             
             if state == 0:
                 vels = [0, 0, 0]
@@ -138,8 +150,6 @@ class rPiDisplay(DisplayBase):
                 for row in col:
                     # Offscreen remove
                     if row[2] >= 32:
-                        if cols.index(col) == 0:
-                            ser.write(b'\xff')
                         col.remove(row)
                         continue
                     # Insert new icon
