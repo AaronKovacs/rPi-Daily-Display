@@ -69,7 +69,7 @@ class rPiDisplay(DisplayBase):
 
         serial_response = ''
         while True:
-            offscreen_canvas.Clear()
+            
 
             if state == 0:
                 vels = [0, 0, 0]
@@ -98,10 +98,12 @@ class rPiDisplay(DisplayBase):
                         if item[2] == 12:
                             vels[column] = 0
                 if vels == [0, 0, 0]:
-                    state == 0
+                    state = 0
 
             if state == -1:
                 state = 0
+
+            offscreen_canvas.Clear()
 
             for col in cols:
                 for row in col:
