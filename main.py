@@ -32,6 +32,7 @@ class rPiDisplay(DisplayBase):
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
+        font.LoadFont("/home/pi/2048-Pi-Display/fonts/4x6.bdf")
         pos = offscreen_canvas.width
         self.matrix.brightness = 59
 
@@ -156,7 +157,12 @@ class rPiDisplay(DisplayBase):
                 if vels == [0, 0, 0]:
                     closing_column = 0
                     music_state = 0
-                    state = 4
+                    state = 3.9
+                    iteration = 0
+
+            if state == 3.9 and 0.5 / frameInterval <= iteration:
+                ser.write(b'\xff')
+                state = 4
 
             if state == -1:
                 state = 0
