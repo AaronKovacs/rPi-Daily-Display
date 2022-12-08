@@ -46,7 +46,7 @@ class rPiDisplay(DisplayBase):
         # 3 = done
         # 4 = show success
 
-        state = 0
+        state = -1
 
         shouldMove = False
         # image, x, y
@@ -99,6 +99,9 @@ class rPiDisplay(DisplayBase):
                             vels[column] = 0
                 if vels == [0, 0, 0]:
                     state == 0
+
+            if state == -1:
+                state = 0
 
             for col in cols:
                 for row in col:
