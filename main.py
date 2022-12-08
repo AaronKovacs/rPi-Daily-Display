@@ -35,7 +35,7 @@ class rPiDisplay(DisplayBase):
         pos = offscreen_canvas.width
         self.matrix.brightness = 100
 
-        port = '/dev/pts/2'
+        port = '/dev/ttyACM0'
         baudrate = 9600
         ser = serial.Serial(port, baudrate, timeout=0.001)
 
