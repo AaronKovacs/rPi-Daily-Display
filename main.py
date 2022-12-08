@@ -83,7 +83,7 @@ class rPiDisplay(DisplayBase):
                         break
 
             if state == 1:
-                vels = [3, 5, 4]
+                vels = [6, 5, 6]
                 state = 2
 
             # After 5s start slowdown
