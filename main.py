@@ -42,7 +42,11 @@ class rPiDisplay(DisplayBase):
         # States:
         # 0 = Start screen
         # 1 = Moving
+            # 1.3
+            # 1.6
         # 2 = slowdown
+            # 2.3
+            # 2.6
         # 3 = done
         # 4 = show success
 
@@ -83,13 +87,34 @@ class rPiDisplay(DisplayBase):
                         break
 
             if state == 1:
+                vels = [1, 3, 2]
+                state = 1.3
+
+            if state == 1.3 and 1.5 / frameInterval <= iteration:
+                vels = [3, 4, 3]
+                state = 1.6
+                iteration = 0
+
+            if state == 1.6 and 1 / frameInterval <= iteration:
                 vels = [6, 5, 6]
                 state = 2
+                iteration = 0
 
             # After 5s start slowdown
             if state == 2 and 5 / frameInterval <= iteration:
+                vels = [3, 4, 3]
+                state = 2.3
+                iteration = 0
+
+            if state == 2.3 and 1.5 / frameInterval <= iteration:
+                vels = [1, 3, 2]
+                state = 2.6
+                iteration = 0
+
+            if state == 2.6 and 1 / frameInterval <= iteration:
                 vels = [1, 1, 1]
                 state = 3
+                iteration = 0
 
             # Come to complete stop
             if state == 3 and 3 / frameInterval <= iteration:
