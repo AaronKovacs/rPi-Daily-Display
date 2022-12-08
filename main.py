@@ -82,6 +82,8 @@ class rPiDisplay(DisplayBase):
                     serial_response += ser.read()
                     if "1" in serial_response:
                         serial_response = ''
+                        ser.flushInput()
+                        ser.flushOutput()
                         state = 1
                         break
 
