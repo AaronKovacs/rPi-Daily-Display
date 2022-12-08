@@ -78,7 +78,9 @@ class rPiDisplay(DisplayBase):
                 while True:
                     serial_response += ser.read()
                     if "1" in serial_response:
-                        print('HERE')
+                        serial_response = ''
+                        state = 1
+                        break
 
             if state == 1:
                 vels = [1, 3, 2]
