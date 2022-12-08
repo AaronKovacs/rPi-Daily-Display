@@ -75,6 +75,8 @@ class rPiDisplay(DisplayBase):
         serial_response = ''
         while True:
 
+            print(state)
+            print(global_iteration)
             if state in [1, 2.3] and global_iteration == 6:
                 ser.write(b'\xff')
                 global_iteration = 0
