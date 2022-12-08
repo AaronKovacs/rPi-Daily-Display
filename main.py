@@ -175,8 +175,10 @@ class rPiDisplay(DisplayBase):
                     graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'Wow!')
                 else:
                     graphics.DrawText(offscreen_canvas, font, 0, 0, graphics.Color(0, 0, 0), 'You suck!')
+                state = 4.5
+                iteration = 0
 
-            if state == 4 and 1.5 / frameInterval <= iteration:
+            if state == 4.5 and 1.5 / frameInterval <= iteration:
                 state = 0
 
             for col in cols:
