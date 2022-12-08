@@ -76,8 +76,6 @@ class rPiDisplay(DisplayBase):
         serial_response = ''
         while True:
 
-            print(state)
-            print(global_iteration)
             if music_state in [1, 2.3] and global_iteration >= 3:
                 ser.write(b'\xff')
                 global_iteration = 0
@@ -93,7 +91,7 @@ class rPiDisplay(DisplayBase):
                 global_iteration = 0
                 print('   c')
 
-            if music_state == [3, 2.6] and global_iteration >= 4:
+            if music_state in [3, 2.6] and global_iteration >= 4:
                 ser.write(b'\xff')
                 global_iteration = 0
                 print('d')
