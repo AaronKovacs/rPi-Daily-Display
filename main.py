@@ -143,7 +143,7 @@ class rPiDisplay(DisplayBase):
                 music_state = 2.3
 
             if state == 2.6 and 1 / frameInterval <= iteration:
-                vels = [2, 2, 2]
+                vels = [1, 2, 3]
                 state = 3
                 iteration = 0
                 music_state = 2.6
@@ -155,7 +155,6 @@ class rPiDisplay(DisplayBase):
                     if item[2] == 12:
                         vels[closing_column] = 0
                         closing_column += 1
-                        ser.write(b'\xff')
                 if vels == [0, 0, 0]:
                     closing_column = 0
                     music_state = 0
