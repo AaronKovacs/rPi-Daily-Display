@@ -77,15 +77,19 @@ class rPiDisplay(DisplayBase):
 
             if state in [1, 2.3] and global_iteration % (0.6 / frameInterval) == 0:
                 ser.write(b'\xff')
+                print(' a')
 
             if state in [1.3, 2] and global_iteration % (0.4 / frameInterval) == 0:
                 ser.write(b'\xff')
+                print('  b')
 
-            if state == 1.6 and global_iteration % (0.2 / frameInterval) == 0:
+            if state == 1.6 and global_iteration % (0.3 / frameInterval) == 0:
                 ser.write(b'\xff')
+                print('   c')
 
             if state == [3, 2.6] and global_iteration % (0.8 / frameInterval) == 0:
                 ser.write(b'\xff')
+                print('d')
             
             if state == 0:
                 vels = [0, 0, 0]
