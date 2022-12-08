@@ -78,6 +78,7 @@ class rPiDisplay(DisplayBase):
                 vels = [0, 0, 0]
                 iteration = 0
                 # Check for iO
+                ser.flushInput()
                 while state == 0:
                     serial_response += ser.read()
                     if "1" in serial_response:
