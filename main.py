@@ -129,7 +129,7 @@ class rPiDisplay(DisplayBase):
                     state = 0
 
             if state == -1:
-                state = 0
+                state = 1
 
             offscreen_canvas.Clear()
 
