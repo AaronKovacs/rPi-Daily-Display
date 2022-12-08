@@ -81,6 +81,7 @@ class rPiDisplay(DisplayBase):
                 ser.flushInput()
                 while state == 0:
                     serial_response += ser.read()
+                    print(serial_response)
                     if "1" in serial_response:
                         serial_response = ''
                         ser.flushInput()
@@ -129,7 +130,7 @@ class rPiDisplay(DisplayBase):
                     state = 0
 
             if state == -1:
-                state = 1
+                state = 0
 
             offscreen_canvas.Clear()
 
