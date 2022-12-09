@@ -196,11 +196,11 @@ class rPiDisplay(DisplayBase):
                 if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
                     graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(0, 255, 0), "Wow!!!")
                     wins, tries = addCount(True)
-                    graphics.DrawText(offscreen_canvas, font, 24, 30, graphics.Color(255, 255, 255), str(wins) + "/" + str(tries))
+                    graphics.DrawText(offscreen_canvas, font, 24, 30, graphics.Color(255, 255, 255), "%s/%s" % (wins, tries))
                 else:
                     graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(255, 255, 255), random.choice(lose_text))
                     wins, tries = addCount(False)
-                    graphics.DrawText(offscreen_canvas, font, 0, 30, graphics.Color(255, 255, 255), str(wins) + "/" + str(tries))
+                    graphics.DrawText(offscreen_canvas, font, 0, 30, graphics.Color(255, 255, 255), "%s/%s" % (wins, tries))
 
 
             iteration += 1
@@ -231,7 +231,7 @@ def addCount(win):
         if win:
             wins += 1
     with open("count.txt", "w") as file:
-        file.write(str(wins) + "," + str(tries)) 
+        file.write("%s,%s" % (wins, tries)) 
     return (wins, tries)
 
 
