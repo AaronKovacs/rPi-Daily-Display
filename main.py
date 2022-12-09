@@ -195,10 +195,14 @@ class rPiDisplay(DisplayBase):
                         if row[2] == 12:
                             middle_items.append(row)
                 lose_text = ["You suck", "Loser", "Ewww", "Bad", "Fuck U"]
+                print('Output:')
+                print(middle_items[0][3])
+                print(middle_items[1][3])
+                print(middle_items[2][3])
                 if middle_items[0][3] == middle_items[1][3] and middle_items[1][3] == middle_items[2][3]:
                     graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(0, 255, 0), "Wow!!!")
                     wins, tries = addCount(True)
-                    graphics.DrawText(offscreen_canvas, font, 24, 30, graphics.Color(255, 255, 255), "%s/%s" % (wins, tries))
+                    graphics.DrawText(offscreen_canvas, font, 0, 30, graphics.Color(255, 255, 255), "%s/%s" % (wins, tries))
                 else:
                     graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(255, 255, 255), random.choice(lose_text))
                     wins, tries = addCount(False)
