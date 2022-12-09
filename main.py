@@ -195,8 +195,12 @@ class rPiDisplay(DisplayBase):
                 lose_text = ["You suck", "Loser", "Ewww", "Bad", "Fuck U"]
                 if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
                     graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(0, 255, 0), "Wow!!!")
+                    wins, tries = addCount(True)
+                    graphics.DrawText(offscreen_canvas, font, 24, 30, graphics.Color(255, 255, 255), str(wins) + "/" + str(tries))
                 else:
                     graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(255, 255, 255), random.choice(lose_text))
+                    wins, tries = addCount(False)
+                    graphics.DrawText(offscreen_canvas, font, 0, 30, graphics.Color(255, 255, 255), str(wins) + "/" + str(tries))
 
 
             iteration += 1
@@ -216,6 +220,21 @@ def drawRect(canvas, x, y, width, height, red, green, blue):
         for x_mod in range(0, width):
             for y_mod in range(0, height):
                 canvas.SetPixel(x + x_mod, y + y_mod, red, green, blue)
+
+def addCount(win):
+    wins = 0
+    tries = 0
+    with open("count.txt", "r") as file:
+        counts = file.read().split(",")
+        wins = counts[0]
+        tries = counts[1] + 1
+        if win:
+            wins += 1
+    with open("count.txt", "w") as file:
+        file.write(str(wins) + "," + str(tries)) 
+    return (wins, tries)
+
+
 
 # Main function
 if __name__ == "__main__":
