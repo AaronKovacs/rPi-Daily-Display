@@ -80,19 +80,19 @@ class rPiDisplay(DisplayBase):
         while True:
 
             if music_state in [1, 2.3] and global_iteration >= 3:
-                ser.write(b'\xff')
+                ser.write(b'\xfa')
                 global_iteration = 0
 
             if music_state in [1.3, 2] and global_iteration >= 2:
-                ser.write(b'\xff')
+                ser.write(b'\xfa')
                 global_iteration = 0
 
             if music_state == 1.6 and global_iteration >= 1:
-                ser.write(b'\xff')
+                ser.write(b'\xfa')
                 global_iteration = 0
 
             if music_state in [3, 2.6] and global_iteration >= 4:
-                ser.write(b'\xff')
+                ser.write(b'\xfa')
                 global_iteration = 0
             
             if state == 0 or state == 4:
