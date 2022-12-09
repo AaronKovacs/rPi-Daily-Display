@@ -226,8 +226,8 @@ def addCount(win):
     tries = 0
     with open("count.txt", "r") as file:
         counts = file.read().split(",")
-        wins = counts[0]
-        tries = counts[1] + 1
+        wins = int(counts[0])
+        tries = int(counts[1]) + 1
         if win:
             wins += 1
     with open("count.txt", "w") as file:
