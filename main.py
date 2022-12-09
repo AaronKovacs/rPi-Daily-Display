@@ -224,13 +224,13 @@ def drawRect(canvas, x, y, width, height, red, green, blue):
 def addCount(win):
     wins = 0
     tries = 0
-    with open("count.txt", "r") as file:
+    with open("/home/pi/2048-Pi-Display/count.txt", "r") as file:
         counts = file.read().split(",")
         wins = int(counts[0])
         tries = int(counts[1]) + 1
         if win:
             wins += 1
-    with open("count.txt", "w") as file:
+    with open("/home/pi/2048-Pi-Display/count.txt", "w") as file:
         file.write("%s,%s" % (wins, tries)) 
     return (wins, tries)
 
