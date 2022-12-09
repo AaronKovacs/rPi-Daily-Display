@@ -68,7 +68,8 @@ class rPiDisplay(DisplayBase):
                     x = 12
                 if column == 2:
                     x = 24
-                cols[column].append([randomIcon(), x, i * 10])
+                randIcon = randomIcon()
+                cols[column].append([randIcon[0], x, i * 10, randIcon[1]])
 
         frameInterval = 0.05
         iteration = 0
@@ -177,7 +178,8 @@ class rPiDisplay(DisplayBase):
                     # Insert new icon
 
                     if col[0][2] >= 0:
-                        col.insert(0, [randomIcon(), row[1], -10])
+                        newIcon = randomIcon()
+                        col.insert(0, [newIcon[0], row[1], -10, newIcon[1]])
 
                     # Move
                     row[2] = row[2] + (1 * vels[cols.index(col)])
@@ -193,7 +195,7 @@ class rPiDisplay(DisplayBase):
                         if row[2] == 12:
                             middle_items.append(row)
                 lose_text = ["You suck", "Loser", "Ewww", "Bad", "Fuck U"]
-                if middle_items[0][0] == middle_items[0][1] and middle_items[0][1] == middle_items[0][2]:
+                if middle_items[0][3] == middle_items[1][3] and middle_items[1][3] == middle_items[2][3]:
                     graphics.DrawText(offscreen_canvas, font, 0, 6, graphics.Color(0, 255, 0), "Wow!!!")
                     wins, tries = addCount(True)
                     graphics.DrawText(offscreen_canvas, font, 24, 30, graphics.Color(255, 255, 255), "%s/%s" % (wins, tries))
@@ -210,7 +212,8 @@ class rPiDisplay(DisplayBase):
 
 images = ['money', 'heart-icon', 'happy', 'fire', 'bird', 'ghost', 'xmark']
 def randomIcon():
-    return icon(random.choice(images))
+    name = random.choice(images)
+    return (icon(name), name)
    
 def icon(name):
     return Image.open("/home/pi/2048-Pi-Display/images/%s.png" % (name)).convert('RGB').resize((8, 8), resample=0)
