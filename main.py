@@ -394,7 +394,7 @@ class rPiDisplay(DisplayBase):
             self.matrix.brightness = 70
             time.sleep(0.5)
             '''
-            if ((hour >= 21 and <= 23) or hour < 9):
+            if ((hour >= 21 and hour <= 23) or hour < 9):
                 self.matrix.brightness = 10
                 offscreen_canvas.Clear()
 
