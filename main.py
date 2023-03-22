@@ -557,7 +557,7 @@ def fetchTime():
     clock_color = graphics.Color(107, 0, 0)
     if hour > 12:
         hour -= 12
-        clock_color = graphics.Color(0, 0, 107)
+        clock_color = graphics.Color(220, 220, 220)
 
     t_string = d_aware.strftime("%M:%S")
 
